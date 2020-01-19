@@ -13,3 +13,5 @@ footer: 'follow me on <a href="https://github.com/TerryZhang95">github</a>'
 
 plugins:
   - jekyll-seo-tag
+
+theme: jekyll-theme-cayman
