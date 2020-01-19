@@ -1,7 +1,7 @@
 ---
 title: About
-layout: pages
-permalink: https://terryzhang95.github.io/
+layout: page
+permalink: https://terryzhang95.github.io/about
 ---
 
 Introduction
