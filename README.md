@@ -4,7 +4,7 @@
 - Add about pages, modify title, headers and footers
 - Change post header title to post title
 
-Original refer to:
+*Original refer to*:
 # jekyll-theme-console
 
 A jekyll theme with inspiration from linux consoles for hackers, developers and script kiddies.
