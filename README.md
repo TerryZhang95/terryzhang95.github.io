@@ -2,8 +2,7 @@
 ## Update
 ### 2020-01-19
 - Add about pages, modify title, headers and footers
-- Jekyll reference
-- Change part of scss
+- Change post header title to post title
 
 Original refer to:
 # jekyll-theme-console
