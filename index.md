@@ -1,5 +1,5 @@
 ---
-title: /
+title: Terry Home
 layout: home
 permalink: /
 ---
