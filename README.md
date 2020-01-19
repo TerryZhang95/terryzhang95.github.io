@@ -1,3 +1,11 @@
+# Welcome to Terry Home
+## Update
+### 2020-01-19
+- Add about pages, modify title, headers and footers
+- Jekyll reference
+- Change part of scss
+
+Original refer to:
 # jekyll-theme-console
 
 A jekyll theme with inspiration from linux consoles for hackers, developers and script kiddies.
