@@ -1,7 +1,7 @@
 ---
 title: Terry Home
 layout: home
-permalink: /
+permalink: https://terryzhang95.github.io/
 ---
 
 # Terry Home
