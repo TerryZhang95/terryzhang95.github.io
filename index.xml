@@ -3,16 +3,29 @@
         <title>鸭鸭饲养员 | 鸭鸭饲养员</title>
         <link>/</link>
         <description>鸭鸭饲养员 | 鸭鸭饲养员</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Oct 2019 17:55:28 +0800</lastBuildDate><atom:link href="/" rel="self" type="application/rss+xml" /><item>
-                <title>Posts</title>
-                <link>/posts/</link>
-                <pubDate>Tue, 01 Oct 2019 17:55:28 +0800</pubDate><guid>/posts/</guid>
-                <description></description>
-            </item><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="/" rel="self" type="application/rss+xml" /><item>
                 <title></title>
                 <link>/about/</link>
                 <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/about/</guid>
-                <description>&lt;p&gt;try&lt;/p&gt;
+                <description>&lt;h1 id=&#34;关于&#34;&gt;关于&lt;/h1&gt;
+&lt;center&gt;
+&lt;p&gt;热爱学习，但是记性不好&lt;/p&gt;
+&lt;p&gt;因此记录学习点滴，也是记录生活&lt;/p&gt;
+&lt;p&gt;挣扎在澳洲社会底层兼职程序员&lt;/p&gt;
+&lt;p&gt;交不起学费还怕毕不了业的研究生在读&lt;/p&gt;
+&lt;p&gt;梦里热爱音乐，汽车和电子产品开箱&lt;/p&gt;
+&lt;p&gt;知识的搬运工，希望可以帮助年轻人少走弯路
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;欢迎热心的资助和善意的包养&lt;/p&gt;
+&lt;p&gt;可奶可甜可油腻&lt;/p&gt;
+&lt;p&gt;点 ➡️&lt;a href=&#34;../images/IMG_1012.JPG&#34;&gt;🔗🔗🔗&lt;/a&gt;献爱心&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;/center&gt;
+&lt;p align=&#34;right&#34;&gt;&lt;i&gt;
+---鸭鸭饲养员 &lt;/i&gt;
+&lt;/p&gt;
 </description>
             </item></channel>
 </rss>
