@@ -45,7 +45,7 @@
         // document.getElementById(&#39;fade&#39;).style.display=&#39;block&#39;
     }
     function closeDialog(){
-        document.getElementById(&#39;light&#39;).style.display=&#39;none&#39;
+        document.getElementById(&#39;light&#39;).style.display=&#39;none&#39;;
         // document.getElementById(&#39;fade&#39;).style.display=&#39;none&#39;
     }
 &lt;/script&gt;&lt;blockquote&gt;

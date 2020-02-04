@@ -51,7 +51,7 @@
         // document.getElementById('fade').style.display='block'
     }
     function closeDialog(){
-        document.getElementById('light').style.display='none'
+        document.getElementById('light').style.display='none';
         // document.getElementById('fade').style.display='none'
     }
 </script>
