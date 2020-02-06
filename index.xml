@@ -3,7 +3,12 @@
         <title>鸭鸭饲养员 | 鸭鸭饲养员</title>
         <link>/</link>
         <description>鸭鸭饲养员 | 鸭鸭饲养员</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Oct 2019 17:55:28 +0800</lastBuildDate><atom:link href="/" rel="self" type="application/rss+xml" /><item>
+                <title>Posts</title>
+                <link>/posts/</link>
+                <pubDate>Tue, 01 Oct 2019 17:55:28 +0800</pubDate><guid>/posts/</guid>
+                <description></description>
+            </item><item>
                 <title></title>
                 <link>/about/</link>
                 <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/about/</guid>
@@ -26,10 +31,10 @@
 &lt;a href = &#34;javaScript:void(0)&#34; onclick=openDialog()&gt;
 ➡️🔗🔗🔗这里
 &lt;/a&gt;送爱心&lt;/p&gt;
-&lt;!-- &lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
+&lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
     &lt;img src=&#34;../images/IMG_1012.JPG&#34; alt=&#34;付款码&#34;&gt;
     &lt;a href = &#34;javascript:void(0)&#34; onclick = closeDialog()&gt;点这里关闭本窗口&lt;/a&gt;
- &lt;/div&gt;  --&gt;
+ &lt;/div&gt; 
 &lt;!-- &lt;div id=&#34;fade&#34; class=&#34;black_overlay&#34;&gt;&lt;/div&gt;  --&gt;
 &lt;br/&gt;
 &lt;br/&gt;
@@ -49,9 +54,11 @@
         // document.getElementById(&#39;fade&#39;).style.display=&#39;none&#39;
     }
 &lt;/script&gt;
-&lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
+&lt;!-- &lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
     &lt;img src=&#34;../images/IMG_1012.JPG&#34; alt=&#34;付款码&#34;&gt;
     &lt;a href = &#34;javascript:void(0)&#34; onclick = closeDialog()&gt;点这里关闭本窗口&lt;/a&gt;
- &lt;/div&gt; </description>
+ &lt;/div&gt;  --&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
             </item></channel>
 </rss>

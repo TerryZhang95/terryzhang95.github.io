@@ -29,10 +29,10 @@
 <a href = "javaScript:void(0)" onclick=openDialog()>
     ➡️🔗🔗🔗这里
 </a>送爱心
-<!-- <div id="light" class="white_content">
+<div id="light" class="white_content">
     <img src="../images/IMG_1012.JPG" alt="付款码">
     <a href = "javascript:void(0)" onclick = closeDialog()>点这里关闭本窗口</a>
- </div>  -->
+ </div> 
 <!-- <div id="fade" class="black_overlay"></div>  -->
 
 <br/>
@@ -56,7 +56,7 @@
     }
 </script>
 
-<div id="light" class="white_content">
+<!-- <div id="light" class="white_content">
     <img src="../images/IMG_1012.JPG" alt="付款码">
     <a href = "javascript:void(0)" onclick = closeDialog()>点这里关闭本窗口</a>
- </div> 
+ </div>  -->
