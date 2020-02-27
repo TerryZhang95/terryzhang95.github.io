@@ -19,6 +19,10 @@
    8.  [tag](Link): 添加链接
    9.  添加图片(本地)：![Alt text](path)
    10. 文字居中：<center>hhh </center>
+   11. 任务列表 
+       - [ ] task
+       - [x] 完成的task
+   12. delete line ~~delete~~ or <strike></strike>       
    ```
 
 
