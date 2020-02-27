@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>美丽的前端 on 鸭鸭饲养员</title>
+    <link>/categories/%E7%BE%8E%E4%B8%BD%E7%9A%84%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in 美丽的前端 on 鸭鸭饲养员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 26 Feb 2020 23:55:28 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/%E7%BE%8E%E4%B8%BD%E7%9A%84%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo 个人静态网页推荐</title>
+      <link>/2020/02/hugo/</link>
+      <pubDate>Wed, 26 Feb 2020 23:55:28 +0800</pubDate>
+      
+      <guid>/2020/02/hugo/</guid>
+      <description>hugo 笔记  为什么执行hugo指令，build不成功？如何debug？  执行本地server测试看看 hugo运行在localhost:1313，不成功 是时间问题！！！    </description>
+    </item>
+    
+  </channel>
+</rss>
