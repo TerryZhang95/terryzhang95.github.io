@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vscode on 鸭鸭饲养员</title>
+    <link>/tags/vscode/</link>
+    <description>Recent content in vscode on 鸭鸭饲养员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 05 Mar 2020 00:53:31 +1100</lastBuildDate>
+    
+	<atom:link href="/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>VScode实用插件</title>
+      <link>/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Thu, 05 Mar 2020 00:53:31 +1100</pubDate>
+      
+      <guid>/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</guid>
+      <description>陆续更新中
+Arduino  specify the arduino path User.setting -&amp;gt; arduino configuration
+Cmd path 是启动脚本所在路径，是在arduino应用文件中的路径
+Path 是应用所在路径，是在local目录下的路径 右下角 Select 编译器，板子和端口号
+编译器和板子可以回到arduino中查看
+vscode-arduino-右下标 右上角 操作
+vscode-arduino-右上标
+分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  { &amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;, &amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;, &amp;#34;port&amp;#34;: 22, &amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;, &amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34; }    缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
+    </item>
+    
+  </channel>
+</rss>

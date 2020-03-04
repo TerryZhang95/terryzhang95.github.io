@@ -7,10 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 26 Feb 2020 23:55:28 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2020 00:53:31 +1100</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VScode实用插件</title>
+      <link>/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Thu, 05 Mar 2020 00:53:31 +1100</pubDate>
+      
+      <guid>/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</guid>
+      <description>陆续更新中
+Arduino  specify the arduino path User.setting -&amp;gt; arduino configuration
+Cmd path 是启动脚本所在路径，是在arduino应用文件中的路径
+Path 是应用所在路径，是在local目录下的路径 右下角 Select 编译器，板子和端口号
+编译器和板子可以回到arduino中查看
+vscode-arduino-右下标 右上角 操作
+vscode-arduino-右上标
+分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  { &amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;, &amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;, &amp;#34;port&amp;#34;: 22, &amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;, &amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34; }    缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
+    </item>
+    
+    <item>
+      <title>Drone 配合Docker的cicd工具</title>
+      <link>/2020/03/drone/</link>
+      <pubDate>Mon, 02 Mar 2020 10:09:34 +1100</pubDate>
+      
+      <guid>/2020/03/drone/</guid>
+      <description>使用步骤 </description>
+    </item>
     
     <item>
       <title>Hugo 个人静态网页推荐</title>
@@ -19,13 +44,15 @@
       
       <guid>/2020/02/hugo/</guid>
       <description>Hugo 个人主页笔记 背景   为什么选择静态网页？
-因为可以配合github page轻松部署，并且因为贫穷，无力支撑服务器费用
+可以配合github page轻松部署，并且因为贫穷，无力支撑服务器费用
   为什么选择hugo？
 主流的静态网页，试过Jekyll，Hexo以及wordpress，各有千秋，但是：
- 之前的github一直使用Jekyll，使用RubyGem安装依赖的方式始终不习惯，预设环境难上加难，文档也是很复杂 用过一段时间wordpress，但是后期还是想改用markdown写文章 Hexo有大量的中文支持，而且对于JS开发者来说很友好，插件丰富，但是速度慢，发到github page上就更慢了    很多人更换静态主页框架，都是因为发现了更喜欢的模板，我也不例外。
-此外环境配置到部署都很简单，速度快，一次编译不到1s。
+ 之前的github一直使用Jekyll，使用RubyGem安装依赖的方式始终不习惯，预设环境难上加难，文档也是很复杂 用过一段时间wordpress，但是后期还是想改用markdown写文章 Hexo有大量的中文支持，而且对于JS开发者来说很友好，插件丰富，但是速度慢，发到github page上就更慢了    很多人更换静态主页框架，都是因为发现了更喜欢的模板，我也不例外
+此外环境配置到部署都很简单，速度快，一次编译不到1s
 还有怀揣着对go的学习精神，最后选择了hugo
-踏平的坑  hugo编译不报错，但更新不编译在public/中  文章的时间不能超过当前时间 hugo server的时间默认是格林威治标准时间，会有时差 解决方法 1 2  hugo new // 使用hugo new创建新文章和配置来确保时间 hugo --buildFuture //可编译未来时间       </description>
+踏平的坑   hugo编译不报错，但更新不编译在public/中
+ 文章的时间不能超过当前时间 hugo server的时间默认是格林威治标准时间，会有时差 解决方法 1 2  hugo new // 使用hugo new创建新文章和配置来确保时间 hugo --buildFuture //可编译未来时间       hugo每次编译直接复制public/，会导致github page的CNAME不工作
+ 使用域名无法访问，但github.io域名下可以     </description>
     </item>
     
     <item>
