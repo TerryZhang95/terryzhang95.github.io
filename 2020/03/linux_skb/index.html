@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Linux内核学习笔记之skb | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="TerryZhang95"><link rel="prev" href="/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" /><link rel="canonical" href="/2020/03/linux_skb/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux内核学习笔记之skb"/>
+<meta name="twitter:description" content="skb 是干什么的？ skb 工作方式  headroom,tail reserve 数据操作   skb_push  skb_put skb_pull skb_trim   skb_queue 1 2 3 4 5 6 7 8  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list; ...    Manage packets in a queue structure using struct sk_buff_head skb_queue 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     1      Reference  Basic functions for sk_buff{} How SKB works  "/>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux内核学习笔记之skb",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/2020\/03\/linux_skb\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "\/images\/logo.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "linux kernel, skb","wordcount":  80 ,
+        "url": "\/2020\/03\/linux_skb\/","datePublished": "2020-03-08T00:42:57\x2b11:00","dateModified": "2020-03-08T00:42:57\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "TerryZhang95",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "\/images\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
+    <body><script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="/">鸭鸭饲养员
+            </a>
+        </div>
+        <div class="navbar-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="Switch Theme"></i></a>
+        </div>
+    </div>
+</nav><nav class="navbar-mobile">
+    <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="/">鸭鸭饲养员</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="Switch Theme"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Linux内核学习笔记之skb</h1><div class="post-meta">
+            <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
+                </a>&nbsp;<span class="post-category">included in&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-08>2020-03-08</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 80 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>1 min&nbsp;</div>
+        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><a class="post-dummy-target" id="skb-是干什么的"></a><h2>skb 是干什么的？</h2>
+<a class="post-dummy-target" id="skb-工作方式"></a><h2>skb 工作方式</h2>
+<ol>
+<li>headroom,tail</li>
+<li>reserve</li>
+<li>数据操作
+<ul>
+<li>
+<a class="post-dummy-target" id="skb_push"></a><h2>skb_push</h2>
+</li>
+<li>skb_put</li>
+<li>skb_pull</li>
+<li>skb_trim</li>
+</ul>
+</li>
+<li>skb_queue
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff {
+ /* These two members must be first. */
+ struct sk_buff		*next;
+ struct sk_buff		*prev;
+
+ struct sk_buff_head	*list;
+ ...
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Manage packets in a queue structure using struct sk_buff_head
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="../images/skb1.png" alt="skb_queue" class="lazyload"><figcaption class="image-caption">skb_queue</figcaption></figure>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff_head {
+    struct sk_buff *next;        
+    struct sk_buff *prev;        
+    __u32 qlen;        
+    spinlock_t lock; 
+}; 
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
+<ul>
+<li><a href="http://www.skbuff.net/skbbasic.html" target="_blank">Basic functions for sk_buff{}</a></li>
+<li><a href="http://vger.kernel.org/~davem/skb_data.html" target="_blank">How SKB works</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>The article was updated on 2020-03-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2flinux_skb%2f&amp;text=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2flinux_skb%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="Share on LinkedIn">
+            <i class="fab fa-linkedin fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2flinux_skb%2f&amp;appkey=&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;pic=%2fimages%2fskb.png" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="/tags/linux-kernel/"><i class="fas fa-tag fa-fw"></i>&nbsp;linux kernel</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="/tags/skb/"><i class="fas fa-tag fa-fw"></i>&nbsp;skb</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" class="prev" rel="prev" title="VScode实用插件"><i class="fas fa-angle-left fa-fw"></i>VScode实用插件</a></div>
+</div><div class="post-comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">TerryZhang95</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div><a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll>
+            <span>&nbsp;</span>
+        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/js/blog.min.js"></script></body>
+</html>

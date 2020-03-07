@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 05 Mar 2020 00:53:31 +1100</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2020 00:42:57 +1100</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux内核学习笔记之skb</title>
+      <link>/2020/03/linux_skb/</link>
+      <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
+      
+      <guid>/2020/03/linux_skb/</guid>
+      <description>skb 是干什么的？ skb 工作方式  headroom,tail reserve 数据操作   skb_push  skb_put skb_pull skb_trim   skb_queue 1 2 3 4 5 6 7 8  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list; ...    Manage packets in a queue structure using struct sk_buff_head skb_queue 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     1      Reference  Basic functions for sk_buff{} How SKB works  </description>
+    </item>
     
     <item>
       <title>VScode实用插件</title>
