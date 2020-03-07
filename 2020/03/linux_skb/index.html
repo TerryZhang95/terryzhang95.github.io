@@ -15,7 +15,7 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux内核学习笔记之skb"/>
-<meta name="twitter:description" content="skb 是干什么的？ skb 工作方式  headroom,tail reserve 数据操作   skb_push  skb_put skb_pull skb_trim   skb_queue 1 2 3 4 5 6 7 8  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list; ...    Manage packets in a queue structure using struct sk_buff_head skb_queue 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     1      Reference  Basic functions for sk_buff{} How SKB works  "/>
+<meta name="twitter:description" content="skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };       Reference  Basic functions for sk_buff{} How SKB works Network Buffers and Memory Management  "/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -29,7 +29,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "linux kernel, skb","wordcount":  80 ,
+            },"genre": "posts","keywords": "linux kernel, skb","wordcount":  85 ,
         "url": "\/2020\/03\/linux_skb\/","datePublished": "2020-03-08T00:42:57\x2b11:00","dateModified": "2020-03-08T00:42:57\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -73,24 +73,10 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
                 </a>&nbsp;<span class="post-category">included in&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-08>2020-03-08</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>about 80 words&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 85 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>1 min&nbsp;</div>
-        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><a class="post-dummy-target" id="skb-是干什么的"></a><h2>skb 是干什么的？</h2>
-<a class="post-dummy-target" id="skb-工作方式"></a><h2>skb 工作方式</h2>
-<ol>
-<li>headroom,tail</li>
-<li>reserve</li>
-<li>数据操作
-<ul>
-<li>
-<a class="post-dummy-target" id="skb_push"></a><h2>skb_push</h2>
-</li>
-<li>skb_put</li>
-<li>skb_pull</li>
-<li>skb_trim</li>
-</ul>
-</li>
-<li>skb_queue
+        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><a class="post-dummy-target" id="skb-是干什么的"></a><h2>skb 是干什么的</h2>
+<a class="post-dummy-target" id="skb-如何工作"></a><h2>skb 如何工作</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -100,22 +86,41 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff {
- /* These two members must be first. */
- struct sk_buff		*next;
- struct sk_buff		*prev;
+/* These two members must be first. */
+struct sk_buff		*next;
+struct sk_buff		*prev;
 
- struct sk_buff_head	*list;
- ...
+struct sk_buff_head	*list;
 
 </code></pre></td></tr></table>
 </div>
-</div><ul>
+</div><ol>
+<li>headroom,tail</li>
+<li>reserve</li>
+<li>数据操作
+<ul>
+<li>skb_push
+<ul>
+<li>在buffer开始之前添加data
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_push.png" alt="skb_push" class="lazyload"><figcaption class="image-caption">skb_push</figcaption></figure></li>
+</ul>
+</li>
+<li>skb_put
+<ul>
+<li>在buffer尾部前添加数据】
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_put.png" alt="skb_put" class="lazyload"><figcaption class="image-caption">skb_put</figcaption></figure></li>
+</ul>
+</li>
+<li>skb_pull</li>
+<li>skb_trim</li>
+</ul>
+</li>
+<li>skb_queue
+<ul>
 <li>Manage packets in a queue structure using struct sk_buff_head
-<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="../images/skb1.png" alt="skb_queue" class="lazyload"><figcaption class="image-caption">skb_queue</figcaption></figure>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -136,20 +141,13 @@
 </div>
 </div></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
-</code></pre></td></tr></table>
-</div>
-</div></li>
+</li>
 </ol>
 <a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
 <ul>
 <li><a href="http://www.skbuff.net/skbbasic.html" target="_blank">Basic functions for sk_buff{}</a></li>
 <li><a href="http://vger.kernel.org/~davem/skb_data.html" target="_blank">How SKB works</a></li>
+<li><a href="https://www.linuxjournal.com/article/1312" target="_blank">Network Buffers and Memory Management</a></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
