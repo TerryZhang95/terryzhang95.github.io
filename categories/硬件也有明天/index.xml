@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>硬件也有明天 on 鸭鸭饲养员</title>
+    <link>/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/</link>
+    <description>Recent content in 硬件也有明天 on 鸭鸭饲养员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 08 Mar 2020 00:42:57 +1100</lastBuildDate>
+    
+	<atom:link href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux内核学习笔记之skb</title>
+      <link>/2020/03/linux_skb/</link>
+      <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
+      
+      <guid>/2020/03/linux_skb/</guid>
+      <description>skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };       Reference  Basic functions for sk_buff{} How SKB works Network Buffers and Memory Management  </description>
+    </item>
+    
+  </channel>
+</rss>
