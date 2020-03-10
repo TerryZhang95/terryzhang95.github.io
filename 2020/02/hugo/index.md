@@ -1,7 +1,4 @@
-# Hugo 个人静态网页推荐
-
-
-# Hugo 个人主页笔记
+# Hugo 个人静态网站
 
 ## 背景
 - 为什么选择静态网页？<br/>
@@ -22,6 +19,42 @@
 
 还有怀揣着对go的学习精神，最后选择了hugo
 
+## Hugo 结构
+### 文件结构
+```
+blog
+├── archetypes
+├── config.toml
+├── content
+├── data
+├── layouts
+├── static
+├── themes
+└── public
+```
+## Hugo 内容管理
+### Menus
+- Menu：可以通过.Site.Menus site variable来获取一系列menu entries的数组
+  - main menu：.Site.Menus.main
+  - 在toml下
+  ```
+  [menu]
+
+  [[menu.main]]
+    identifier = "about"
+    name = "about hugo"
+    pre = "<i class='fa fa-heart'></i>"
+    url = "/about/"
+    weight = -110
+
+  [[menu.main]]
+    name = "getting started"
+    post = "<span class='alert'>New!</span>"
+    pre = "<i class='fa fa-road'></i>"
+    url = "/getting-started/"
+    weight = -100
+  ```
+
 
 ## 踏平的坑
 
@@ -34,8 +67,15 @@
     hugo --buildFuture //可编译未来时间
     ```
 
-- hugo每次编译直接复制public/，会导致github page的CNAME不工作
-  - 使用域名无法访问，但github.io域名下可以
-  - 
+- hugo每次编译直接复制public/，会导致github page的CNAME删除不工作
+  - 症状就是使用域名无法访问，但github.io域名下可以
+  - 创建CNAME文件，然后每次部署完把CNAME复制过去
+
+
+## Reference
+- [官方文档](https://gohugo.io)
+- [Hugo-框架学习](https://segmentfault.com/a/1190000016078760)
+
+
 
   

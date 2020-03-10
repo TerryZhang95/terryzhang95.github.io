@@ -33,10 +33,15 @@ struct sk_buff_head	*list;
          spinlock_t lock; 
      }; 
      ```
-
+5. skb->len 与skb->data_len
+   - skb是否为linear？
+     - skb->data_len = 0: skb为线性，skb的长度是skb->len
+     - skb->data_len != 0: skb不为线性，skb的长度是skb->skb->data_len
+     - 
 ## Reference
 - [Basic functions for sk_buff{}](http://www.skbuff.net/skbbasic.html)
 - [How SKB works](http://vger.kernel.org/~davem/skb_data.html)
 - [Network Buffers and Memory Management](https://www.linuxjournal.com/article/1312)
+- [The Relation between `skb->len’ and `skb->data_len’ and What They Represent](https://0x657573.wordpress.com/2010/11/22/the-relation-between-skb-len-and-skb-data_len-and-what-they-represent/)
 
 

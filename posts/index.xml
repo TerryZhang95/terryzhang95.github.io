@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 08 Mar 2020 00:42:57 +1100</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 12:11:04 +1100</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shell脚本笔记</title>
+      <link>/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 10 Mar 2020 12:11:04 +1100</pubDate>
+      
+      <guid>/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</guid>
+      <description>Shell脚本 学习笔记  Shell脚本 学习笔记  变量  系统给定的特殊变量 自定义变量   语法 基本算法    变量 系统给定的特殊变量 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  $0	当前脚本的名字 $n	传递给脚本或者函数的参数，n表示第几个参数 $#	传递给脚本或函数的参数个数 $*	传递给脚本或函数的所有参数 $@	传递给脚本或者函数的所有参数 $$	当前shell脚本进程的PID $?	函数返回值，或者上个命令的退出状态 $BASH	BASH的二进制文件问的路径 $BASH_ENV	BASH的启动文件 $BASH_VERSINFO[n]	BASH版本信息，有六个元素 $BASH_VERSION	BASH版本号 $EDITOR	脚本所调用的默认编辑器 $EUID	当前有效的用户ID $FUNCNAME	当前函数名 $GROUPS	当前用户所属组 $HOME	当前用户家目录 $HOSTTYPE	主机类型 $LINENO	当前行号 $OSTYPE	操作系统类型 $PATH	PATH路径 $PPID	当前shell进程的父进程ID $PWD	当前工作目录 $SECONDS	当前脚本运行秒数 $TMOUT	不为0时，超过指定的秒将退出shell $UID	当前用户ID   自定义变量 1 2 3 4 5 6  #!</description>
+    </item>
     
     <item>
       <title>Linux内核学习笔记之skb</title>
@@ -18,7 +27,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };       Reference  Basic functions for sk_buff{} How SKB works Network Buffers and Memory Management  </description>
+      <description>skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };      skb-&amp;gt;len 与skb-&amp;gt;data_len  skb是否为linear？  skb-&amp;gt;data_len = 0: skb为线性，skb的长度是skb-&amp;gt;len skb-&amp;gt;data_len !</description>
     </item>
     
     <item>
@@ -47,21 +56,19 @@ vscode-arduino-右上标
     </item>
     
     <item>
-      <title>Hugo 个人静态网页推荐</title>
+      <title>Hugo 个人静态网站</title>
       <link>/2020/02/hugo/</link>
       <pubDate>Wed, 26 Feb 2020 23:55:28 +0800</pubDate>
       
       <guid>/2020/02/hugo/</guid>
-      <description>Hugo 个人主页笔记 背景   为什么选择静态网页？
+      <description>背景   为什么选择静态网页？
 可以配合github page轻松部署，并且因为贫穷，无力支撑服务器费用
   为什么选择hugo？
 主流的静态网页，试过Jekyll，Hexo以及wordpress，各有千秋，但是：
  之前的github一直使用Jekyll，使用RubyGem安装依赖的方式始终不习惯，预设环境难上加难，文档也是很复杂 用过一段时间wordpress，但是后期还是想改用markdown写文章 Hexo有大量的中文支持，而且对于JS开发者来说很友好，插件丰富，但是速度慢，发到github page上就更慢了    很多人更换静态主页框架，都是因为发现了更喜欢的模板，我也不例外
 此外环境配置到部署都很简单，速度快，一次编译不到1s
 还有怀揣着对go的学习精神，最后选择了hugo
-踏平的坑   hugo编译不报错，但更新不编译在public/中
- 文章的时间不能超过当前时间 hugo server的时间默认是格林威治标准时间，会有时差 解决方法 1 2  hugo new // 使用hugo new创建新文章和配置来确保时间 hugo --buildFuture //可编译未来时间       hugo每次编译直接复制public/，会导致github page的CNAME不工作
- 使用域名无法访问，但github.io域名下可以     </description>
+Hugo 结构 文件结构 1 2 3 4 5 6 7 8 9  blog ├── archetypes ├── config.toml ├── content ├── data ├── layouts ├── static ├── themes └── public   Hugo 内容管理 Menus  Menu：可以通过.Site.Menus site variable来获取一系列menu entries的数组  main menu：.Site.Menus.main 在toml下  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  [menu] [[menu.</description>
     </item>
     
     <item>

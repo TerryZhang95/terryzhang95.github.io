@@ -1,0 +1,134 @@
+# Shell脚本笔记
+
+
+# Shell脚本 学习笔记
+- [Shell脚本 学习笔记](#shell%e8%84%9a%e6%9c%ac-%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0)
+  - [变量](#%e5%8f%98%e9%87%8f)
+    - [系统给定的特殊变量](#%e7%b3%bb%e7%bb%9f%e7%bb%99%e5%ae%9a%e7%9a%84%e7%89%b9%e6%ae%8a%e5%8f%98%e9%87%8f)
+    - [自定义变量](#%e8%87%aa%e5%ae%9a%e4%b9%89%e5%8f%98%e9%87%8f)
+  - [语法](#%e8%af%ad%e6%b3%95)
+  - [基本算法](#%e5%9f%ba%e6%9c%ac%e7%ae%97%e6%b3%95)
+
+## 变量
+### 系统给定的特殊变量
+```
+$0	当前脚本的名字  
+$n	传递给脚本或者函数的参数，n表示第几个参数 
+$#	传递给脚本或函数的参数个数 
+$*	传递给脚本或函数的所有参数 
+$@	传递给脚本或者函数的所有参数 
+$$	当前shell脚本进程的PID 
+$?	函数返回值，或者上个命令的退出状态 
+$BASH	BASH的二进制文件问的路径 
+$BASH_ENV	BASH的启动文件 
+$BASH_VERSINFO[n]	BASH版本信息，有六个元素 
+$BASH_VERSION	BASH版本号 
+$EDITOR	脚本所调用的默认编辑器 
+$EUID	当前有效的用户ID 
+$FUNCNAME	当前函数名 
+$GROUPS	当前用户所属组 
+$HOME	当前用户家目录 
+$HOSTTYPE	主机类型 
+$LINENO	当前行号 
+$OSTYPE	操作系统类型 
+$PATH	PATH路径 
+$PPID	当前shell进程的父进程ID 
+$PWD	当前工作目录 
+$SECONDS	当前脚本运行秒数 
+$TMOUT	不为0时，超过指定的秒将退出shell 
+$UID	当前用户ID 
+```
+### 自定义变量
+```
+#! /bin/bash
+#‘=’前后不能有空格
+string="I am shell"
+num=5
+ 
+echo "a=${a},string=${string}"
+```
+传出变量给外部使用
+```
+export variable="" 
+```
+
+## 语法
+1. if
+   ```
+   if [statement]; then
+     do ...
+   elif [statement]; then
+     do ...
+   else
+     do ...
+   fi
+   ```
+2. for loop
+   ```
+   for((i=1;i<=10;i++));  
+   do   
+   echo $(expr $i \* 3 + 1);  
+   done  
+   ```
+
+3. 函数 返回字符串
+   ```
+   get_str()
+   {
+   	echo "string"
+   }
+
+   echo `get_str` #写法一
+   echo $(get_str) #写法二
+   ```
+
+## 基本算法
+1. 判断是否为数字,[reference](https://blog.csdn.net/sodaslay/article/details/53325199)
+   ```
+   if [ "$1" -gt 0 ] 2>/dev/null ;then 
+     # echo "$1 is number." 
+     return 0
+   else 
+     # echo 'no.' 
+     return 1
+   fi
+   ```
+
+2. 判断上一条命令是否执行成功
+   ```
+   if [ $? -ne 0 ]; then
+       echo "failed"
+   else
+       echo "succeed"
+   fi
+   ```  
+   ``` 
+   -eq 等于  
+   -ne	不等于  
+   -gt 大于  
+   -lt	小于  
+   ge	大于等于  
+   le	小于等于  
+   ```
+
+3. [判断文件或文件夹是否存在](https://www.cnblogs.com/emanlee/p/3583769.html)
+   ```
+   #如果文件夹不存在，创建文件夹
+   if [ ! -d "/myfolder" ]; then
+     mkdir /myfolder
+   fi
+   ```
+4. [将多段文字写入文件](https://www.cnblogs.com/zqifa/p/shell-file-1.html)
+   ```
+   #! /bin/bash
+   cat>filename.txt<<EOF
+   hello world
+   代码改变世界 Coding Changes the World
+   100 \$
+   她买了张彩票，中了3,300多万美元。
+   She bought a lottery ticket and won more than\$ 33 million.
+   EOF # end of the file
+   ```
+   
+
+
