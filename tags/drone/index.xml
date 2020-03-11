@@ -13,12 +13,16 @@
     
     
     <item>
-      <title>Drone 配合Docker的cicd工具</title>
+      <title>Drone 基于Docker的cicd工具</title>
       <link>/2020/03/drone/</link>
       <pubDate>Mon, 02 Mar 2020 10:09:34 +1100</pubDate>
       
       <guid>/2020/03/drone/</guid>
-      <description>使用步骤 </description>
+      <description>关于CICD Drone  介绍 实践   Reference  关于CICD CI(持续集成)CD(持续交付/部署)，为的是实现自动化部署和测试，减少人工的参与
+具体之后会有另一篇文章讲CICD相关
+ CI：远程仓库push代码，触发一系列测试 CD：将远程的默认分支，部署在生产环境上（开发环境亦可） pipeline：构建CICD执行流程的管道 流程 cicd_flow 关于文档的一点吐槽  我也不知道文档是针对0.8版本的，还是1.0版本的，所有blog都是在吐槽，也分不清个所以然 大部分blog都是通过docker-compose来实现，而文档却是建议直接docker进行，所以本文先测试文档，然后再测试compose    Drone 介绍  基于docker的CICD技术，每步构建都在docker中进行 drone server 控制端  drone的服务配置，用于对接主流代码仓库（Github，Gitlab等），并且有相应的api 类似gitlab cicd中的webhook作用 drone服务并不需要管理账号，而是通过代码托管仓库提供具有权限的账户   drone agent 客户端  也就是文档中所谓的drone runner 具体执行CI的pipeline   开发者需要在项目中包含.drone.yml文件,将代码推送到git仓库,drone就能够自动化的进行编译/测试/发布  实践 以Github为例
+  创建OAuth账户
+ developer settings -&amp;gt; OAuth apps -&amp;gt; register new 生成shared secret  1  openssl rand -hex 16     docker pull drone/drone:1</description>
     </item>
     
   </channel>

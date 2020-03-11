@@ -18,7 +18,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };      skb-&amp;gt;len 与skb-&amp;gt;data_len  skb是否为linear？  skb-&amp;gt;data_len = 0: skb为线性，skb的长度是skb-&amp;gt;len skb-&amp;gt;data_len !</description>
+      <description>skb 作用 skb 结构体及操作  skb 数据操作 skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull skb_trim skb_copy skb_copy_expand  划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧  1 2 3  struct sk_buff *skb_copy_expand(const struct sk_buff *skb, int newheadroom, int newtailroom, gfp_t gfp_mask)    newheadroom 和 newtailroom就是在头和尾想要拓展的空间 返回一个新的skb    skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     关于skb的size  在skb中定义了诸多了个size 先实际测试一下看看各个size都是多少  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  .</description>
     </item>
     
     <item>

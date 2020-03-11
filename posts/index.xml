@@ -27,7 +27,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 是干什么的 skb 如何工作 1 2 3 4 5 6 7  struct sk_buff { /* These two members must be first. */ struct sk_buff	*next; struct sk_buff	*prev; struct sk_buff_head	*list;    headroom,tail reserve 数据操作  skb_push  在buffer开始之前添加data skb_push   skb_put  在buffer尾部前添加数据】 skb_put   skb_pull skb_trim   skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };      skb-&amp;gt;len 与skb-&amp;gt;data_len  skb是否为linear？  skb-&amp;gt;data_len = 0: skb为线性，skb的长度是skb-&amp;gt;len skb-&amp;gt;data_len !</description>
+      <description>skb 作用 skb 结构体及操作  skb 数据操作 skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull skb_trim skb_copy skb_copy_expand  划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧  1 2 3  struct sk_buff *skb_copy_expand(const struct sk_buff *skb, int newheadroom, int newtailroom, gfp_t gfp_mask)    newheadroom 和 newtailroom就是在头和尾想要拓展的空间 返回一个新的skb    skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     关于skb的size  在skb中定义了诸多了个size 先实际测试一下看看各个size都是多少  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  .</description>
     </item>
     
     <item>
@@ -47,12 +47,16 @@ vscode-arduino-右上标
     </item>
     
     <item>
-      <title>Drone 配合Docker的cicd工具</title>
+      <title>Drone 基于Docker的cicd工具</title>
       <link>/2020/03/drone/</link>
       <pubDate>Mon, 02 Mar 2020 10:09:34 +1100</pubDate>
       
       <guid>/2020/03/drone/</guid>
-      <description>使用步骤 </description>
+      <description>关于CICD Drone  介绍 实践   Reference  关于CICD CI(持续集成)CD(持续交付/部署)，为的是实现自动化部署和测试，减少人工的参与
+具体之后会有另一篇文章讲CICD相关
+ CI：远程仓库push代码，触发一系列测试 CD：将远程的默认分支，部署在生产环境上（开发环境亦可） pipeline：构建CICD执行流程的管道 流程 cicd_flow 关于文档的一点吐槽  我也不知道文档是针对0.8版本的，还是1.0版本的，所有blog都是在吐槽，也分不清个所以然 大部分blog都是通过docker-compose来实现，而文档却是建议直接docker进行，所以本文先测试文档，然后再测试compose    Drone 介绍  基于docker的CICD技术，每步构建都在docker中进行 drone server 控制端  drone的服务配置，用于对接主流代码仓库（Github，Gitlab等），并且有相应的api 类似gitlab cicd中的webhook作用 drone服务并不需要管理账号，而是通过代码托管仓库提供具有权限的账户   drone agent 客户端  也就是文档中所谓的drone runner 具体执行CI的pipeline   开发者需要在项目中包含.drone.yml文件,将代码推送到git仓库,drone就能够自动化的进行编译/测试/发布  实践 以Github为例
+  创建OAuth账户
+ developer settings -&amp;gt; OAuth apps -&amp;gt; register new 生成shared secret  1  openssl rand -hex 16     docker pull drone/drone:1</description>
     </item>
     
     <item>
