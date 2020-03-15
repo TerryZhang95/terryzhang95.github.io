@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 10 Mar 2020 12:11:04 +1100</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2020 22:01:55 +1100</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker配置环境</title>
+      <link>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sun, 15 Mar 2020 22:01:55 +1100</pubDate>
+      
+      <guid>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</guid>
+      <description>docker配置python环境 docker 环境遇到的问题  Got permission denied while trying to connect to the Docker daemon socket  需要给docker进程777的权限    Reference  Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock   </description>
+    </item>
     
     <item>
       <title>Shell脚本笔记</title>
@@ -27,7 +36,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 数据操作 skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull skb_trim skb_copy skb_copy_expand  划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧  1 2 3  struct sk_buff *skb_copy_expand(const struct sk_buff *skb, int newheadroom, int newtailroom, gfp_t gfp_mask)    newheadroom 和 newtailroom就是在头和尾想要拓展的空间 返回一个新的skb    skb_queue  Manage packets in a queue structure using struct sk_buff_head 1 2 3 4 5 6  struct sk_buff_head { struct sk_buff *next; struct sk_buff *prev; __u32 qlen; spinlock_t lock; };     关于skb的size  在skb中定义了诸多了个size 先实际测试一下看看各个size都是多少  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  .</description>
+      <description>skb 作用 skb 结构体及操作  skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull  从skb头部向后取data 返回的是指向新data的指针 skb_pull   skb_trim  从skb尾部取data  1 2 3 4 5  void skb_trim(struct sk_buff *skb, unsigned int len) { if (skb-&amp;gt;len &amp;gt; len) __skb_trim(skb, len); }    __skb_trim(skb, len) -&amp;gt; __skb_set_length(skb,len):只能针对线性数据而言  1 2 3 4 5 6 7 8  static inline void __skb_set_length(struct sk_buff *skb, unsigned int len) { if (WARN_ON(skb_is_nonlinear(skb))) return; skb-&amp;gt;len = len; skb_set_tail_pointer(skb, len); # 作用是 skb-&amp;gt;tail += offset; }    最后则是将skb-&amp;gt;tail向后加len skb_trim    skb的copy操作 skb定义了诸多的skb_copy方式</description>
     </item>
     
     <item>

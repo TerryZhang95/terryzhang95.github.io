@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 鸭鸭饲养员</title>
+    <link>/tags/docker/</link>
+    <description>Recent content in docker on 鸭鸭饲养员</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 15 Mar 2020 22:01:55 +1100</lastBuildDate>
+    
+	<atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker配置环境</title>
+      <link>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sun, 15 Mar 2020 22:01:55 +1100</pubDate>
+      
+      <guid>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</guid>
+      <description>docker配置python环境 docker 环境遇到的问题  Got permission denied while trying to connect to the Docker daemon socket  需要给docker进程777的权限    Reference  Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock   </description>
+    </item>
+    
+  </channel>
+</rss>
