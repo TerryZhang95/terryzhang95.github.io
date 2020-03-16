@@ -21,14 +21,5 @@
       <description>skb 作用 skb 结构体及操作  skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull  从skb头部向后取data 返回的是指向新data的指针 skb_pull   skb_trim  从skb尾部取data  1 2 3 4 5  void skb_trim(struct sk_buff *skb, unsigned int len) { if (skb-&amp;gt;len &amp;gt; len) __skb_trim(skb, len); }    __skb_trim(skb, len) -&amp;gt; __skb_set_length(skb,len):只能针对线性数据而言  1 2 3 4 5 6 7 8  static inline void __skb_set_length(struct sk_buff *skb, unsigned int len) { if (WARN_ON(skb_is_nonlinear(skb))) return; skb-&amp;gt;len = len; skb_set_tail_pointer(skb, len); # 作用是 skb-&amp;gt;tail += offset; }    最后则是将skb-&amp;gt;tail向后加len skb_trim    skb的copy操作 skb定义了诸多的skb_copy方式</description>
     </item>
     
-    <item>
-      <title>lora 学习笔记</title>
-      <link>/2020/02/lora/</link>
-      <pubDate>Wed, 26 Feb 2020 23:55:28 +0800</pubDate>
-      
-      <guid>/2020/02/lora/</guid>
-      <description>Lora  Lora 是Long Range缩写，归Semtech公司所有  Reference </description>
-    </item>
-    
   </channel>
 </rss>

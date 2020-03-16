@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Docker配置环境 | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Docker学习笔记 | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="持续更新"><link rel="prev" href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/" />
+<meta name="Description" content="持续更新"><link rel="prev" href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,23 +14,23 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Docker配置环境"/>
+<meta name="twitter:title" content="Docker学习笔记"/>
 <meta name="twitter:description" content="持续更新"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Docker配置环境",
+        "headline": "Docker学习笔记",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/2020\/03\/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83\/"
+            "@id": "\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "docker","wordcount":  31 ,
-        "url": "\/2020\/03\/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83\/","datePublished": "2020-03-15T22:01:55\x2b11:00","dateModified": "2020-03-15T22:01:55\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "docker","wordcount":  126 ,
+        "url": "\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/","datePublished": "2020-03-11T14:17:40\x2b11:00","dateModified": "2020-03-11T14:17:40\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -68,24 +68,70 @@
         </div>
     </div>
 </nav><main class="main">
-                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Docker配置环境</h1><div class="post-meta">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Docker学习笔记</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
                 </a>&nbsp;<span class="post-category">included in&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/">合格的运维</a>&nbsp;</span></div>
-            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-15>2020-03-15</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>about 31 words&nbsp;
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-11>2020-03-11</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 126 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>1 min&nbsp;</div>
-        </div><div class="post-content"><a class="post-dummy-target" id="docker配置python环境"></a><h2>docker配置python环境</h2>
-<a class="post-dummy-target" id="docker-环境遇到的问题"></a><h2>docker 环境遇到的问题</h2>
+        </div><div class="post-content"><h1 id="安装">安装</h1>
+<a class="post-dummy-target" id="ubuntu-安装docker"></a><h2>ubuntu 安装docker</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository &#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&#34;
+sudo apt-get update
+apt-cache policy docker-ce # 验证docker repo添加成功
+sudo apt-get install docker-ce # 安装docker
+sudo systemctl status docker # 验证docker安装成功
+</code></pre></td></tr></table>
+</div>
+</div><a class="post-dummy-target" id="ubuntu-安装-docker-compose"></a><h2>ubuntu 安装 docker-compose</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo curl -L &#34;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version # 验证
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="docker-环境遇到的问题">docker 环境遇到的问题</h1>
 <ul>
 <li>Got permission denied while trying to connect to the Docker daemon socket
 <ul>
 <li>需要给docker进程777的权限</li>
 </ul>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod 777 /var/run/docker.sock
+</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
-<a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
+<h1 id="reference">Reference</h1>
 <ul>
+<li><a href="https://docs.docker.com/compose/install/" target="_blank">Install Docker Compose</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04" target="_blank">How To Install and Use Docker on Ubuntu 18.04</a></li>
 <li><a href="https://stackoverflow.com/questions/47854463/got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket-at-uni" target="_blank">Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
 </a></li>
 </ul>
@@ -93,21 +139,21 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>The article was updated on 2020-03-15</span>
+                <span>The article was updated on 2020-03-11</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2fdocker%25E9%2585%258D%25E7%25BD%25AE%25E7%258E%25AF%25E5%25A2%2583%2f&amp;text=Docker%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83&amp;via=" target="_blank" title="Share on Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;text=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="Share on Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2fdocker%25E9%2585%258D%25E7%25BD%25AE%25E7%258E%25AF%25E5%25A2%2583%2f" target="_blank" title="Share on Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f" target="_blank" title="Share on Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2fdocker%25E9%2585%258D%25E7%25BD%25AE%25E7%258E%25AF%25E5%25A2%2583%2f&amp;title=Docker%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83" target="_blank" title="Share on Reddit">
+        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="Share on Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2fdocker%25E9%2585%258D%25E7%25BD%25AE%25E7%258E%25AF%25E5%25A2%2583%2f&amp;title=Docker%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83" target="_blank" title="Share on LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="Share on LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2fdocker%25E9%2585%258D%25E7%25BD%25AE%25E7%258E%25AF%25E5%25A2%2583%2f&amp;appkey=&amp;title=Docker%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83" target="_blank" title="Share on Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;appkey=&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="Share on Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>

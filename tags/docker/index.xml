@@ -7,18 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 15 Mar 2020 22:01:55 +1100</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2020 14:17:40 +1100</lastBuildDate>
     
 	<atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Docker配置环境</title>
-      <link>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</link>
-      <pubDate>Sun, 15 Mar 2020 22:01:55 +1100</pubDate>
+      <title>Docker学习笔记</title>
+      <link>/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
       
-      <guid>/2020/03/docker%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/</guid>
-      <description>docker配置python环境 docker 环境遇到的问题  Got permission denied while trying to connect to the Docker daemon socket  需要给docker进程777的权限    Reference  Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock   </description>
+      <guid>/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34; sudo apt-get update apt-cache policy docker-ce # 验证docker repo添加成功 sudo apt-get install docker-ce # 安装docker sudo systemctl status docker # 验证docker安装成功   ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
     </item>
     
   </channel>
