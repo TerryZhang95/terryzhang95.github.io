@@ -36,7 +36,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&amp;gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&amp;gt;tail指针增加len skb-&amp;gt;len增加len 返回skb-&amp;gt;tail指针 skb_put   skb_pull  从skb头部向后取data 返回的是指向新data的指针 skb_pull   skb_trim  从skb尾部取data  1 2 3 4 5  void skb_trim(struct sk_buff *skb, unsigned int len) { if (skb-&amp;gt;len &amp;gt; len) __skb_trim(skb, len); }    __skb_trim(skb, len) -&amp;gt; __skb_set_length(skb,len):只能针对线性数据而言  1 2 3 4 5 6 7 8  static inline void __skb_set_length(struct sk_buff *skb, unsigned int len) { if (WARN_ON(skb_is_nonlinear(skb))) return; skb-&amp;gt;len = len; skb_set_tail_pointer(skb, len); # 作用是 skb-&amp;gt;tail += offset; }    最后则是将skb-&amp;gt;tail向后加len skb_trim    skb的copy操作 skb定义了诸多的skb_copy方式</description>
+      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
     </item>
     
     <item>
@@ -53,19 +53,6 @@ Path 是应用所在路径，是在local目录下的路径 右下角 Select 编�
 vscode-arduino-右下标 右上角 操作
 vscode-arduino-右上标
 分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  { &amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;, &amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;, &amp;#34;port&amp;#34;: 22, &amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;, &amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34; }    缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
-    </item>
-    
-    <item>
-      <title>Drone 基于Docker的cicd工具</title>
-      <link>/2020/03/drone/</link>
-      <pubDate>Mon, 02 Mar 2020 10:09:34 +1100</pubDate>
-      
-      <guid>/2020/03/drone/</guid>
-      <description>关于CICD Drone  介绍 实践   Reference  关于CICD CI(持续集成)CD(持续交付/部署)，为的是实现自动化部署和测试，减少人工的参与
-具体之后会有另一篇文章讲CICD相关
- CI：远程仓库push代码，触发一系列测试 CD：将远程的默认分支，部署在生产环境上（开发环境亦可） pipeline：构建CICD执行流程的管道 流程 cicd_flow 关于文档的一点吐槽  我也不知道文档是针对0.8版本的，还是1.0版本的，所有blog都是在吐槽，也分不清个所以然 大部分blog都是通过docker-compose来实现，而文档却是建议直接docker进行，所以本文先测试文档，然后再测试compose    Drone 介绍  基于docker的CICD技术，每步构建都在docker中进行 drone server 控制端  drone的服务配置，用于对接主流代码仓库（Github，Gitlab等），并且有相应的api 类似gitlab cicd中的webhook作用 drone服务并不需要管理账号，而是通过代码托管仓库提供具有权限的账户   drone agent 客户端  也就是文档中所谓的drone runner 具体执行CI的pipeline   开发者需要在项目中包含.drone.yml文件,将代码推送到git仓库,drone就能够自动化的进行编译/测试/发布  实践 以Github为例
-  创建OAuth账户
- developer settings -&amp;gt; OAuth apps -&amp;gt; register new 生成shared secret  1  openssl rand -hex 16     docker pull drone/drone:1</description>
     </item>
     
     <item>

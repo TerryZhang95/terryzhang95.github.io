@@ -15,7 +15,7 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux内核学习笔记之skb"/>
-<meta name="twitter:description" content="skb 作用 skb 结构体及操作  skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&gt;data的指针减去len skb-&gt;len增加len 返回skb-&gt;data的指针 skb_push   skb_put  在buffer尾部前添加数据，添加长度为len skb的tail指针获取并没有通过skb-&gt;tail获取，而是通过skb_tail_pointer(skb)获取 skb-&gt;tail指针增加len skb-&gt;len增加len 返回skb-&gt;tail指针 skb_put   skb_pull  从skb头部向后取data 返回的是指向新data的指针 skb_pull   skb_trim  从skb尾部取data  1 2 3 4 5  void skb_trim(struct sk_buff *skb, unsigned int len) { if (skb-&gt;len &gt; len) __skb_trim(skb, len); }    __skb_trim(skb, len) -&gt; __skb_set_length(skb,len):只能针对线性数据而言  1 2 3 4 5 6 7 8  static inline void __skb_set_length(struct sk_buff *skb, unsigned int len) { if (WARN_ON(skb_is_nonlinear(skb))) return; skb-&gt;len = len; skb_set_tail_pointer(skb, len); # 作用是 skb-&gt;tail &#43;= offset; }    最后则是将skb-&gt;tail向后加len skb_trim    skb的copy操作 skb定义了诸多的skb_copy方式"/>
+<meta name="twitter:description" content="skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&gt;head,skb-&gt;data,skb-&gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&gt;sk_prot-&gt;max_header 此时skb-&gt;data和skb-&gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&gt;data的指针减去len skb-&gt;len增加len 返回skb-&gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -29,7 +29,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "linux kernel, skb, 内核, 网卡","wordcount":  498 ,
+            },"genre": "posts","keywords": "linux kernel, skb, 内核, 网卡","wordcount":  554 ,
         "url": "\/2020\/03\/linux_skb\/","datePublished": "2020-03-08T00:42:57\x2b11:00","dateModified": "2020-03-08T00:42:57\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -73,12 +73,13 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
                 </a>&nbsp;<span class="post-category">included in&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-08>2020-03-08</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>about 498 words&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 554 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>3 min&nbsp;</div>
         </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><ul>
 <li><a href="#skb-%e4%bd%9c%e7%94%a8">skb 作用</a></li>
 <li><a href="#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%8a%e6%93%8d%e4%bd%9c">skb 结构体及操作</a>
 <ul>
+<li><a href="#skb-%e5%88%9d%e5%a7%8b%e5%8c%96">skb 初始化</a></li>
 <li><a href="#skb-%e6%95%b0%e6%8d%ae%e6%93%8d%e4%bd%9c">skb 数据操作</a>
 <ul>
 <li><a href="#skb%e7%9a%84copy%e6%93%8d%e4%bd%9c">skb的copy操作</a></li>
@@ -92,6 +93,37 @@
 </ul>
 <a class="post-dummy-target" id="skb-作用"></a><h2>skb 作用</h2>
 <a class="post-dummy-target" id="skb-结构体及操作"></a><h2>skb 结构体及操作</h2>
+<a class="post-dummy-target" id="skb-初始化"></a><h3>skb 初始化</h3>
+<ul>
+<li>分配内存空间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">	skb = alloc_skb(len, GFP_KERNEL);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>skb-&gt;head,skb-&gt;data,skb-&gt;tail 都指向skb data buffer一开始的位置</li>
+<li>现在的skb的长度是0，因为还没有任何数据</li>
+<li>为头部预留空间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">	skb_reserve(skb, header_len);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在这个时候，就需要为头部预留足够的空间</li>
+<li>大部分ipv4的header最大长度为sk-&gt;sk_prot-&gt;max_header</li>
+<li>此时skb-&gt;data和skb-&gt;tail都指向headroom结束的位置</li>
+<li>接下来可以进行skb的data操作了</li>
+</ul>
 <a class="post-dummy-target" id="skb-数据操作"></a><h3>skb 数据操作</h3>
 <ul>
 <li>skb_push
@@ -99,9 +131,17 @@
 <li>在buffer开始之前添加data,添加的长度为len</li>
 <li>skb-&gt;data的指针减去len</li>
 <li>skb-&gt;len增加len</li>
-<li>返回skb-&gt;data的指针
-<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_push.png" alt="skb_push" class="lazyload"><figcaption class="image-caption">skb_push</figcaption></figure></li>
+<li>返回skb-&gt;data的指针</li>
 </ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_push(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_push.png" alt="skb_push" class="lazyload"><figcaption class="image-caption">skb_push</figcaption></figure></p>
 </li>
 <li>skb_put
 <ul>
@@ -109,16 +149,32 @@
 <li>skb的tail指针获取并没有通过skb-&gt;tail获取，而是通过skb_tail_pointer(skb)获取</li>
 <li>skb-&gt;tail指针增加len</li>
 <li>skb-&gt;len增加len</li>
-<li>返回skb-&gt;tail指针
-<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_put.png" alt="skb_put" class="lazyload"><figcaption class="image-caption">skb_put</figcaption></figure></li>
+<li>返回skb-&gt;tail指针</li>
 </ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_put(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_put.png" alt="skb_put" class="lazyload"><figcaption class="image-caption">skb_put</figcaption></figure></p>
 </li>
 <li>skb_pull
 <ul>
 <li>从skb头部向后取data</li>
-<li>返回的是指向新data的指针
-<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_pull.png" alt="skb_pull" class="lazyload"><figcaption class="image-caption">skb_pull</figcaption></figure></li>
+<li>返回的是指向新data的指针</li>
 </ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_pull(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_pull.png" alt="skb_pull" class="lazyload"><figcaption class="image-caption">skb_pull</figcaption></figure></p>
 </li>
 <li>skb_trim
 <ul>
@@ -135,8 +191,8 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">void skb_trim(struct sk_buff *skb, unsigned int len)
  {
-   if (skb-&gt;len &gt; len)
-       __skb_trim(skb, len);
+     if (skb-&gt;len &gt; len)
+         __skb_trim(skb, len);
  }
 </code></pre></td></tr></table>
 </div>
@@ -157,10 +213,10 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">static inline void __skb_set_length(struct sk_buff *skb, unsigned int len)
  {
-   if (WARN_ON(skb_is_nonlinear(skb)))
-       return;
-   skb-&gt;len = len;
-   skb_set_tail_pointer(skb, len);
+     if (WARN_ON(skb_is_nonlinear(skb)))
+         return;
+     skb-&gt;len = len;
+     skb_set_tail_pointer(skb, len);
    # 作用是 skb-&gt;tail += offset;
  }
 </code></pre></td></tr></table>
@@ -360,7 +416,16 @@ gfp_t gfp_mask)
 </ul>
 </li>
 <li>
-<p>其中skb-&gt;data到skb-&gt;tail中间的内存指针是混乱的，后面继续看</p>
+<p>skb-&gt;tail = skb_tail_pointer(skb)-skb-&gt;head</p>
+<ul>
+<li>skb-&gt;tail并不是地址指针，而是一个长度，表示skb-&gt;head到skb_tail_pointer中间的长度</li>
+</ul>
+</li>
+<li>
+<p>同理skb-&gt;end = skb_end_offset(skb) = skb_end_pointer(skb)-skb-&gt;head</p>
+<ul>
+<li>skb-&gt;end表示的是skb实际的长度</li>
+</ul>
 </li>
 <li>
 <p>truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？</p>

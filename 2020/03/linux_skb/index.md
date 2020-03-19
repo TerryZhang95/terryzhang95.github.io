@@ -2,6 +2,7 @@
 
 - [skb 作用](#skb-%e4%bd%9c%e7%94%a8)
 - [skb 结构体及操作](#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%8a%e6%93%8d%e4%bd%9c)
+  - [skb 初始化](#skb-%e5%88%9d%e5%a7%8b%e5%8c%96)
   - [skb 数据操作](#skb-%e6%95%b0%e6%8d%ae%e6%93%8d%e4%bd%9c)
     - [skb的copy操作](#skb%e7%9a%84copy%e6%93%8d%e4%bd%9c)
   - [skb_queue](#skbqueue)
@@ -10,47 +11,70 @@
 
 ## skb 作用
 ## skb 结构体及操作
-
+### skb 初始化
+- 分配内存空间
+```
+	skb = alloc_skb(len, GFP_KERNEL);
+```
+  - skb->head,skb->data,skb->tail 都指向skb data buffer一开始的位置
+  - 现在的skb的长度是0，因为还没有任何数据
+- 为头部预留空间
+```
+	skb_reserve(skb, header_len);
+```
+  - 在这个时候，就需要为头部预留足够的空间
+  - 大部分ipv4的header最大长度为sk->sk_prot->max_header
+  - 此时skb->data和skb->tail都指向headroom结束的位置
+- 接下来可以进行skb的data操作了
 ### skb 数据操作
-   - skb_push
-     - 在buffer开始之前添加data,添加的长度为len
-     - skb->data的指针减去len
-     - skb->len增加len
-     - 返回skb->data的指针
-     ![skb_push](/images/skb_push.png)
-   - skb_put
-     - 在buffer尾部前添加数据，添加长度为len
-     - skb的tail指针获取并没有通过skb->tail获取，而是通过skb_tail_pointer(skb)获取
-     - skb->tail指针增加len
-     - skb->len增加len
-     - 返回skb->tail指针
-     ![skb_put](/images/skb_put.png)
-   - skb_pull
-     - 从skb头部向后取data
-     - 返回的是指向新data的指针
-     ![skb_pull](/images/skb_pull.png)
-   - skb_trim
-     - 从skb尾部取data
-     ```
-     void skb_trim(struct sk_buff *skb, unsigned int len)
-      {
-      	if (skb->len > len)
-      		__skb_trim(skb, len);
-      }
-     ```
-     - __skb_trim(skb, len) -> __skb_set_length(skb,len):只能针对线性数据而言
-     ```
-     static inline void __skb_set_length(struct sk_buff *skb, unsigned int len)
-      {
-      	if (WARN_ON(skb_is_nonlinear(skb)))
-      		return;
-      	skb->len = len;
-      	skb_set_tail_pointer(skb, len);
-        # 作用是 skb->tail += offset;
-      }
-     ```
-     - 最后则是将skb->tail向后加len
-     ![skb_trim](/images/skb_trim.png) 
+ - skb_push
+   - 在buffer开始之前添加data,添加的长度为len
+   - skb->data的指针减去len
+   - skb->len增加len
+   - 返回skb->data的指针
+   ```
+   void *skb_push(struct sk_buff *skb, unsigned int len)
+   ```
+   ![skb_push](/images/skb_push.png)
+ - skb_put
+   - 在buffer尾部前添加数据，添加长度为len
+   - skb的tail指针获取并没有通过skb->tail获取，而是通过skb_tail_pointer(skb)获取
+   - skb->tail指针增加len
+   - skb->len增加len
+   - 返回skb->tail指针
+   ```
+   void *skb_put(struct sk_buff *skb, unsigned int len)
+   ```
+   ![skb_put](/images/skb_put.png)
+ - skb_pull
+   - 从skb头部向后取data
+   - 返回的是指向新data的指针
+   ```
+   void *skb_pull(struct sk_buff *skb, unsigned int len)
+   ```
+   ![skb_pull](/images/skb_pull.png)
+ - skb_trim
+   - 从skb尾部取data
+   ```
+   void skb_trim(struct sk_buff *skb, unsigned int len)
+    {
+    	if (skb->len > len)
+    		__skb_trim(skb, len);
+    }
+   ```
+   - __skb_trim(skb, len) -> __skb_set_length(skb,len):只能针对线性数据而言
+   ```
+   static inline void __skb_set_length(struct sk_buff *skb, unsigned int len)
+    {
+    	if (WARN_ON(skb_is_nonlinear(skb)))
+    		return;
+    	skb->len = len;
+    	skb_set_tail_pointer(skb, len);
+      # 作用是 skb->tail += offset;
+    }
+   ```
+   - 最后则是将skb->tail向后加len
+   ![skb_trim](/images/skb_trim.png) 
 
 #### skb的copy操作
 skb定义了诸多的skb_copy方式
@@ -134,10 +158,12 @@ gfp_t gfp_mask)
        ```
        skb->data_len =   struct skb_shared_info->frags[0...struct skb_shared_info->nr_frags].size + size of data in struct skb_shared_info->frag_list
        ```
-
      - headroom+tailroom+len = skb_end_offset(skb) = skb->end
        - 实际上，需要给skb分配的内存 = skb_end_offset(skb) + skb->data_len
-     - 其中skb->data到skb->tail中间的内存指针是混乱的，后面继续看
+     - skb->tail = skb_tail_pointer(skb)-skb->head
+       - skb->tail并不是地址指针，而是一个长度，表示skb->head到skb_tail_pointer中间的长度
+     - 同理skb->end = skb_end_offset(skb) = skb_end_pointer(skb)-skb->head
+       - skb->end表示的是skb实际的长度
      - truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？
        - skb->truesize=sizeof(struct sk_buff) + SKB_DATA_ALIGN(size)
        - size需要根据x86进行调整，即size = SKB_DATA_ALIGN(size)
