@@ -7,11 +7,12 @@
     - [skb的copy操作](#skb%e7%9a%84copy%e6%93%8d%e4%bd%9c)
   - [skb_queue](#skbqueue)
   - [关于skb的size](#%e5%85%b3%e4%ba%8eskb%e7%9a%84size)
+- [skb->data的小天地](#skb-data%e7%9a%84%e5%b0%8f%e5%a4%a9%e5%9c%b0)
 - [Reference](#reference)
 
-## skb 作用
-## skb 结构体及操作
-### skb 初始化
+# skb 作用
+# skb 结构体及操作
+## skb 初始化
 - 分配内存空间
 ```
 	skb = alloc_skb(len, GFP_KERNEL);
@@ -26,7 +27,7 @@
   - 大部分ipv4的header最大长度为sk->sk_prot->max_header
   - 此时skb->data和skb->tail都指向headroom结束的位置
 - 接下来可以进行skb的data操作了
-### skb 数据操作
+## skb 数据操作
  - skb_push
    - 在buffer开始之前添加data,添加的长度为len
    - skb->data的指针减去len
@@ -76,24 +77,25 @@
    - 最后则是将skb->tail向后加len
    ![skb_trim](/images/skb_trim.png) 
 
-#### skb的copy操作
+### skb的copy操作
 skb定义了诸多的skb_copy方式
 - skb_copy
- - 复制并返回一个新的skb
- - 适合对skb的数据进行修改时使用
- ```
- struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
- ```
+  - 复制并返回一个新的skb
+  - 适合对skb的数据进行修改时使用
+  ```
+  struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
+  ```
 - skb_copy_expand
- - 划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧
- ```
- struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
-int newheadroom, int newtailroom,
-gfp_t gfp_mask)
- ```
- - newheadroom 和 newtailroom就是在头和尾想要拓展的空间
- - 返回一个新的skb
- - 增加headroom或tailroom的size后对于data的指针是如何变化的呢，实际测试一下：
+   - 划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧
+   ```
+   struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
+  int newheadroom, int newtailroom,
+  gfp_t gfp_mask)
+   ```
+   - newheadroom 和 newtailroom就是在头和尾想要拓展的空间
+   - 返回一个新的skb
+   
+   - 增加headroom或tailroom的size后对于data的指针是如何变化的呢，实际测试一下：
    - 尝试拓展一个skb，打印出head，data，tail，end的指针
    ```
     skb_test = skb_copy_expand(skb,skb_headroom(skb), skb_tailroom(skb)+sizeof(*u8),GFP_KERNEL);
@@ -116,7 +118,7 @@ gfp_t gfp_mask)
   ```
 
 
-### skb_queue
+## skb_queue
    - Manage packets in a queue structure using struct sk_buff_head
      ```
      struct sk_buff_head {
@@ -126,7 +128,7 @@ gfp_t gfp_mask)
          spinlock_t lock; 
      }; 
      ```
-### 关于skb的size
+## 关于skb的size
    - 在skb中定义了诸多了个size
    - 先实际测试一下看看各个size都是多少
    ```
@@ -167,8 +169,31 @@ gfp_t gfp_mask)
      - truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？
        - skb->truesize=sizeof(struct sk_buff) + SKB_DATA_ALIGN(size)
        - size需要根据x86进行调整，即size = SKB_DATA_ALIGN(size)
-  
-## Reference
+
+# skb->data的小天地
+之所以提到这个问题，是因为在对skb->data进行操作的时候，经常导致kernel panic，并且很多时候编译成功但没有实现预期的效果。  
+但是在开发过程中，有这样一个操作引发了一些思考：
+- 对skb->data类型强制转换
+```
+// 例如
+hdr = (struct ieee80211_hdr *)skb->data;
+// ieee80211_hdr定义如下
+struct ieee80211_hdr {
+	__le16 frame_control;
+	__le16 duration_id;
+	u8 addr1[ETH_ALEN];
+	u8 addr2[ETH_ALEN];
+	u8 addr3[ETH_ALEN];
+	__le16 seq_ctrl;
+	u8 addr4[ETH_ALEN];
+} __packed __aligned(2);
+```
+- 在skb->data中，严格意义上说是skb->data到skb的tail指针中间的data block中，不仅仅是用户发送的udp data，还存有诸多的header信息。如果需要对skb进行修改，需要指定到需要修改的指针处，而不能简单的put
+![skb_detail](/images/skb_data.png)
+- 当然这只针对在发送或接收的中途进行修改。如果在某一层产生新的skb时或新建skb的话，不需要考虑这些
+
+
+# Reference
 - [Basic functions for sk_buff{}](http://www.skbuff.net/skbbasic.html)
 - [How SKB works](http://vger.kernel.org/~davem/skb_data.html)
 - [Network Buffers and Memory Management](https://www.linuxjournal.com/article/1312)

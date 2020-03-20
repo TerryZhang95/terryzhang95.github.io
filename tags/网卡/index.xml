@@ -5,7 +5,7 @@
     <link>/tags/%E7%BD%91%E5%8D%A1/</link>
     <description>Recent content in 网卡 on 鸭鸭饲养员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sun, 08 Mar 2020 00:42:57 +1100</lastBuildDate>
     
@@ -18,7 +18,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
+      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   skb-&amp;gt;data的小天地 Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
     </item>
     
   </channel>

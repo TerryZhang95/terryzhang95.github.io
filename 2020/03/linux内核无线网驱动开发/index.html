@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Docker学习笔记 | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ath9k开发笔记之发送tx | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="持续更新"><link rel="prev" href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="next" href="/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" /><link rel="canonical" href="/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+<meta name="Description" content="都是根据自己浅薄的理解"><link rel="prev" href="/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,23 +14,23 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Docker学习笔记"/>
-<meta name="twitter:description" content="持续更新"/>
+<meta name="twitter:title" content="ath9k开发笔记之发送tx"/>
+<meta name="twitter:description" content="都是根据自己浅薄的理解"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Docker学习笔记",
+        "headline": "ath9k开发笔记之发送tx",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/"
+            "@id": "\/2020\/03\/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "docker","wordcount":  133 ,
-        "url": "\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/","datePublished": "2020-03-11T14:17:40\x2b11:00","dateModified": "2020-03-11T14:17:40\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","wordcount":  89 ,
+        "url": "\/2020\/03\/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91\/","datePublished": "2020-03-19T15:41:19\x2b11:00","dateModified": "2020-03-19T15:41:19\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -39,7 +39,7 @@
                 "width":  127 ,
                 "height":  40 
                 }
-            },"description": "持续更新"
+            },"description": "都是根据自己浅薄的理解"
     }
     </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
     <body><script>
@@ -68,15 +68,46 @@
         </div>
     </div>
 </nav><main class="main">
-                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Docker学习笔记</h1><div class="post-meta">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">ath9k开发笔记之发送tx</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/">合格的运维</a>&nbsp;</span></div>
-            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-11>2020-03-11</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 133 字&nbsp;
+                </a>&nbsp;</div>
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-19>2020-03-19</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 89 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
-        </div><div class="post-content"><h1 id="安装">安装</h1>
-<a class="post-dummy-target" id="ubuntu-安装docker"></a><h2>ubuntu 安装docker</h2>
+        </div><div class="post-content"><ul>
+<li><a href="#%e6%a1%86%e6%9e%b6%e4%bb%8b%e7%bb%8d">框架介绍</a></li>
+<li><a href="#ath9k%e7%9a%84%e6%8e%a5%e5%8f%a3">ath9k的接口</a>
+<ul>
+<li><a href="#ath9k%e5%8f%91%e9%80%81%e7%9a%84%e5%85%a5%e5%8f%a3---athtx">ath9k发送的入口&ndash; ath_tx</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="框架介绍">框架介绍</h1>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/ath9k_path.png" alt="ath9k传输和接收" class="lazyload"><figcaption class="image-caption">ath9k传输和接收</figcaption></figure></p>
+<ul>
+<li>简单来看，发送阶段，userspace向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211</li>
+<li>ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API）</li>
+<li>ath9k会直接调度硬件上包的发送</li>
+</ul>
+<h1 id="ath9k的接口">ath9k的接口</h1>
+<a class="post-dummy-target" id="ath9k发送的入口---ath_tx"></a><h2>ath9k发送的入口&ndash; ath_tx</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static void ath9k_tx(struct ieee80211_hw *hw,
+		     struct ieee80211_tx_control *control,
+		     struct sk_buff *skb)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>从mac80211下来的包，会直接call到ath9k_tx这个api</li>
+<li>在main.c中，定义了</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -85,99 +116,89 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get update
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository &#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&#34;
-sudo apt-get update
-apt-cache policy docker-ce # 验证docker repo添加成功
-sudo apt-get install docker-ce # 安装docker
-sudo systemctl status docker # 验证docker安装成功
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct ieee80211_ops ath9k_ops = {
+	.tx 		    = ath9k_tx,
+	.start 		    = ath9k_start,
+	.stop 		    = ath9k_stop,
+    ...
+}
 </code></pre></td></tr></table>
 </div>
-</div><a class="post-dummy-target" id="ubuntu-安装-docker-compose"></a><h2>ubuntu 安装 docker-compose</h2>
+</div><ul>
+<li>所以后续会以ath9k_ops这个结构体去回调ath9k_tx，那么问题来了，<strong>mac80211准备发包的时候是如何call到ath9k的呢？</strong></li>
+<li>回到mac80211中，发送tx的函数是ieee80211_tx()，其中会call到drv_tx()，目测这个是给下层发送的函数</li>
+<li>在mac80211中，定义drv_tx，这里是进入ath9k的入口</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo curl -L &#34;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose --version # 验证
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static inline void drv_tx(struct ieee80211_local *local,
+			  struct ieee80211_tx_control *control,
+			  struct sk_buff *skb)
+{
+	local-&gt;ops-&gt;tx(&amp;local-&gt;hw, control, skb);
+}
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="docker-环境遇到的问题">docker 环境遇到的问题</h1>
-<ul>
-<li>Got permission denied while trying to connect to the Docker daemon socket
-<ul>
-<li>需要给docker进程777的权限</li>
+</div><ul>
+<li>mac80211中定义ieee80211_local，包含了硬件的信息，其中ops的结构</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod 777 /var/run/docker.sock
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">const struct ieee80211_ops *ops; //即为上面定义ath_tx的位置
 </code></pre></td></tr></table>
 </div>
-</div></li>
-<li>macos上开通对/var/的file sharing权限
+</div><ul>
+<li><strong>总结</strong>
 <ul>
-<li>在Docker-&gt;Preference-&gt;resources-&gt;File Sharing中，添加路径，只能通过folder添加，不能输入，那要怎么添加系统路径呢？</li>
-<li>解决这个问题用了我一个小时的时间查找。。。</li>
-<li>点击添加后，在folder界面，点击“cmd+shift+G”，输入路径即可</li>
+<li>tx的流程：ieee80211_tx() &mdash;&gt; drv_tx() &mdash;&gt; ath9k_tx()</li>
 </ul>
 </li>
-</ul>
-<p>5d420170f0ea</p>
-<h1 id="reference">Reference</h1>
-<ul>
-<li><a href="https://docs.docker.com/compose/install/" target="_blank">Install Docker Compose</a></li>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04" target="_blank">How To Install and Use Docker on Ubuntu 18.04</a></li>
-<li><a href="https://stackoverflow.com/questions/47854463/got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket-at-uni" target="_blank">Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock
-</a></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2020-03-11 更新</span>
+                <span>本文于 2020-03-19 更新</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;text=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;text=ath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f" target="_blank" title="分享到 Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;title=ath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;title=ath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;appkey=&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;appkey=&amp;title=ath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="/tags/docker/"><i class="fas fa-tag fa-fw"></i>&nbsp;docker</a>&nbsp;
-                    </span></section>
+        <section></section>
         <section>
             <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" class="prev" rel="prev" title="Shell脚本笔记"><i class="fas fa-angle-left fa-fw"></i>Shell脚本笔记</a>
-            <a href="/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" class="next" rel="next" title="ath9k开发笔记之发送tx">ath9k开发笔记之发送tx<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="prev" rel="prev" title="Docker学习笔记"><i class="fas fa-angle-left fa-fw"></i>Docker学习笔记</a></div>
 </div><div class="post-comment"></div>
     </article></div>
             </main><footer class="footer">

@@ -5,12 +5,22 @@
     <link>/posts/</link>
     <description>Recent content in Posts on 鸭鸭饲养员</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 11 Mar 2020 14:17:40 +1100</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 15:41:19 +1100</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ath9k开发笔记之发送tx</title>
+      <link>/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
+      
+      <guid>/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</guid>
+      <description> 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx    框架介绍 ath9k传输和接收
+ 简单来看，发送阶段，userspace向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control, struct sk_buff *skb)    从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = { .tx = ath9k_tx, .start = ath9k_start, .stop = ath9k_stop, ... }    所以后续会以ath9k_ops这个结构体去回调ath9k_tx，那么问题来了，mac80211准备发包的时候是如何call到ath9k的呢？ 回到mac80211中，发送tx的函数是ieee80211_tx()，其中会call到drv_tx()，目测这个是给下层发送的函数 在mac80211中，定义drv_tx，这里是进入ath9k的入口  1 2 3 4 5 6  static inline void drv_tx(struct ieee80211_local *local, struct ieee80211_tx_control *control, struct sk_buff *skb) { local-&amp;gt;ops-&amp;gt;tx(&amp;amp;local-&amp;gt;hw, control, skb); }    mac80211中定义ieee80211_local，包含了硬件的信息，其中ops的结构  1  const struct ieee80211_ops *ops; //即为上面定义ath_tx的位置    总结  tx的流程：ieee80211_tx() &amp;mdash;&amp;gt; drv_tx() &amp;mdash;&amp;gt; ath9k_tx()    </description>
+    </item>
     
     <item>
       <title>Docker学习笔记</title>
@@ -36,7 +46,7 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
+      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   skb-&amp;gt;data的小天地 Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
     </item>
     
     <item>
@@ -53,22 +63,6 @@ Path 是应用所在路径，是在local目录下的路径 右下角 Select 编�
 vscode-arduino-右下标 右上角 操作
 vscode-arduino-右上标
 分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  { &amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;, &amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;, &amp;#34;port&amp;#34;: 22, &amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;, &amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34; }    缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
-    </item>
-    
-    <item>
-      <title>Hugo 个人静态网站</title>
-      <link>/2020/02/hugo/</link>
-      <pubDate>Wed, 26 Feb 2020 23:55:28 +0800</pubDate>
-      
-      <guid>/2020/02/hugo/</guid>
-      <description>背景   为什么选择静态网页？
-可以配合github page轻松部署，并且因为贫穷，无力支撑服务器费用
-  为什么选择hugo？
-主流的静态网页，试过Jekyll，Hexo以及wordpress，各有千秋，但是：
- 之前的github一直使用Jekyll，使用RubyGem安装依赖的方式始终不习惯，预设环境难上加难，文档也是很复杂 用过一段时间wordpress，但是后期还是想改用markdown写文章 Hexo有大量的中文支持，而且对于JS开发者来说很友好，插件丰富，但是速度慢，发到github page上就更慢了    很多人更换静态主页框架，都是因为发现了更喜欢的模板，我也不例外
-此外环境配置到部署都很简单，速度快，一次编译不到1s
-还有怀揣着对go的学习精神，最后选择了hugo
-Hugo 结构 文件结构 1 2 3 4 5 6 7 8 9  blog ├── archetypes ├── config.toml ├── content ├── data ├── layouts ├── static ├── themes └── public   Hugo 内容管理 Menus  Menu：可以通过.Site.Menus site variable来获取一系列menu entries的数组  main menu：.Site.Menus.main 在toml下  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  [menu] [[menu.</description>
     </item>
     
     <item>

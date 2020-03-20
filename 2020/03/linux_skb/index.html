@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Linux内核学习笔记之skb | 鸭鸭饲养员</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="TerryZhang95"><link rel="prev" href="/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" /><link rel="next" href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/2020/03/linux_skb/" />
+<meta name="Description" content="持续更新"><link rel="prev" href="/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" /><link rel="next" href="/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/2020/03/linux_skb/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -15,7 +15,7 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux内核学习笔记之skb"/>
-<meta name="twitter:description" content="skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&gt;head,skb-&gt;data,skb-&gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&gt;sk_prot-&gt;max_header 此时skb-&gt;data和skb-&gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&gt;data的指针减去len skb-&gt;len增加len 返回skb-&gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push"/>
+<meta name="twitter:description" content="持续更新"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -29,7 +29,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "linux kernel, skb, 内核, 网卡","wordcount":  554 ,
+            },"genre": "posts","keywords": "linux kernel, skb, 内核, 网卡","wordcount":  606 ,
         "url": "\/2020\/03\/linux_skb\/","datePublished": "2020-03-08T00:42:57\x2b11:00","dateModified": "2020-03-08T00:42:57\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -39,7 +39,7 @@
                 "width":  127 ,
                 "height":  40 
                 }
-            },"description": ""
+            },"description": "持续更新"
     }
     </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
     <body><script>
@@ -51,7 +51,7 @@
             <a href="/">鸭鸭饲养员
             </a>
         </div>
-        <div class="navbar-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/tags" title="">标签</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="Switch Theme"></i></a>
+        <div class="navbar-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/tags" title="">标签</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><nav class="navbar-mobile">
@@ -64,17 +64,17 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/tags" title="">标签</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="Switch Theme"></i></a>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/posts" title="">文章</a><a class="menu-item" href="/tags" title="">标签</a><a class="menu-item" href="/categories" title="">分类</a><a class="menu-item" href="/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><main class="main">
                 <div class="container"><article class="page"><h1 class="post-title animated flipInX">Linux内核学习笔记之skb</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
-                </a>&nbsp;<span class="post-category">included in&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-08>2020-03-08</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>about 554 words&nbsp;
-                <i class="far fa-clock fa-fw"></i>3 min&nbsp;</div>
+                <i class="fas fa-pencil-alt fa-fw"></i>约 606 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
         </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><ul>
 <li><a href="#skb-%e4%bd%9c%e7%94%a8">skb 作用</a></li>
 <li><a href="#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%8a%e6%93%8d%e4%bd%9c">skb 结构体及操作</a>
@@ -89,11 +89,12 @@
 <li><a href="#%e5%85%b3%e4%ba%8eskb%e7%9a%84size">关于skb的size</a></li>
 </ul>
 </li>
+<li><a href="#skb-data%e7%9a%84%e5%b0%8f%e5%a4%a9%e5%9c%b0">skb-&gt;data的小天地</a></li>
 <li><a href="#reference">Reference</a></li>
 </ul>
-<a class="post-dummy-target" id="skb-作用"></a><h2>skb 作用</h2>
-<a class="post-dummy-target" id="skb-结构体及操作"></a><h2>skb 结构体及操作</h2>
-<a class="post-dummy-target" id="skb-初始化"></a><h3>skb 初始化</h3>
+<h1 id="skb-作用">skb 作用</h1>
+<h1 id="skb-结构体及操作">skb 结构体及操作</h1>
+<a class="post-dummy-target" id="skb-初始化"></a><h2>skb 初始化</h2>
 <ul>
 <li>分配内存空间</li>
 </ul>
@@ -124,7 +125,7 @@
 <li>此时skb-&gt;data和skb-&gt;tail都指向headroom结束的位置</li>
 <li>接下来可以进行skb的data操作了</li>
 </ul>
-<a class="post-dummy-target" id="skb-数据操作"></a><h3>skb 数据操作</h3>
+<a class="post-dummy-target" id="skb-数据操作"></a><h2>skb 数据操作</h2>
 <ul>
 <li>skb_push
 <ul>
@@ -227,10 +228,12 @@
 </ul>
 </li>
 </ul>
-<a class="post-dummy-target" id="skb的copy操作"></a><h4>skb的copy操作</h4>
+<a class="post-dummy-target" id="skb的copy操作"></a><h3>skb的copy操作</h3>
 <p>skb定义了诸多的skb_copy方式</p>
 <ul>
-<li>skb_copy</li>
+<li>
+<p>skb_copy</p>
+<ul>
 <li>复制并返回一个新的skb</li>
 <li>适合对skb的数据进行修改时使用</li>
 </ul>
@@ -242,8 +245,10 @@
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>skb_copy_expand</li>
+</div></li>
+<li>
+<p>skb_copy_expand</p>
+<ul>
 <li>划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧</li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -267,8 +272,10 @@ gfp_t gfp_mask)
 </li>
 <li>
 <p>增加headroom或tailroom的size后对于data的指针是如何变化的呢，实际测试一下：</p>
-<ul>
-<li>尝试拓展一个skb，打印出head，data，tail，end的指针</li>
+</li>
+<li>
+<p>尝试拓展一个skb，打印出head，data，tail，end的指针</p>
+</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -317,7 +324,7 @@ gfp_t gfp_mask)
 </div>
 </div></li>
 </ul>
-<a class="post-dummy-target" id="skb_queue"></a><h3>skb_queue</h3>
+<a class="post-dummy-target" id="skb_queue"></a><h2>skb_queue</h2>
 <ul>
 <li>Manage packets in a queue structure using struct sk_buff_head
 <div class="highlight"><div class="chroma">
@@ -340,7 +347,7 @@ gfp_t gfp_mask)
 </div>
 </div></li>
 </ul>
-<a class="post-dummy-target" id="关于skb的size"></a><h3>关于skb的size</h3>
+<a class="post-dummy-target" id="关于skb的size"></a><h2>关于skb的size</h2>
 <ul>
 <li>在skb中定义了诸多了个size</li>
 <li>先实际测试一下看看各个size都是多少</li>
@@ -437,7 +444,48 @@ gfp_t gfp_mask)
 </ul>
 </li>
 </ul>
-<a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
+<h1 id="skb-data的小天地">skb-&gt;data的小天地</h1>
+<p>之所以提到这个问题，是因为在对skb-&gt;data进行操作的时候，经常导致kernel panic，并且很多时候编译成功但没有实现预期的效果。<br>
+但是在开发过程中，有这样一个操作引发了一些思考：</p>
+<ul>
+<li>对skb-&gt;data类型强制转换</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 例如
+hdr = (struct ieee80211_hdr *)skb-&gt;data;
+// ieee80211_hdr定义如下
+struct ieee80211_hdr {
+	__le16 frame_control;
+	__le16 duration_id;
+	u8 addr1[ETH_ALEN];
+	u8 addr2[ETH_ALEN];
+	u8 addr3[ETH_ALEN];
+	__le16 seq_ctrl;
+	u8 addr4[ETH_ALEN];
+} __packed __aligned(2);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在skb-&gt;data中，严格意义上说是skb-&gt;data到skb的tail指针中间的data block中，不仅仅是用户发送的udp data，还存有诸多的header信息。如果需要对skb进行修改，需要指定到需要修改的指针处，而不能简单的put
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_data.png" alt="skb_detail" class="lazyload"><figcaption class="image-caption">skb_detail</figcaption></figure></li>
+<li>当然这只针对在发送或接收的中途进行修改。如果在某一层产生新的skb时或新建skb的话，不需要考虑这些</li>
+</ul>
+<h1 id="reference">Reference</h1>
 <ul>
 <li><a href="http://www.skbuff.net/skbbasic.html" target="_blank">Basic functions for sk_buff{}</a></li>
 <li><a href="http://vger.kernel.org/~davem/skb_data.html" target="_blank">How SKB works</a></li>
@@ -454,21 +502,21 @@ gfp_t gfp_mask)
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>The article was updated on 2020-03-08</span>
+                <span>本文于 2020-03-08 更新</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2flinux_skb%2f&amp;text=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;via=" target="_blank" title="Share on Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2f2020%2f03%2flinux_skb%2f&amp;text=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2flinux_skb%2f" target="_blank" title="Share on Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2f2020%2f03%2flinux_skb%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="Share on Reddit">
+        </a><a href="//reddit.com/submit?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="Share on LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2flinux_skb%2f&amp;appkey=&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;pic=%2fimages%2fskb.png" target="_blank" title="Share on Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2f2020%2f03%2flinux_skb%2f&amp;appkey=&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;pic=%2fimages%2fskb.png" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>
@@ -485,7 +533,7 @@ gfp_t gfp_mask)
                         <a href="/tags/%E7%BD%91%E5%8D%A1/"><i class="fas fa-tag fa-fw"></i>&nbsp;网卡</a>&nbsp;
                     </span></section>
         <section>
-            <span><a href="javascript:window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
@@ -494,7 +542,7 @@ gfp_t gfp_mask)
 </div><div class="post-comment"></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">TerryZhang95</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
