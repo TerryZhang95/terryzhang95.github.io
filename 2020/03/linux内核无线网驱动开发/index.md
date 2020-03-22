@@ -6,6 +6,7 @@
   - [ath9k发送的入口-- ath_tx](#ath9k%e5%8f%91%e9%80%81%e7%9a%84%e5%85%a5%e5%8f%a3---athtx)
 - [ieee80211的接口](#ieee80211%e7%9a%84%e6%8e%a5%e5%8f%a3)
   - [ieee80211的入口](#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3)
+  - [ieee80211 发送的流程](#ieee80211-%e5%8f%91%e9%80%81%e7%9a%84%e6%b5%81%e7%a8%8b)
 - [Reference](#reference)
 
 持续更新...
@@ -60,7 +61,6 @@ static bool ieee80211_tx_frags(struct ieee80211_local *local,
 			       struct sk_buff_head *skbs,
 			       bool txpending)
 ```
-
 - **总结**
   - tx的流程：ieee80211_tx() ---> drv_tx() ---> ath9k_tx()
 
@@ -80,5 +80,49 @@ static const struct net_device_ops ieee80211_dataif_ops = {
     ...
 }
 ```
+- 这个函数的作用：
+  - 定义sub-interface数据，也就是要传输的数据，并包含了发送的信息（AP还是sta啊这些）
+  - sdata和skb之间的关系？
+  - 通过sdata->vif.type区分传输的类型（AP,sta,mesh,adhoc等）
+  - 主要看一下AP部分：
+    - 第一个工作：将skb->data的ETH_ALEN长度写进hdr.addr1,sdata->vif.addr写进hdr.addr2。
+      - skb包含向下发送的信息，sdata则是transmitter本身生成的信息
+      - 由MAC header的机理可知，addr1->addr4分别是DA，SA，RA，TA（具体会在mac header的部分说）
+      - hdrlen = 24，也就是说mac的header长度是24位。
+    - 第二个工作：向skb中放入信息
+      - 确定了network的header的指针：skb_network_header(skb);transport layer指针：skb_transport_header(skb)
+      - 实际测试，说明transport layer header 信息是在skb->data之后
+      ```
+      ...
+      printk("skb data pointer is %u, and skb transport layer is %u\n",skb->data,skb_transport_header(skb))
+      // 结果
+      skb data pointer is 3895112744, and skb transport layer is 3895112804
+      ```
+      - 先后放入了：
+        - encaps_data
+        - meshhdr,qos(如果有)
+        - mac header,network header, transport header
+  - 通过ieee80211_xmit 进行发送
+  - 要点：
+    - 完成了对skb->data的所有添加
+## ieee80211 发送的流程
+- ieee80211_subif_start_xmit：上面说过了
+- ieee80211_xmit：没有对skb更多的操作，直接call到ieee80211_tx
+  - 由于上面对hdr进行了赋值，所以在这里可以
+  ```
+  	hdr = (struct ieee80211_hdr *) skb->data;
+  ```
+- ieee80211_tx：
+  - ieee80211_tx_prepare：准备tx
+  - 将skb放进一个hardware的queue
+  ```
+  sdata->vif.hw_queue[skb_get_queue_mapping(skb)];
+  ```
+  - led_len是skb中的数据长度
+- __ieee80211_tx: 从skb_queue中取出skb进行处理
+  - 同样还是对于sdata->vif.type进行分析
+- ieee80211_tx_frags：遍历skb_queue，然后将每个skb进行发送
+  - call drv_tx进入ath9k，也就是第一部分说的东西
+
 # Reference 
 -[Linux Wi-Fi open source drivers-mac80211, ath9k/ath5k](http://www.campsmur.cat/files/mac80211_intro.pdf)
