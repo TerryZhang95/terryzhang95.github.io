@@ -1,11 +1,20 @@
-# ath9k开发笔记之发送tx
+# linux开源驱动mac80211,ath9k开发笔记之发送tx
 
+- [前言](#%e5%89%8d%e8%a8%80)
 - [框架介绍](#%e6%a1%86%e6%9e%b6%e4%bb%8b%e7%bb%8d)
 - [ath9k的接口](#ath9k%e7%9a%84%e6%8e%a5%e5%8f%a3)
   - [ath9k发送的入口-- ath_tx](#ath9k%e5%8f%91%e9%80%81%e7%9a%84%e5%85%a5%e5%8f%a3---athtx)
+- [ieee80211的接口](#ieee80211%e7%9a%84%e6%8e%a5%e5%8f%a3)
+  - [ieee80211的入口](#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3)
+- [Reference](#reference)
+
+持续更新...
+# 前言
+本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
+
 # 框架介绍
 ![ath9k传输和接收](/images/ath9k_path.png)
-- 简单来看，发送阶段，userspace向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211
+- 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211
 - ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API）
 - ath9k会直接调度硬件上包的发送
 
@@ -41,6 +50,35 @@ static inline void drv_tx(struct ieee80211_local *local,
 ```
 const struct ieee80211_ops *ops; //即为上面定义ath_tx的位置
 ```
+- **那么drv_tx()的skb是哪里来的呢？**
+- drv_tx应用在ieee80211_tx_frags中，作用就是把经过mac80211的skb_queue处理并把其中的skb向ath9k发送
+- 这个函数应用在__ieee80211_tx中，具体会在下面的ieee80211部分进行说明
+```
+static bool ieee80211_tx_frags(struct ieee80211_local *local,
+			       struct ieee80211_vif *vif,
+			       struct ieee80211_sta *sta,
+			       struct sk_buff_head *skbs,
+			       bool txpending)
+```
+
 - **总结**
   - tx的流程：ieee80211_tx() ---> drv_tx() ---> ath9k_tx()
 
+# ieee80211的接口
+## ieee80211的入口
+```
+ieee80211_subif_start_xmit
+```
+- 先说一下这个函数是如何被call到的
+- 在iface的函数中，定义了ieee80211的一系列ops
+```
+static const struct net_device_ops ieee80211_dataif_ops = {
+	.ndo_open		= ieee80211_open,
+	.ndo_stop		= ieee80211_stop,
+	.ndo_uninit		= ieee80211_uninit,
+	.ndo_start_xmit		= ieee80211_subif_start_xmit,
+    ...
+}
+```
+# Reference 
+-[Linux Wi-Fi open source drivers-mac80211, ath9k/ath5k](http://www.campsmur.cat/files/mac80211_intro.pdf)
