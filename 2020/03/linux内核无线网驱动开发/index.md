@@ -7,6 +7,7 @@
 - [ieee80211的接口](#ieee80211%e7%9a%84%e6%8e%a5%e5%8f%a3)
   - [ieee80211的入口](#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3)
   - [ieee80211 发送的流程](#ieee80211-%e5%8f%91%e9%80%81%e7%9a%84%e6%b5%81%e7%a8%8b)
+  - [ieee80211 处理的各种header](#ieee80211-%e5%a4%84%e7%90%86%e7%9a%84%e5%90%84%e7%a7%8dheader)
 - [Reference](#reference)
 
 持续更新...
@@ -101,7 +102,26 @@ static const struct net_device_ops ieee80211_dataif_ops = {
       - 先后放入了：
         - encaps_data
         - meshhdr,qos(如果有)
-        - mac header,network header, transport header
+        - hdr的内容
+      - **那hdr中放的是什么呢**
+        - 依然以AP为例
+        ```
+        if (sdata->vif.type == NL80211_IFTYPE_AP)
+    			chanctx_conf = rcu_dereference(sdata->vif.chanctx_conf);
+    		if (!chanctx_conf)
+    			goto fail_rcu;
+    		fc |= cpu_to_le16(IEEE80211_FCTL_FROMDS);
+    		/* DA BSSID SA */
+    		memcpy(hdr.addr1, skb->data, ETH_ALEN);
+    		memcpy(hdr.addr2, sdata->vif.addr, ETH_ALEN);
+    		memcpy(hdr.addr3, skb->data + ETH_ALEN, ETH_ALEN);
+    		hdrlen = 24;
+    		band = chanctx_conf->def.chan->band;
+    		break;
+        ```
+        - 确定了frame control
+        - ieee80211_hdr 结构体存入了addr1-addr3
+        - 确定了hdrlen是24，24不确定是怎么来的
   - 通过ieee80211_xmit 进行发送
   - 要点：
     - 完成了对skb->data的所有添加
@@ -124,5 +144,33 @@ static const struct net_device_ops ieee80211_dataif_ops = {
 - ieee80211_tx_frags：遍历skb_queue，然后将每个skb进行发送
   - call drv_tx进入ath9k，也就是第一部分说的东西
 
+## ieee80211 处理的各种header
+- network header
+  - 定义了nh作为network指针到skb->data中间的长度，相关函数如下：
+  ```
+  static inline unsigned char *skb_network_header(const struct sk_buff *skb)
+  {
+  	return skb->head + skb->network_header;
+  }
+
+  static inline void skb_reset_network_header(struct sk_buff *skb)
+  {
+  	skb->network_header = skb->data - skb->head;
+  }
+
+  static inline void skb_set_network_header(struct sk_buff *skb, const int offset)
+  {
+  	skb_reset_network_header(skb);
+  	skb->network_header += offset;
+  }
+  ```
+  - 回到tx.c
+  ```
+  nh_pos = skb_network_header(skb) - skb->data;
+  ```
+    - skb->network_header是skb->head到skb的network header指针之间的距离
+    - nh_pos = skb->head + skb->network_header - skb->data  
+    所以nh_pos = skb->network_header - headroom(skb)
+  - 相同道理可以理解transport header
 # Reference 
 -[Linux Wi-Fi open source drivers-mac80211, ath9k/ath5k](http://www.campsmur.cat/files/mac80211_intro.pdf)

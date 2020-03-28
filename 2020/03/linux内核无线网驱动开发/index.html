@@ -29,7 +29,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "skb, 内核, 网卡驱动","wordcount":  248 ,
+            },"genre": "posts","keywords": "skb, 内核, 网卡驱动","wordcount":  387 ,
         "url": "\/2020\/03\/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91\/","datePublished": "2020-03-19T15:41:19\x2b11:00","dateModified": "2020-03-19T15:41:19\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -73,7 +73,7 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/">合格的运维</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-19>2020-03-19</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 248 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 387 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
         </div><div class="post-content"><ul>
 <li><a href="#%e5%89%8d%e8%a8%80">前言</a></li>
@@ -87,6 +87,7 @@
 <ul>
 <li><a href="#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3">ieee80211的入口</a></li>
 <li><a href="#ieee80211-%e5%8f%91%e9%80%81%e7%9a%84%e6%b5%81%e7%a8%8b">ieee80211 发送的流程</a></li>
+<li><a href="#ieee80211-%e5%a4%84%e7%90%86%e7%9a%84%e5%90%84%e7%a7%8dheader">ieee80211 处理的各种header</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
@@ -272,7 +273,47 @@ skb data pointer is 3895112744, and skb transport layer is 3895112804
 <ul>
 <li>encaps_data</li>
 <li>meshhdr,qos(如果有)</li>
-<li>mac header,network header, transport header</li>
+<li>hdr的内容</li>
+</ul>
+</li>
+<li><strong>那hdr中放的是什么呢</strong>
+<ul>
+<li>依然以AP为例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">if (sdata-&gt;vif.type == NL80211_IFTYPE_AP)
+        chanctx_conf = rcu_dereference(sdata-&gt;vif.chanctx_conf);
+    if (!chanctx_conf)
+        goto fail_rcu;
+    fc |= cpu_to_le16(IEEE80211_FCTL_FROMDS);
+    /* DA BSSID SA */
+    memcpy(hdr.addr1, skb-&gt;data, ETH_ALEN);
+    memcpy(hdr.addr2, sdata-&gt;vif.addr, ETH_ALEN);
+    memcpy(hdr.addr3, skb-&gt;data + ETH_ALEN, ETH_ALEN);
+    hdrlen = 24;
+    band = chanctx_conf-&gt;def.chan-&gt;band;
+    break;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>确定了frame control</li>
+<li>ieee80211_hdr 结构体存入了addr1-addr3</li>
+<li>确定了hdrlen是24，24不确定是怎么来的</li>
 </ul>
 </li>
 </ul>
@@ -329,6 +370,67 @@ skb data pointer is 3895112744, and skb transport layer is 3895112804
 <li>ieee80211_tx_frags：遍历skb_queue，然后将每个skb进行发送
 <ul>
 <li>call drv_tx进入ath9k，也就是第一部分说的东西</li>
+</ul>
+</li>
+</ul>
+<a class="post-dummy-target" id="ieee80211-处理的各种header"></a><h2>ieee80211 处理的各种header</h2>
+<ul>
+<li>network header
+<ul>
+<li>定义了nh作为network指针到skb-&gt;data中间的长度，相关函数如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static inline unsigned char *skb_network_header(const struct sk_buff *skb)
+{
+  return skb-&gt;head + skb-&gt;network_header;
+}
+
+static inline void skb_reset_network_header(struct sk_buff *skb)
+{
+  skb-&gt;network_header = skb-&gt;data - skb-&gt;head;
+}
+
+static inline void skb_set_network_header(struct sk_buff *skb, const int offset)
+{
+  skb_reset_network_header(skb);
+  skb-&gt;network_header += offset;
+}
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>回到tx.c</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">nh_pos = skb_network_header(skb) - skb-&gt;data;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>skb-&gt;network_header是skb-&gt;head到skb的network header指针之间的距离</li>
+<li>nh_pos = skb-&gt;head + skb-&gt;network_header - skb-&gt;data<br>
+所以nh_pos = skb-&gt;network_header - headroom(skb)</li>
+<li>相同道理可以理解transport header</li>
 </ul>
 </li>
 </ul>

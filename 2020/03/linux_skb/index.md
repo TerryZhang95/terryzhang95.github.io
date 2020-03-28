@@ -2,16 +2,33 @@
 
 - [skb 作用](#skb-%e4%bd%9c%e7%94%a8)
 - [skb 结构体及操作](#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%8a%e6%93%8d%e4%bd%9c)
+  - [skb 结构体中重要字段](#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e4%b8%ad%e9%87%8d%e8%a6%81%e5%ad%97%e6%ae%b5)
   - [skb 初始化](#skb-%e5%88%9d%e5%a7%8b%e5%8c%96)
   - [skb 数据操作](#skb-%e6%95%b0%e6%8d%ae%e6%93%8d%e4%bd%9c)
     - [skb的copy操作](#skb%e7%9a%84copy%e6%93%8d%e4%bd%9c)
+    - [skb_copy, skb_clone，pskb_copy](#skbcopy-skbclonepskbcopy)
   - [skb_queue](#skbqueue)
   - [关于skb的size](#%e5%85%b3%e4%ba%8eskb%e7%9a%84size)
-- [skb->data的小天地](#skb-data%e7%9a%84%e5%b0%8f%e5%a4%a9%e5%9c%b0)
+- [skb->data的世界](#skb-data%e7%9a%84%e4%b8%96%e7%95%8c)
 - [Reference](#reference)
 
 # skb 作用
 # skb 结构体及操作
+## skb 结构体中重要字段
+- tstamp: 记录接收或传输报文的时间
+- len: skb的数据长度
+  - skb的数据由 sk_buff control + 线性数据 + 非线性数据(skb_shared_info)组成
+- data_len: 非线性长度，也就是sharedinfo的长度
+- mac_len: 长度  
+关于长度的部分下面会细说
+
+- csum：某时刻协议的校验和
+  - 熟悉CSMA机制的话，就会知道csum是用于简易判断数据包是否正确的方式
+  - 因此，当对skb进行修改的时候，需要修改skb->csum
+- cloned: 判断skb是原始数据还是被克隆的
+- protocol: skb的协议信息
+- head，data，tail, end: skb重要的指针，下面会细说
+- 
 ## skb 初始化
 - 分配内存空间
 ```
@@ -114,66 +131,86 @@ skb定义了诸多的skb_copy方式
   ```
 - skb_copy_to_linear_data_offset：在skb->data后的offset的位置，复制上data
   ```
-  memcpy(skb->data + offset, from, len);
+  memcpy(skb->data + offset, from, len);skb_co
   ```
+### skb_copy, skb_clone，pskb_copy
+- skb_clone: 复制skb结构，但不复制skb的内容，clone的skb和原skb指向同一个数据缓冲区
+  - 因此不能对数据进行修改
+- skb_copy: 新创建一个skb，并复制skb的全部内容
+- pskb_copy: 新创建skb，并复制线性数据区和shareinfo
 
 
 ## skb_queue
-   - Manage packets in a queue structure using struct sk_buff_head
-     ```
-     struct sk_buff_head {
-         struct sk_buff *next;        
-         struct sk_buff *prev;        
-         __u32 qlen;        
-         spinlock_t lock; 
-     }; 
-     ```
+- Manage packets in a queue structure using struct sk_buff_head
+ ```
+ struct sk_buff_head {
+     struct sk_buff *next;        
+     struct sk_buff *prev;        
+     __u32 qlen;        
+     spinlock_t lock; 
+ }; 
+ ```
+- 初始化
+  ```
+  struct sk_buff_head temp;
+  __skb_queue_head_init(&temp);
+  ```
+- 操作
+  ```
+  skb_queue_tail(temp,skb);// 放在queue尾部
+  skb_queue_head(temp,skb);// 放在queue头部
+  skb_dequeue(temp); // 从头部取
+  skb_dequeue_tail(temp); //从尾部取
+  skb_unlink(struct sk_buff *skb, struct sk_buff_head *list) // 从skb queue中移除一个skb
+  ```
+
+- queue_mapping
+  - skb->queue_mapping:
 ## 关于skb的size
-   - 在skb中定义了诸多了个size
-   - 先实际测试一下看看各个size都是多少
+- 在skb中定义了诸多了个size
+- 先实际测试一下看看各个size都是多少
+```
+...
+printk("Test Size_of skb is %d\n",sizeof(skb));
+printk("And Header is %u, Data is %u, Tail is %u, End is %u\n",skb->head,skb->data, skb->tail, skb->end);
+printk("len is %d, truesize is %d, datalen is %d, maclen is %d\n",skb->len,skb->truesize,skb->data_len,skb->mac_len);
+printk("skb api get headroom is %d and tailroom is %d\n",skb_headroom(skb),skb_tailroom(skb));
+printk("api skb pointer diff is %d\n",skb_end_offset(skb));
+
+
+ //测试结果
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067076] Test Size_of skb is 8
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067081] And Header is 3139126016, Data is 3139126080, Tail is 170, End is 192
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067084] len is 106, truesize is 768, datalen is 0, maclen is 0
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067087] skb api get headroom is 64 and tailroom is 22
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067089] api skb pointer diff is 192
+
+```
+- 依次分析
+ - sizeof是针对数据类型占用内存大小的计算符，因此sizeof(sk_buff)始终为8
+ - 从skb->header到skb->data的内存指针差 = headroom的大小 = 64
+ - 同理，skb->tail到skb->end内存指针的差值 = tailroom的大小 = 22
+ - len是实际数据的长度，data_len是非线性的长度
+   - **什么是线性长度**
+   - 如果数据都是存储在skb->head和skb->tail中间，即为线性，skb->data_len = 0
+   - 如果非线性，skb->len = skb->len - skb->data_len
    ```
-   ...
-    printk("Test Size_of skb is %d\n",sizeof(skb));
-   	printk("And Header is %u, Data is %u, Tail is %u, End is %u\n",skb->head,skb->data, skb->tail, skb->end);
-   	printk("len is %d, truesize is %d, datalen is %d, maclen is %d\n",skb->len,skb->truesize,skb->data_len,skb->mac_len);
-   	printk("skb api get headroom is %d and tailroom is %d\n",skb_headroom(skb),skb_tailroom(skb));
-   	printk("api skb pointer diff is %d\n",skb_end_offset(skb));
-
-
-     //测试结果
-     Mar 10 19:19:06 oem-desktop kernel: [22272.067076] Test Size_of skb is 8
-     Mar 10 19:19:06 oem-desktop kernel: [22272.067081] And Header is 3139126016, Data is 3139126080, Tail is 170, End is 192
-     Mar 10 19:19:06 oem-desktop kernel: [22272.067084] len is 106, truesize is 768, datalen is 0, maclen is 0
-     Mar 10 19:19:06 oem-desktop kernel: [22272.067087] skb api get headroom is 64 and tailroom is 22
-     Mar 10 19:19:06 oem-desktop kernel: [22272.067089] api skb pointer diff is 192
-
+   skb->data_len =   struct skb_shared_info->frags[0...struct skb_shared_info->nr_frags].size + size of data in struct skb_shared_info->frag_list
    ```
-   - 依次分析
-     - sizeof是针对数据类型占用内存大小的计算符，因此sizeof(sk_buff)始终为8
-     - 从skb->header到skb->data的内存指针差 = headroom的大小 = 64
-     - 同理，skb->tail到skb->end内存指针的差值 = tailroom的大小 = 22
-     
-     - len是实际数据的长度，data_len是非线性的长度
-       - **什么是线性长度**
-       - 如果数据都是存储在skb->head和skb->tail中间，即为线性，skb->data_len = 0
-       - 如果非线性，skb->len = skb->len - skb->data_len
-       ```
-       skb->data_len =   struct skb_shared_info->frags[0...struct skb_shared_info->nr_frags].size + size of data in struct skb_shared_info->frag_list
-       ```
-     - headroom+tailroom+len = skb_end_offset(skb) = skb->end
-       - 实际上，需要给skb分配的内存 = skb_end_offset(skb) + skb->data_len
-     - skb->tail = skb_tail_pointer(skb)-skb->head
-       - skb->tail并不是地址指针，而是一个长度，表示skb->head到skb_tail_pointer中间的长度
-     - 同理skb->end = skb_end_offset(skb) = skb_end_pointer(skb)-skb->head
-       - skb->end表示的是skb实际的长度
-     - truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？
-       - skb->truesize=sizeof(struct sk_buff) + SKB_DATA_ALIGN(size)
-       - size需要根据x86进行调整，即size = SKB_DATA_ALIGN(size)
-
-# skb->data的小天地
+ - headroom+tailroom+len = skb_end_offset(skb) = skb->end
+   - 实际上，需要给skb分配的内存 = skb_end_offset(skb) + skb->data_len
+ - skb->tail = skb_tail_pointer(skb)-skb->head
+   - skb->tail并不是地址指针，而是一个长度，表示skb->head到skb_tail_pointer中间的长度
+ - 同理skb->end = skb_end_offset(skb) = skb_end_pointer(skb)-skb->head
+   - skb->end表示的是skb实际的长度
+ - truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？
+   - skb->truesize=sizeof(struct sk_buff) + SKB_DATA_ALIGN(size)
+   - size需要根据x86进行调整，即size = SKB_DATA_ALIGN(size)
+ 
+# skb->data的世界
 之所以提到这个问题，是因为在对skb->data进行操作的时候，经常导致kernel panic，并且很多时候编译成功但没有实现预期的效果。  
 但是在开发过程中，有这样一个操作引发了一些思考：
-- 对skb->data类型强制转换
+- 对skb->data类型强制转换来对齐内存
 ```
 // 例如
 hdr = (struct ieee80211_hdr *)skb->data;
@@ -200,9 +237,11 @@ struct ieee80211_hdr {
 - [The Relation between `skb->len` and `skb->data_len` and What They Represent](https://0x657573.wordpress.com/2010/11/22/the-relation-between-skb-len-and-skb-data_len-and-what-they-represent/)
 - [skb_source_code](https://github.com/torvalds/linux/blob/master/net/core/skbuff.c)
 - [skb_source_header_file](https://github.com/torvalds/linux/blob/master/include/linux/skbuff.h)
+- [skb queue bootlin link](https://elixir.bootlin.com/linux/v4.5/source/net/core/skbuff.c#L2410)
 - [Socket Buffer Functions](https://www.fsl.cs.sunysb.edu/kernel-api/re498.html)
 - [skb->truesize，len，datalen，size，等的区别](http://blog.chinaunix.net/uid-26029760-id-1746557.html)
 - [内核扩展数据包的方法之-----skb_copy_expand](https://blog.csdn.net/NW_NW_NW/article/details/73251901)
 - [What is SKB in Linux kernel? What are SKB operations? Memory Representation of SKB? How to send packet out using skb operations?](http://amsekharkernel.blogspot.com/2014/08/what-is-skb-in-linux-kernel-what-are.html)
+- [Linux 内核网络协议栈 ------sk_buff 结构体 以及 完全解释 （2.6.16）](http://blog.csdn.net/shanshanpt/article/details/21024465)
 
 

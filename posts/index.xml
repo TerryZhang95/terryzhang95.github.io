@@ -18,7 +18,7 @@
       <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
       
       <guid>/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</guid>
-      <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程   Reference  持续更新&amp;hellip;
+      <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&amp;hellip;
 前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
 框架介绍 ath9k传输和接收
  简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control, struct sk_buff *skb)    从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = { .tx = ath9k_tx, .start = ath9k_start, .</description>
@@ -48,7 +48,14 @@
       <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
       
       <guid>/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 初始化 skb 数据操作  skb的copy操作   skb_queue 关于skb的size   skb-&amp;gt;data的小天地 Reference  skb 作用 skb 结构体及操作 skb 初始化  分配内存空间  1  skb = alloc_skb(len, GFP_KERNEL);    skb-&amp;gt;head,skb-&amp;gt;data,skb-&amp;gt;tail 都指向skb data buffer一开始的位置 现在的skb的长度是0，因为还没有任何数据 为头部预留空间  1  skb_reserve(skb, header_len);    在这个时候，就需要为头部预留足够的空间 大部分ipv4的header最大长度为sk-&amp;gt;sk_prot-&amp;gt;max_header 此时skb-&amp;gt;data和skb-&amp;gt;tail都指向headroom结束的位置 接下来可以进行skb的data操作了  skb 数据操作  skb_push  在buffer开始之前添加data,添加的长度为len skb-&amp;gt;data的指针减去len skb-&amp;gt;len增加len 返回skb-&amp;gt;data的指针  1  void *skb_push(struct sk_buff *skb, unsigned int len)   skb_push</description>
+      <description>skb 作用 skb 结构体及操作  skb 结构体中重要字段 skb 初始化 skb 数据操作  skb的copy操作 skb_copy, skb_clone，pskb_copy   skb_queue 关于skb的size   skb-&amp;gt;data的世界 Reference  skb 作用 skb 结构体及操作 skb 结构体中重要字段   tstamp: 记录接收或传输报文的时间
+  len: skb的数据长度
+ skb的数据由 sk_buff control + 线性数据 + 非线性数据(skb_shared_info)组成    data_len: 非线性长度，也就是sharedinfo的长度
+  mac_len: 长度
+关于长度的部分下面会细说
+  csum：某时刻协议的校验和
+ 熟悉CSMA机制的话，就会知道csum是用于简易判断数据包是否正确的方式 因此，当对skb进行修改的时候，需要修改skb-&amp;gt;csum    cloned: 判断skb是原始数据还是被克隆的
+  protocol: skb的协议信息</description>
     </item>
     
     <item>
