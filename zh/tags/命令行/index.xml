@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>命令行 on TY HOME</title>
+    <link>/zh/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
+    <description>Recent content in 命令行 on TY HOME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 10 Mar 2020 12:11:04 +1100</lastBuildDate>
+    
+	<atom:link href="/zh/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Shell脚本笔记</title>
+      <link>/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 10 Mar 2020 12:11:04 +1100</pubDate>
+      
+      <guid>/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</guid>
+      <description>变量  系统给定的特殊变量 自定义变量  判断变量是否为空     语法 基本算法  判断是否为数字 判断上一条命令是否执行成功 判断文件或文件夹是否存在 将多段文字写入文件 判断是否为空   Reference  变量 系统给定的特殊变量 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  $0	当前脚本的名字 $n	传递给脚本或者函数的参数，n表示第几个参数 $#	传递给脚本或函数的参数个数 $*	传递给脚本或函数的所有参数 $@	传递给脚本或者函数的所有参数 `$$`	当前shell脚本进程的PID $?	函数返回值，或者上个命令的退出状态 $BASH	BASH的二进制文件问的路径 $BASH_ENV	BASH的启动文件 $BASH_VERSINFO[n]	BASH版本信息，有六个元素 $BASH_VERSION	BASH版本号 $EDITOR	脚本所调用的默认编辑器 $EUID	当前有效的用户ID $FUNCNAME	当前函数名 $GROUPS	当前用户所属组 $HOME	当前用户家目录 $HOSTTYPE	主机类型 $LINENO	当前行号 $OSTYPE	操作系统类型 $PATH	PATH路径 $PPID	当前shell进程的父进程ID $PWD	当前工作目录 $SECONDS	当前脚本运行秒数 $TMOUT	不为0时，超过指定的秒将退出shell $UID	当前用户ID   自定义变量 1 2 3 4 5 6  #!</description>
+    </item>
+    
+  </channel>
+</rss>

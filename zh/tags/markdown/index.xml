@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>markdown on TY HOME</title>
+    <link>/zh/tags/markdown/</link>
+    <description>Recent content in markdown on TY HOME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 06 Feb 2020 23:55:28 +0800</lastBuildDate>
+    
+	<atom:link href="/zh/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Markdown 使用笔记</title>
+      <link>/zh/2020/02/markdown%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 06 Feb 2020 23:55:28 +0800</pubDate>
+      
+      <guid>/zh/2020/02/markdown%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</guid>
+      <description>Markdown笔记 Tools  Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex； VScode Markdown All in one：VScode中使用量最大的markdown插件，轻量使用方便，直接markdown语法进行编辑，vscode重度依赖者的福音，支持快捷键输入（cmd+B等），ctrl+shift+p选择指令  Basics 1 2 3 4 5 6 7 8 9 10 11 12 13 14  1. &amp;#39;#&amp;#39; 大标题，&amp;#39;##&amp;#39;,&amp;#39;##...#&amp;#39;,依次为次标题，次...次标题 2. &amp;#39;**&amp;#39; 斜体 3. ‘****’ 加粗 4. &amp;#39;[x] task&amp;#39; 添加任务 5. - one: 添加序号，可用tab降级 6. | 来制作表格，ctrl+shift+I: 转换成table 7. &amp;#39;$$ $$&amp;#39; 制作数学公式 8. [tag](Link): 添加链接 9. 添加图片(本地)：![Alt text](path) 10. 文字居中：&amp;lt;center&amp;gt;hhh &amp;lt;/center&amp;gt; 11. 任务列表 - [ ] task - [x] 完成的task 12. delete line ~~delete~~ or &amp;lt;strike&amp;gt;&amp;lt;/strike&amp;gt;   </description>
+    </item>
+    
+  </channel>
+</rss>

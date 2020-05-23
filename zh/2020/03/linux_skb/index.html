@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Linux内核学习笔记之skb | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="持续更新"><link rel="prev" href="/zh/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" /><link rel="next" href="/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="canonical" href="/zh/2020/03/linux_skb/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+<link rel="icon" type="image/png" sizes="16x16" href="images/icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux内核学习笔记之skb"/>
+<meta name="twitter:description" content="持续更新"/>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux内核学习笔记之skb",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/zh\/2020\/03\/linux_skb\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "\/images\/logo.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "linux kernel, skb, 内核, 网卡","wordcount":  691 ,
+        "url": "\/zh\/2020\/03\/linux_skb\/","datePublished": "2020-03-08T00:42:57\x2b11:00","dateModified": "2020-03-08T00:42:57\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "TerryZhang95",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "\/images\/icon.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": "持续更新"
+    }
+    </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
+    <body><script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><nav class="navbar">
+    <div class="navbar-container">
+        
+        <div class="navbar-header animated bounceIn">
+            <a href="/">TY HOME
+            </a>
+        </div>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a class="menu-item" href="/en" title=""><i class="fas fa-language fa-fw"></i></a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</nav><nav class="navbar-mobile">
+    <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="/">TY HOME</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a class="menu-item" href="/en" title=""></a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Linux内核学习笔记之skb</h1><div class="post-meta">
+            <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>TerryZhang
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E9%80%9A%E4%BF%A1%E5%B0%B1%E6%98%AF%E5%9D%91/">通信就是坑</a>&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E7%A1%AC%E4%BB%B6%E4%B9%9F%E6%9C%89%E6%98%8E%E5%A4%A9/">硬件也有明天</a>&nbsp;</span></div>
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-08>2020-03-08</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 691 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 4 分钟&nbsp;</div>
+        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb.png" alt="featured image" class="lazyload"></div><div class="post-content"><ul>
+<li><a href="#skb-%e4%bd%9c%e7%94%a8">skb 作用</a></li>
+<li><a href="#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e5%8f%8a%e6%93%8d%e4%bd%9c">skb 结构体及操作</a>
+<ul>
+<li><a href="#skb-%e7%bb%93%e6%9e%84%e4%bd%93%e4%b8%ad%e9%87%8d%e8%a6%81%e5%ad%97%e6%ae%b5">skb 结构体中重要字段</a></li>
+<li><a href="#skb-%e5%88%9d%e5%a7%8b%e5%8c%96">skb 初始化</a></li>
+<li><a href="#skb-%e6%95%b0%e6%8d%ae%e6%93%8d%e4%bd%9c">skb 数据操作</a>
+<ul>
+<li><a href="#skb%e7%9a%84copy%e6%93%8d%e4%bd%9c">skb的copy操作</a></li>
+<li><a href="#skbcopy-skbclonepskbcopy">skb_copy, skb_clone，pskb_copy</a></li>
+</ul>
+</li>
+<li><a href="#skbqueue">skb_queue</a></li>
+<li><a href="#%e5%85%b3%e4%ba%8eskb%e7%9a%84size">关于skb的size</a></li>
+</ul>
+</li>
+<li><a href="#skb-data%e7%9a%84%e4%b8%96%e7%95%8c">skb-&gt;data的世界</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h1 id="skb-作用">skb 作用</h1>
+<h1 id="skb-结构体及操作">skb 结构体及操作</h1>
+<a class="post-dummy-target" id="skb-结构体中重要字段"></a><h2>skb 结构体中重要字段</h2>
+<ul>
+<li>
+<p>tstamp: 记录接收或传输报文的时间</p>
+</li>
+<li>
+<p>len: skb的数据长度</p>
+<ul>
+<li>skb的数据由 sk_buff control + 线性数据 + 非线性数据(skb_shared_info)组成</li>
+</ul>
+</li>
+<li>
+<p>data_len: 非线性长度，也就是sharedinfo的长度</p>
+</li>
+<li>
+<p>mac_len: 长度<br>
+关于长度的部分下面会细说</p>
+</li>
+<li>
+<p>csum：某时刻协议的校验和</p>
+<ul>
+<li>熟悉CSMA机制的话，就会知道csum是用于简易判断数据包是否正确的方式</li>
+<li>因此，当对skb进行修改的时候，需要修改skb-&gt;csum</li>
+</ul>
+</li>
+<li>
+<p>cloned: 判断skb是原始数据还是被克隆的</p>
+</li>
+<li>
+<p>protocol: skb的协议信息</p>
+</li>
+<li>
+<p>head，data，tail, end: skb重要的指针，下面会细说</p>
+</li>
+<li></li>
+</ul>
+<a class="post-dummy-target" id="skb-初始化"></a><h2>skb 初始化</h2>
+<ul>
+<li>分配内存空间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">	skb = alloc_skb(len, GFP_KERNEL);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>skb-&gt;head,skb-&gt;data,skb-&gt;tail 都指向skb data buffer一开始的位置</li>
+<li>现在的skb的长度是0，因为还没有任何数据</li>
+<li>为头部预留空间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">	skb_reserve(skb, header_len);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在这个时候，就需要为头部预留足够的空间</li>
+<li>大部分ipv4的header最大长度为sk-&gt;sk_prot-&gt;max_header</li>
+<li>此时skb-&gt;data和skb-&gt;tail都指向headroom结束的位置</li>
+<li>接下来可以进行skb的data操作了</li>
+</ul>
+<a class="post-dummy-target" id="skb-数据操作"></a><h2>skb 数据操作</h2>
+<ul>
+<li>skb_push
+<ul>
+<li>在buffer开始之前添加data,添加的长度为len</li>
+<li>skb-&gt;data的指针减去len</li>
+<li>skb-&gt;len增加len</li>
+<li>返回skb-&gt;data的指针</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_push(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_push.png" alt="skb_push" class="lazyload"><figcaption class="image-caption">skb_push</figcaption></figure></p>
+</li>
+<li>skb_put
+<ul>
+<li>在buffer尾部前添加数据，添加长度为len</li>
+<li>skb的tail指针获取并没有通过skb-&gt;tail获取，而是通过skb_tail_pointer(skb)获取</li>
+<li>skb-&gt;tail指针增加len</li>
+<li>skb-&gt;len增加len</li>
+<li>返回skb-&gt;tail指针</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_put(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_put.png" alt="skb_put" class="lazyload"><figcaption class="image-caption">skb_put</figcaption></figure></p>
+</li>
+<li>skb_pull
+<ul>
+<li>从skb头部向后取data</li>
+<li>返回的是指向新data的指针</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void *skb_pull(struct sk_buff *skb, unsigned int len)
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_pull.png" alt="skb_pull" class="lazyload"><figcaption class="image-caption">skb_pull</figcaption></figure></p>
+</li>
+<li>skb_trim
+<ul>
+<li>从skb尾部取data</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">void skb_trim(struct sk_buff *skb, unsigned int len)
+ {
+     if (skb-&gt;len &gt; len)
+         __skb_trim(skb, len);
+ }
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>__skb_trim(skb, len) -&gt; __skb_set_length(skb,len):只能针对线性数据而言</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static inline void __skb_set_length(struct sk_buff *skb, unsigned int len)
+ {
+     if (WARN_ON(skb_is_nonlinear(skb)))
+         return;
+     skb-&gt;len = len;
+     skb_set_tail_pointer(skb, len);
+   # 作用是 skb-&gt;tail += offset;
+ }
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>最后则是将skb-&gt;tail向后加len
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_trim.png" alt="skb_trim" class="lazyload"><figcaption class="image-caption">skb_trim</figcaption></figure></li>
+</ul>
+</li>
+</ul>
+<a class="post-dummy-target" id="skb的copy操作"></a><h3>skb的copy操作</h3>
+<p>skb定义了诸多的skb_copy方式</p>
+<ul>
+<li>
+<p>skb_copy</p>
+<ul>
+<li>复制并返回一个新的skb</li>
+<li>适合对skb的数据进行修改时使用</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>skb_copy_expand</p>
+<ul>
+<li>划重点，如果也是需要复制一个skb，同时又需要增加分配的内存空间时，就使用这个api吧</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
+int newheadroom, int newtailroom,
+gfp_t gfp_mask)
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>newheadroom 和 newtailroom就是在头和尾想要拓展的空间</p>
+</li>
+<li>
+<p>返回一个新的skb</p>
+</li>
+<li>
+<p>增加headroom或tailroom的size后对于data的指针是如何变化的呢，实际测试一下：</p>
+</li>
+<li>
+<p>尝试拓展一个skb，打印出head，data，tail，end的指针</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"> skb_test = skb_copy_expand(skb,skb_headroom(skb), skb_tailroom(skb)+sizeof(*u8),GFP_KERNEL);
+
+# 测试结果
+ Mar 11 15:38:13 oem-desktop kernel: [95496.079915] And Header is 2641395712, Data is 2641395776, Tail is 415, End is 3776
+ Mar 11 15:38:13 oem-desktop kernel: [95496.079919] api skb pointer diff is 3776
+ Mar 11 15:38:13 oem-desktop kernel: [95496.079927] And Header is 3226583040, Data is 3226583104, Tail is 415, End is 7872
+ Mar 11 15:38:13 oem-desktop kernel: [95496.079930] api skb pointer diff is 7872
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>size增大的数值并不一致，后面继续看</li>
+</ul>
+</li>
+<li>
+<p>skb_copy_to_linear_data：在skb中复制进新的data</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">memcpy(skb-&gt;data, from, len);
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>skb_copy_to_linear_data_offset：在skb-&gt;data后的offset的位置，复制上data</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">memcpy(skb-&gt;data + offset, from, len);skb_co
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<a class="post-dummy-target" id="skb_copy-skb_clonepskb_copy"></a><h3>skb_copy, skb_clone，pskb_copy</h3>
+<ul>
+<li>skb_clone: 复制skb结构，但不复制skb的内容，clone的skb和原skb指向同一个数据缓冲区
+<ul>
+<li>因此不能对数据进行修改</li>
+</ul>
+</li>
+<li>skb_copy: 新创建一个skb，并复制skb的全部内容</li>
+<li>pskb_copy: 新创建skb，并复制线性数据区和shareinfo</li>
+</ul>
+<a class="post-dummy-target" id="skb_queue"></a><h2>skb_queue</h2>
+<ul>
+<li>Manage packets in a queue structure using struct sk_buff_head</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff_head {
+    struct sk_buff *next;        
+    struct sk_buff *prev;        
+    __u32 qlen;        
+    spinlock_t lock; 
+}; 
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>初始化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct sk_buff_head temp;
+__skb_queue_head_init(&amp;temp);
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">skb_queue_tail(temp,skb);// 放在queue尾部
+skb_queue_head(temp,skb);// 放在queue头部
+skb_dequeue(temp); // 从头部取
+skb_dequeue_tail(temp); //从尾部取
+skb_unlink(struct sk_buff *skb, struct sk_buff_head *list) // 从skb queue中移除一个skb
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>queue_mapping</p>
+<ul>
+<li>skb-&gt;queue_mapping:</li>
+</ul>
+</li>
+</ul>
+<a class="post-dummy-target" id="关于skb的size"></a><h2>关于skb的size</h2>
+<ul>
+<li>在skb中定义了诸多了个size</li>
+<li>先实际测试一下看看各个size都是多少</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+printk(&#34;Test Size_of skb is %d\n&#34;,sizeof(skb));
+printk(&#34;And Header is %u, Data is %u, Tail is %u, End is %u\n&#34;,skb-&gt;head,skb-&gt;data, skb-&gt;tail, skb-&gt;end);
+printk(&#34;len is %d, truesize is %d, datalen is %d, maclen is %d\n&#34;,skb-&gt;len,skb-&gt;truesize,skb-&gt;data_len,skb-&gt;mac_len);
+printk(&#34;skb api get headroom is %d and tailroom is %d\n&#34;,skb_headroom(skb),skb_tailroom(skb));
+printk(&#34;api skb pointer diff is %d\n&#34;,skb_end_offset(skb));
+
+
+ //测试结果
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067076] Test Size_of skb is 8
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067081] And Header is 3139126016, Data is 3139126080, Tail is 170, End is 192
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067084] len is 106, truesize is 768, datalen is 0, maclen is 0
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067087] skb api get headroom is 64 and tailroom is 22
+ Mar 10 19:19:06 oem-desktop kernel: [22272.067089] api skb pointer diff is 192
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>依次分析</li>
+<li>sizeof是针对数据类型占用内存大小的计算符，因此sizeof(sk_buff)始终为8</li>
+<li>从skb-&gt;header到skb-&gt;data的内存指针差 = headroom的大小 = 64</li>
+<li>同理，skb-&gt;tail到skb-&gt;end内存指针的差值 = tailroom的大小 = 22</li>
+<li>len是实际数据的长度，data_len是非线性的长度
+<ul>
+<li><strong>什么是线性长度</strong></li>
+<li>如果数据都是存储在skb-&gt;head和skb-&gt;tail中间，即为线性，skb-&gt;data_len = 0</li>
+<li>如果非线性，skb-&gt;len = skb-&gt;len - skb-&gt;data_len</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">skb-&gt;data_len =   struct skb_shared_info-&gt;frags[0...struct skb_shared_info-&gt;nr_frags].size + size of data in struct skb_shared_info-&gt;frag_list
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>headroom+tailroom+len = skb_end_offset(skb) = skb-&gt;end
+<ul>
+<li>实际上，需要给skb分配的内存 = skb_end_offset(skb) + skb-&gt;data_len</li>
+</ul>
+</li>
+<li>skb-&gt;tail = skb_tail_pointer(skb)-skb-&gt;head
+<ul>
+<li>skb-&gt;tail并不是地址指针，而是一个长度，表示skb-&gt;head到skb_tail_pointer中间的长度</li>
+</ul>
+</li>
+<li>同理skb-&gt;end = skb_end_offset(skb) = skb_end_pointer(skb)-skb-&gt;head
+<ul>
+<li>skb-&gt;end表示的是skb实际的长度</li>
+</ul>
+</li>
+<li>truesize是skb的缓冲区大小，但是缓冲区和sk_buff在内存上又是怎样的一层关系呢？
+<ul>
+<li>skb-&gt;truesize=sizeof(struct sk_buff) + SKB_DATA_ALIGN(size)</li>
+<li>size需要根据x86进行调整，即size = SKB_DATA_ALIGN(size)</li>
+</ul>
+</li>
+</ul>
+<h1 id="skb-data的世界">skb-&gt;data的世界</h1>
+<p>之所以提到这个问题，是因为在对skb-&gt;data进行操作的时候，经常导致kernel panic，并且很多时候编译成功但没有实现预期的效果。<br>
+但是在开发过程中，有这样一个操作引发了一些思考：</p>
+<ul>
+<li>对skb-&gt;data类型强制转换来对齐内存</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 例如
+hdr = (struct ieee80211_hdr *)skb-&gt;data;
+// ieee80211_hdr定义如下
+struct ieee80211_hdr {
+	__le16 frame_control;
+	__le16 duration_id;
+	u8 addr1[ETH_ALEN];
+	u8 addr2[ETH_ALEN];
+	u8 addr3[ETH_ALEN];
+	__le16 seq_ctrl;
+	u8 addr4[ETH_ALEN];
+} __packed __aligned(2);
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在skb-&gt;data中，严格意义上说是skb-&gt;data到skb的tail指针中间的data block中，不仅仅是用户发送的udp data，还存有诸多的header信息。如果需要对skb进行修改，需要指定到需要修改的指针处，而不能简单的put
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/skb_data.png" alt="skb_detail" class="lazyload"><figcaption class="image-caption">skb_detail</figcaption></figure></li>
+<li>当然这只针对在发送或接收的中途进行修改。如果在某一层产生新的skb时或新建skb的话，不需要考虑这些</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://www.skbuff.net/skbbasic.html" target="_blank">Basic functions for sk_buff{}</a></li>
+<li><a href="http://vger.kernel.org/~davem/skb_data.html" target="_blank">How SKB works</a></li>
+<li><a href="https://www.linuxjournal.com/article/1312" target="_blank">Network Buffers and Memory Management</a></li>
+<li><a href="https://0x657573.wordpress.com/2010/11/22/the-relation-between-skb-len-and-skb-data_len-and-what-they-represent/" target="_blank">The Relation between <code>skb-&gt;len</code> and <code>skb-&gt;data_len</code> and What They Represent</a></li>
+<li><a href="https://github.com/torvalds/linux/blob/master/net/core/skbuff.c" target="_blank">skb_source_code</a></li>
+<li><a href="https://github.com/torvalds/linux/blob/master/include/linux/skbuff.h" target="_blank">skb_source_header_file</a></li>
+<li><a href="https://elixir.bootlin.com/linux/v4.5/source/net/core/skbuff.c#L2410" target="_blank">skb queue bootlin link</a></li>
+<li><a href="https://www.fsl.cs.sunysb.edu/kernel-api/re498.html" target="_blank">Socket Buffer Functions</a></li>
+<li><a href="http://blog.chinaunix.net/uid-26029760-id-1746557.html" target="_blank">skb-&gt;truesize，len，datalen，size，等的区别</a></li>
+<li><a href="https://blog.csdn.net/NW_NW_NW/article/details/73251901" target="_blank">内核扩展数据包的方法之&mdash;&ndash;skb_copy_expand</a></li>
+<li><a href="http://amsekharkernel.blogspot.com/2014/08/what-is-skb-in-linux-kernel-what-are.html" target="_blank">What is SKB in Linux kernel? What are SKB operations? Memory Representation of SKB? How to send packet out using skb operations?</a></li>
+<li><a href="http://blog.csdn.net/shanshanpt/article/details/21024465" target="_blank">Linux 内核网络协议栈 &mdash;&mdash;sk_buff 结构体 以及 完全解释 （2.6.16）</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-03-08 更新</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2flinux_skb%2f&amp;text=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;via=" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2flinux_skb%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2flinux_skb%2f&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb" target="_blank" title="分享到 LinkedIn">
+            <i class="fab fa-linkedin fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2flinux_skb%2f&amp;appkey=&amp;title=Linux%e5%86%85%e6%a0%b8%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8bskb&amp;pic=%2fimages%2fskb.png" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="/tags/linux-kernel/"><i class="fas fa-tag fa-fw"></i>&nbsp;linux kernel</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="/tags/skb/"><i class="fas fa-tag fa-fw"></i>&nbsp;skb</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="/tags/%E5%86%85%E6%A0%B8/"><i class="fas fa-tag fa-fw"></i>&nbsp;内核</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="/tags/%E7%BD%91%E5%8D%A1/"><i class="fas fa-tag fa-fw"></i>&nbsp;网卡</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/" class="prev" rel="prev" title="VScode实用插件"><i class="fas fa-angle-left fa-fw"></i>VScode实用插件</a>
+            <a href="/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" class="next" rel="next" title="Shell脚本笔记">Shell脚本笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div><div class="post-comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">TerryZhang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div><a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll>
+            <span>&nbsp;</span>
+        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/js/blog.min.js"></script></body>
+</html>
