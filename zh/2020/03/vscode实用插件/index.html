@@ -184,6 +184,7 @@ Path 是应用所在路径，是在local目录下的路径</li>
 </div><div class="post-comment"><div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script src="https://rawgit.com/qhh0205/78e9e0b1f3114db6737f3ed8cdd51d3a/raw/3894c5be5aa2378336b1f5ee0f296fa0b22d06e9/md5.min.js"></script>
         
         <script type="text/javascript">
             (function () {
@@ -191,7 +192,7 @@ Path 是应用所在路径，是在local目录下的路径</li>
                 
                 
                 var gitalk = new Gitalk({
-                    id: location.pathname,
+                    id: md5(location.pathname),
                     clientID: "f7148e43baaba5f602ff",
                     clientSecret: "b224069271c28fb0427a404122bd7fbbfdb9b277",
                     repo: "terryzhang95.github.io",
