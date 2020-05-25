@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Docker学习笔记 | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="持续更新"><link rel="prev" href="/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="next" href="/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" /><link rel="canonical" href="/zh/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+<meta name="Description" content="持续更新"><link rel="prev" href="/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/" /><link rel="next" href="/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" /><link rel="canonical" href="/zh/2020/03/docker/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,14 +24,14 @@
         "headline": "Docker学习笔记",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/zh\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/"
+            "@id": "\/zh\/2020\/03\/docker\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","keywords": "docker","wordcount":  133 ,
-        "url": "\/zh\/2020\/03\/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/","datePublished": "2020-03-11T14:17:40\x2b11:00","dateModified": "2020-03-11T14:17:40\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "\/zh\/2020\/03\/docker\/","datePublished": "2020-03-11T14:17:40\x2b11:00","dateModified": "2020-03-11T14:17:40\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -156,15 +156,15 @@ docker-compose --version # 验证
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;text=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2fdocker%2f&amp;text=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f" target="_blank" title="分享到 Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2fdocker%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2fdocker%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2fdocker%2f&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2fdocker%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2f&amp;appkey=&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2fdocker%2f&amp;appkey=&amp;title=Docker%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>

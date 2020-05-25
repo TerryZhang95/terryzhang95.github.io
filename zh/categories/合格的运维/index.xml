@@ -26,10 +26,10 @@
     
     <item>
       <title>Docker学习笔记</title>
-      <link>/zh/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <link>/zh/2020/03/docker/</link>
       <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
       
-      <guid>/zh/2020/03/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <guid>/zh/2020/03/docker/</guid>
       <description>安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34; sudo apt-get update apt-cache policy docker-ce # 验证docker repo添加成功 sudo apt-get install docker-ce # 安装docker sudo systemctl status docker # 验证docker安装成功   ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
     </item>
     
