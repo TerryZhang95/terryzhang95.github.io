@@ -2,6 +2,7 @@
 
 - [入门](#%e5%85%a5%e9%97%a8)
   - [开始](#%e5%bc%80%e5%a7%8b)
+  - [符号](#%e7%ac%a6%e5%8f%b7)
   - [条目编号](#%e6%9d%a1%e7%9b%ae%e7%bc%96%e5%8f%b7)
   - [对齐](#%e5%af%b9%e9%bd%90)
     - [行对齐](#%e8%a1%8c%e5%af%b9%e9%bd%90)
@@ -9,10 +10,14 @@
   - [字体](#%e5%ad%97%e4%bd%93)
     - [字体大小](#%e5%ad%97%e4%bd%93%e5%a4%a7%e5%b0%8f)
     - [字体变换](#%e5%ad%97%e4%bd%93%e5%8f%98%e6%8d%a2)
+  - [添加图片](#%e6%b7%bb%e5%8a%a0%e5%9b%be%e7%89%87)
 - [为Paper准备](#%e4%b8%bapaper%e5%87%86%e5%a4%87)
   - [添加参考文献](#%e6%b7%bb%e5%8a%a0%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae)
     - [直接插进文档](#%e7%9b%b4%e6%8e%a5%e6%8f%92%e8%bf%9b%e6%96%87%e6%a1%a3)
     - [使用BibTeX](#%e4%bd%bf%e7%94%a8bibtex)
+  - [添加公式](#%e6%b7%bb%e5%8a%a0%e5%85%ac%e5%bc%8f)
+    - [上下标](#%e4%b8%8a%e4%b8%8b%e6%a0%87)
+    - [加粗和倾斜](#%e5%8a%a0%e7%b2%97%e5%92%8c%e5%80%be%e6%96%9c)
 - [Reference](#reference)
 
 # 入门
@@ -41,7 +46,11 @@
 ```
 \documentclass[a4paper]{article}
 ```
-
+## 符号
+```
+% 百分号
+90\%
+```
 ## 条目编号
 ```
 \begin{itemize}
@@ -98,7 +107,21 @@
 %% 斜体
 \emph{}
 ```
+## 添加图片
+1. 直接添加
+```
+\includegraphics[scale=0.6]{fullscreen.png}
+```
+2. 浮动
+```
+\begin{figure}[ht]
 
+\centering
+\includegraphics[scale=0.6]{fullscreen.png}
+\caption{this is a figure demo}
+\label{fig:label}
+\end{figure}
+```
 # 为Paper准备
 ## 添加参考文献
 ### 直接插进文档
@@ -155,7 +178,23 @@ publisher ="出版社名称"
   - 在所有期刊或会议的网站上，都会有cite this一类的标识
   - 选择bibtex，直接复制即可
   
+## 添加公式
+### 上下标
+```
+上标：$ f(x) = x^2 $ 或者 $ f(x) = {x}^{2} $ 均可表示f(x)=x^2。
 
+下标：$ f(x) = x_2 $ 或者 $ f(x) = {x}_{2} $ 均可表示f(x)=x_2。
+
+上下标可以级联：$ f(x) = x_1^2 + {x}_{2}^{2} $f(x)=x_1^2+{x}_{2}^{2}。
+```
+### 加粗和倾斜
+```
+加粗：$ f(x) = \textbf{x}^2 $  f(x)=\textbf{x}^2。
+
+文本：$ f(x) = x^2 \mbox{abcd} $  f(x)=x^2\mbox{abcd}
+
+倾斜：$ f(x) = x^2 \mbox{\emph{abcd} defg} $  f(x)=x^2\mbox{\emph{abcd}defg}
+```
 
 
 # Reference

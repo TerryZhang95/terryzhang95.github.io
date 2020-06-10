@@ -14,10 +14,10 @@
     
     <item>
       <title>linux开源驱动mac80211,ath9k开发笔记之发送tx</title>
-      <link>/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</link>
+      <link>/zh/2020/03/linux_ath9k_driver/</link>
       <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
       
-      <guid>/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</guid>
+      <guid>/zh/2020/03/linux_ath9k_driver/</guid>
       <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&amp;hellip;
 前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
 框架介绍 ath9k传输和接收

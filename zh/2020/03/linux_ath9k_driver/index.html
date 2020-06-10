@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>linux开源驱动mac80211,ath9k开发笔记之发送tx | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="都是根据自己浅薄的理解"><link rel="prev" href="/zh/2020/03/docker/" /><link rel="next" href="/zh/2020/04/latex/" /><link rel="canonical" href="/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" />
+<meta name="Description" content="都是根据自己浅薄的理解"><link rel="prev" href="/zh/2020/03/docker_1/" /><link rel="next" href="/zh/2020/04/latex/" /><link rel="canonical" href="/zh/2020/03/linux_ath9k_driver/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,14 +24,14 @@
         "headline": "linux开源驱动mac80211,ath9k开发笔记之发送tx",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/zh\/2020\/03\/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91\/"
+            "@id": "\/zh\/2020\/03\/linux_ath9k_driver\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","keywords": "skb, 内核, 网卡驱动","wordcount":  387 ,
-        "url": "\/zh\/2020\/03\/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91\/","datePublished": "2020-03-19T15:41:19\x2b11:00","dateModified": "2020-03-19T15:41:19\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "\/zh\/2020\/03\/linux_ath9k_driver\/","datePublished": "2020-03-19T15:41:19\x2b11:00","dateModified": "2020-03-19T15:41:19\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -449,15 +449,15 @@ static inline void skb_set_network_header(struct sk_buff *skb, const int offset)
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;text=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2flinux_ath9k_driver%2f&amp;text=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f" target="_blank" title="分享到 Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2flinux_ath9k_driver%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2flinux_ath9k_driver%2f&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2flinux_ath9k_driver%2f&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2flinux%25E5%2586%2585%25E6%25A0%25B8%25E6%2597%25A0%25E7%25BA%25BF%25E7%25BD%2591%25E9%25A9%25B1%25E5%258A%25A8%25E5%25BC%2580%25E5%258F%2591%2f&amp;appkey=&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2flinux_ath9k_driver%2f&amp;appkey=&amp;title=linux%e5%bc%80%e6%ba%90%e9%a9%b1%e5%8a%a8mac80211%2cath9k%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%e4%b9%8b%e5%8f%91%e9%80%81tx" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>
@@ -476,12 +476,11 @@ static inline void skb_set_network_header(struct sk_buff *skb, const int offset)
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh/2020/03/docker/" class="prev" rel="prev" title="Docker学习笔记"><i class="fas fa-angle-left fa-fw"></i>Docker学习笔记</a>
+    <div class="post-nav"><a href="/zh/2020/03/docker_1/" class="prev" rel="prev" title="Docker学习笔记"><i class="fas fa-angle-left fa-fw"></i>Docker学习笔记</a>
             <a href="/zh/2020/04/latex/" class="next" rel="next" title="Latex基本使用教程">Latex基本使用教程<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div><div class="post-comment"><div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-        
         
         <script type="text/javascript">
             (function () {

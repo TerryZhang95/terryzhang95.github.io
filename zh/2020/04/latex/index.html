@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Latex基本使用教程 | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="TerryZhang Personal Blog"><link rel="prev" href="/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" /><link rel="canonical" href="/zh/2020/04/latex/" />
+<meta name="Description" content="TerryZhang Personal Blog"><link rel="prev" href="/zh/2020/03/linux_ath9k_driver/" /><link rel="canonical" href="/zh/2020/04/latex/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +30,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "latex","wordcount":  387 ,
+            },"genre": "posts","keywords": "latex","wordcount":  485 ,
         "url": "\/zh\/2020\/04\/latex\/","datePublished": "2020-04-05T19:27:32\x2b10:00","dateModified": "2020-04-05T19:27:32\x2b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -75,12 +75,13 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%87%E5%AD%97%E5%B7%A5%E4%BD%9C%E8%80%85/">优雅的文字工作者</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-04-05>2020-04-05</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 387 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
+                <i class="fas fa-pencil-alt fa-fw"></i>约 485 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
         </div><div class="post-content"><ul>
 <li><a href="#%e5%85%a5%e9%97%a8">入门</a>
 <ul>
 <li><a href="#%e5%bc%80%e5%a7%8b">开始</a></li>
+<li><a href="#%e7%ac%a6%e5%8f%b7">符号</a></li>
 <li><a href="#%e6%9d%a1%e7%9b%ae%e7%bc%96%e5%8f%b7">条目编号</a></li>
 <li><a href="#%e5%af%b9%e9%bd%90">对齐</a>
 <ul>
@@ -94,6 +95,7 @@
 <li><a href="#%e5%ad%97%e4%bd%93%e5%8f%98%e6%8d%a2">字体变换</a></li>
 </ul>
 </li>
+<li><a href="#%e6%b7%bb%e5%8a%a0%e5%9b%be%e7%89%87">添加图片</a></li>
 </ul>
 </li>
 <li><a href="#%e4%b8%bapaper%e5%87%86%e5%a4%87">为Paper准备</a>
@@ -102,6 +104,12 @@
 <ul>
 <li><a href="#%e7%9b%b4%e6%8e%a5%e6%8f%92%e8%bf%9b%e6%96%87%e6%a1%a3">直接插进文档</a></li>
 <li><a href="#%e4%bd%bf%e7%94%a8bibtex">使用BibTeX</a></li>
+</ul>
+</li>
+<li><a href="#%e6%b7%bb%e5%8a%a0%e5%85%ac%e5%bc%8f">添加公式</a>
+<ul>
+<li><a href="#%e4%b8%8a%e4%b8%8b%e6%a0%87">上下标</a></li>
+<li><a href="#%e5%8a%a0%e7%b2%97%e5%92%8c%e5%80%be%e6%96%9c">加粗和倾斜</a></li>
 </ul>
 </li>
 </ul>
@@ -159,6 +167,17 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">\documentclass[a4paper]{article}
+</code></pre></td></tr></table>
+</div>
+</div><a class="post-dummy-target" id="符号"></a><h2>符号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">% 百分号
+90\%
 </code></pre></td></tr></table>
 </div>
 </div><a class="post-dummy-target" id="条目编号"></a><h2>条目编号</h2>
@@ -276,6 +295,41 @@
 \emph{}
 </code></pre></td></tr></table>
 </div>
+</div><a class="post-dummy-target" id="添加图片"></a><h2>添加图片</h2>
+<ol>
+<li>直接添加</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">\includegraphics[scale=0.6]{fullscreen.png}
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>浮动</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">\begin{figure}[ht]
+
+\centering
+\includegraphics[scale=0.6]{fullscreen.png}
+\caption{this is a figure demo}
+\label{fig:label}
+\end{figure}
+</code></pre></td></tr></table>
+</div>
 </div><h1 id="为paper准备">为Paper准备</h1>
 <a class="post-dummy-target" id="添加参考文献"></a><h2>添加参考文献</h2>
 <a class="post-dummy-target" id="直接插进文档"></a><h3>直接插进文档</h3>
@@ -391,7 +445,42 @@ publisher =&#34;出版社名称&#34;
 </ul>
 </li>
 </ul>
-<h1 id="reference">Reference</h1>
+<a class="post-dummy-target" id="添加公式"></a><h2>添加公式</h2>
+<a class="post-dummy-target" id="上下标"></a><h3>上下标</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">上标：$ f(x) = x^2 $ 或者 $ f(x) = {x}^{2} $ 均可表示f(x)=x^2。
+
+下标：$ f(x) = x_2 $ 或者 $ f(x) = {x}_{2} $ 均可表示f(x)=x_2。
+
+上下标可以级联：$ f(x) = x_1^2 + {x}_{2}^{2} $f(x)=x_1^2+{x}_{2}^{2}。
+</code></pre></td></tr></table>
+</div>
+</div><a class="post-dummy-target" id="加粗和倾斜"></a><h3>加粗和倾斜</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">加粗：$ f(x) = \textbf{x}^2 $  f(x)=\textbf{x}^2。
+
+文本：$ f(x) = x^2 \mbox{abcd} $  f(x)=x^2\mbox{abcd}
+
+倾斜：$ f(x) = x^2 \mbox{\emph{abcd} defg} $  f(x)=x^2\mbox{\emph{abcd}defg}
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="reference">Reference</h1>
 <ul>
 <li><a href="https://zhuanlan.zhihu.com/p/24394912" target="_blank">LaTeX笔记|基本功能</a></li>
 <li><a href="https://blog.csdn.net/erwangshi/article/details/23022887" target="_blank">latex里设置居中左对齐</a></li>
@@ -431,11 +520,10 @@ publisher =&#34;出版社名称&#34;
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/" class="prev" rel="prev" title="linux开源驱动mac80211,ath9k开发笔记之发送tx"><i class="fas fa-angle-left fa-fw"></i>linux开源驱动mac80211,ath9k开发笔记之发送tx</a></div>
+    <div class="post-nav"><a href="/zh/2020/03/linux_ath9k_driver/" class="prev" rel="prev" title="linux开源驱动mac80211,ath9k开发笔记之发送tx"><i class="fas fa-angle-left fa-fw"></i>linux开源驱动mac80211,ath9k开发笔记之发送tx</a></div>
 </div><div class="post-comment"><div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-        
         
         <script type="text/javascript">
             (function () {

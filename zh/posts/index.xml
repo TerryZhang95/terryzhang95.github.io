@@ -23,10 +23,10 @@
     
     <item>
       <title>linux开源驱动mac80211,ath9k开发笔记之发送tx</title>
-      <link>/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</link>
+      <link>/zh/2020/03/linux_ath9k_driver/</link>
       <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
       
-      <guid>/zh/2020/03/linux%E5%86%85%E6%A0%B8%E6%97%A0%E7%BA%BF%E7%BD%91%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/</guid>
+      <guid>/zh/2020/03/linux_ath9k_driver/</guid>
       <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&amp;hellip;
 前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
 框架介绍 ath9k传输和接收
@@ -35,44 +35,28 @@
     
     <item>
       <title>Docker学习笔记</title>
-      <link>/zh/2020/03/docker/</link>
+      <link>/zh/2020/03/docker_1/</link>
       <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
       
-      <guid>/zh/2020/03/docker/</guid>
+      <guid>/zh/2020/03/docker_1/</guid>
       <description>安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34; sudo apt-get update apt-cache policy docker-ce # 验证docker repo添加成功 sudo apt-get install docker-ce # 安装docker sudo systemctl status docker # 验证docker安装成功   ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
     </item>
     
     <item>
       <title>Shell脚本笔记</title>
-      <link>/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</link>
+      <link>/zh/2020/03/shell_script/</link>
       <pubDate>Tue, 10 Mar 2020 12:11:04 +1100</pubDate>
       
-      <guid>/zh/2020/03/shell%E8%84%9A%E6%9C%AC%E7%AC%94%E8%AE%B0/</guid>
+      <guid>/zh/2020/03/shell_script/</guid>
       <description>变量  系统给定的特殊变量 自定义变量  判断变量是否为空     语法 基本算法  判断是否为数字 判断上一条命令是否执行成功 判断文件或文件夹是否存在 将多段文字写入文件 判断是否为空   Reference  变量 系统 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  \$0	当前脚本的名字 \$n	传递给脚本或者函数的参数，n表示第几个参数 \$#	传递给脚本或函数的参数个数 \$*	传递给脚本或函数的所有参数 \$@	传递给脚本或者函数的所有参数 \$$	当前shell脚本进程的PID \$?	函数返回值，或者上个命令的退出状态 \$BASH	BASH的二进制文件问的路径 \$BASH_ENV	BASH的启动文件 \$BASH_VERSINFO[n]	BASH版本信息，有六个元素 \$BASH_VERSION	BASH版本号 \$EDITOR	脚本所调用的默认编辑器 \$EUID	当前有效的用户ID \$FUNCNAME	当前函数名 \$GROUPS	当前用户所属组 \$HOME	当前用户家目录 \$HOSTTYPE	主机类型 \$LINENO	当前行号 \$OSTYPE	操作系统类型 \$PATH	PATH路径 \$PPID	当前shell进程的父进程ID \$PWD	当前工作目录 \$SECONDS	当前脚本运行秒数 \$TMOUT	不为0时，超过指定的秒将退出shell \$UID	当前用户ID   自定义变量 1 2 3 4 5 6  #!</description>
     </item>
     
     <item>
-      <title>Linux内核学习笔记之skb</title>
-      <link>/zh/2020/03/linux_skb/</link>
-      <pubDate>Sun, 08 Mar 2020 00:42:57 +1100</pubDate>
-      
-      <guid>/zh/2020/03/linux_skb/</guid>
-      <description>skb 作用 skb 结构体及操作  skb 结构体中重要字段 skb 初始化 skb 数据操作  skb的copy操作 skb_copy, skb_clone，pskb_copy   skb_queue 关于skb的size   skb-&amp;gt;data的世界 Reference  skb 作用 skb 结构体及操作 skb 结构体中重要字段   tstamp: 记录接收或传输报文的时间
-  len: skb的数据长度
- skb的数据由 sk_buff control + 线性数据 + 非线性数据(skb_shared_info)组成    data_len: 非线性长度，也就是sharedinfo的长度
-  mac_len: 长度
-关于长度的部分下面会细说
-  csum：某时刻协议的校验和
- 熟悉CSMA机制的话，就会知道csum是用于简易判断数据包是否正确的方式 因此，当对skb进行修改的时候，需要修改skb-&amp;gt;csum    cloned: 判断skb是原始数据还是被克隆的
-  protocol: skb的协议信息</description>
-    </item>
-    
-    <item>
       <title>VScode实用插件</title>
-      <link>/zh/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</link>
+      <link>/zh/2020/03/vscode_plugin/</link>
       <pubDate>Thu, 05 Mar 2020 00:53:31 +1100</pubDate>
       
-      <guid>/zh/2020/03/vscode%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6/</guid>
+      <guid>/zh/2020/03/vscode_plugin/</guid>
       <description>陆续更新中
 Arduino  specify the arduino path User.setting -&amp;gt; arduino configuration
 Cmd path 是启动脚本所在路径，是在arduino应用文件中的路径
@@ -85,10 +69,10 @@ vscode-arduino-右上标
     
     <item>
       <title>Markdown 使用笔记</title>
-      <link>/zh/2020/02/markdown%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</link>
+      <link>/zh/2020/02/markdown/</link>
       <pubDate>Thu, 06 Feb 2020 23:55:28 +0800</pubDate>
       
-      <guid>/zh/2020/02/markdown%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</guid>
+      <guid>/zh/2020/02/markdown/</guid>
       <description>Markdown笔记 Tools  Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex； VScode Markdown All in one：VScode中使用量最大的markdown插件，轻量使用方便，直接markdown语法进行编辑，vscode重度依赖者的福音，支持快捷键输入（cmd+B等），ctrl+shift+p选择指令  Basics 1 2 3 4 5 6 7 8 9 10 11 12 13 14  1. &amp;#39;#&amp;#39; 大标题，&amp;#39;##&amp;#39;,&amp;#39;##...#&amp;#39;,依次为次标题，次...次标题 2. &amp;#39;**&amp;#39; 斜体 3. ‘****’ 加粗 4. &amp;#39;[x] task&amp;#39; 添加任务 5. - one: 添加序号，可用tab降级 6. | 来制作表格，ctrl+shift+I: 转换成table 7. &amp;#39;$$ $$&amp;#39; 制作数学公式 8. [tag](Link): 添加链接 9. 添加图片(本地)：![Alt text](path) 10. 文字居中：&amp;lt;center&amp;gt;hhh &amp;lt;/center&amp;gt; 11. 任务列表 - [ ] task - [x] 完成的task 12. delete line ~~delete~~ or &amp;lt;strike&amp;gt;&amp;lt;/strike&amp;gt;   </description>
     </item>
     
