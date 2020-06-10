@@ -1,13 +1,13 @@
 # linux开源驱动mac80211,ath9k开发笔记之发送tx
 
-- [前言](#%e5%89%8d%e8%a8%80)
-- [框架介绍](#%e6%a1%86%e6%9e%b6%e4%bb%8b%e7%bb%8d)
-- [ath9k的接口](#ath9k%e7%9a%84%e6%8e%a5%e5%8f%a3)
-  - [ath9k发送的入口-- ath_tx](#ath9k%e5%8f%91%e9%80%81%e7%9a%84%e5%85%a5%e5%8f%a3---athtx)
-- [ieee80211的接口](#ieee80211%e7%9a%84%e6%8e%a5%e5%8f%a3)
-  - [ieee80211的入口](#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3)
-  - [ieee80211 发送的流程](#ieee80211-%e5%8f%91%e9%80%81%e7%9a%84%e6%b5%81%e7%a8%8b)
-  - [ieee80211 处理的各种header](#ieee80211-%e5%a4%84%e7%90%86%e7%9a%84%e5%90%84%e7%a7%8dheader)
+- [前言](#前言)
+- [框架介绍](#框架介绍)
+- [ath9k的接口](#ath9k的接口)
+  - [ath9k发送的入口-- ath_tx](#ath9k发送的入口---ath_tx)
+- [ieee80211的接口](#ieee80211的接口)
+  - [ieee80211的入口](#ieee80211的入口)
+  - [ieee80211 发送的流程](#ieee80211-发送的流程)
+  - [ieee80211 处理的各种header](#ieee80211-处理的各种header)
 - [Reference](#reference)
 
 持续更新...
