@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Linux中无线协议的MAC header分析 | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="TerryZhang Personal Blog"><link rel="prev" href="/zh/2020/04/latex/" /><link rel="canonical" href="/zh/2020/04/frame_control/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+<link rel="icon" type="image/png" sizes="16x16" href="/icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux中无线协议的MAC header分析"/>
+<meta name="twitter:description" content="协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点：
+ skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;    那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
+ 2 Byte – Frame Control 2 Byte – Duration/ID 4×6 Byte – Address 1 – 4 2 Byte – Sequence Control 2 Byte – QoS control 4 Byte – HT Control (only for 802.11n frames)  在源码中的表现即为
+1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr { __le16 frame_control; __le16 duration_id; u8 addr1[ETH_ALEN]; u8 addr2[ETH_ALEN]; u8 addr3[ETH_ALEN]; __le16 seq_ctrl; u8 addr4[ETH_ALEN]; int flag; } __packed __aligned(2);   Frame control 具体分析 mac-framecontrol-04"/>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux中无线协议的MAC header分析",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/zh\/2020\/04\/frame_control\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "\/images\/logo.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","wordcount":  131 ,
+        "url": "\/zh\/2020\/04\/frame_control\/","datePublished": "2020-04-08T23:54:33\x2b10:00","dateModified": "2020-04-08T23:54:33\x2b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "TerryZhang95",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "\/images\/icon.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
+    <body><script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><nav class="navbar">
+    <div class="navbar-container">
+        
+        <div class="navbar-header animated bounceIn">
+            <a href="/">TY HOME
+            </a>
+        </div>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</nav><nav class="navbar-mobile">
+    <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="/">TY HOME</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Linux中无线协议的MAC header分析</h1><div class="post-meta">
+            <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>TerryZhang
+                </a>&nbsp;</div>
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-04-08>2020-04-08</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 131 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+        </div><div class="post-content"><h1 id="协议及linux内核源码的关系">协议及linux内核源码的关系</h1>
+<a class="post-dummy-target" id="源码部分"></a><h2>源码部分</h2>
+<p>回顾linux源码的几个重要知识点：</p>
+<ul>
+<li>skb是不同传输层级之间传递的数据包</li>
+<li>skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据</li>
+<li>skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>那么这一部分hdr信息即为协议中MAC层的header信息</li>
+</ul>
+<a class="post-dummy-target" id="ieee80211-协议"></a><h2>IEEE80211 协议</h2>
+<p>IEEE 80211协议，定义了MAC frame的形式
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="../../../static/images/802.11_frame.png" alt="80211frame" class="lazyload"><figcaption class="image-caption">80211frame</figcaption></figure></p>
+<ul>
+<li>2 Byte – Frame Control</li>
+<li>2 Byte – Duration/ID</li>
+<li>4×6 Byte – Address 1 – 4</li>
+<li>2 Byte – Sequence Control</li>
+<li>2 Byte – QoS control</li>
+<li>4 Byte – HT Control (only for 802.11n frames)</li>
+</ul>
+<p>在源码中的表现即为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">struct ieee80211_hdr {
+	__le16 frame_control;
+	__le16 duration_id;
+	u8 addr1[ETH_ALEN];
+	u8 addr2[ETH_ALEN];
+	u8 addr3[ETH_ALEN];
+	__le16 seq_ctrl;
+	u8 addr4[ETH_ALEN];
+	int flag;
+} __packed __aligned(2);
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="frame-control-具体分析">Frame control 具体分析</h1>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/cwap-mac-framecontrol-04.png" alt="mac-framecontrol-04" class="lazyload"><figcaption class="image-caption">mac-framecontrol-04</figcaption></figure></p>
+<a class="post-dummy-target" id="type-2-bits"></a><h2>Type (2 bits)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">00– Management Frame
+01– Control Frame
+10– Data Frame
+11– Reserved
+</code></pre></td></tr></table>
+</div>
+</div><a class="post-dummy-target" id="subtype-4-bits"></a><h2>Subtype (4 bits)</h2>
+<ul>
+<li>Subtype 明确定义了每个包的用途</li>
+<li>具体refer(<a href="https://en.wikipedia.org/wiki/802.11_Frame_Types">https://en.wikipedia.org/wiki/802.11_Frame_Types</a>)</li>
+<li>其中reserved的位置即为后期开发可以使用的位数</li>
+<li>在linux源码中，ieee80211.h中，定义了一系列header以及确定subtype类型的function</li>
+<li></li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://mrncciew.com/2014/09/27/cwap-mac-header-frame-control/" target="_blank">CWAP – MAC Header : Frame Control</a></li>
+<li><a href="https://en.wikipedia.org/wiki/802.11_Frame_Types" target="_blank">802.11 Frame Types</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-04-08 更新</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f04%2fframe_control%2f&amp;text=Linux%e4%b8%ad%e6%97%a0%e7%ba%bf%e5%8d%8f%e8%ae%ae%e7%9a%84MAC%20header%e5%88%86%e6%9e%90&amp;via=" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f04%2fframe_control%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f04%2fframe_control%2f&amp;title=Linux%e4%b8%ad%e6%97%a0%e7%ba%bf%e5%8d%8f%e8%ae%ae%e7%9a%84MAC%20header%e5%88%86%e6%9e%90" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f04%2fframe_control%2f&amp;title=Linux%e4%b8%ad%e6%97%a0%e7%ba%bf%e5%8d%8f%e8%ae%ae%e7%9a%84MAC%20header%e5%88%86%e6%9e%90" target="_blank" title="分享到 LinkedIn">
+            <i class="fab fa-linkedin fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f04%2fframe_control%2f&amp;appkey=&amp;title=Linux%e4%b8%ad%e6%97%a0%e7%ba%bf%e5%8d%8f%e8%ae%ae%e7%9a%84MAC%20header%e5%88%86%e6%9e%90" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh/2020/04/latex/" class="prev" rel="prev" title="Latex基本使用教程"><i class="fas fa-angle-left fa-fw"></i>Latex基本使用教程</a></div>
+</div><div class="post-comment"><div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        
+        <script type="text/javascript">
+            (function () {
+                
+                
+                
+                var gitalk = new Gitalk({
+                    id: location.pathname,
+                    clientID: "f7148e43baaba5f602ff",
+                    clientSecret: "b224069271c28fb0427a404122bd7fbbfdb9b277",
+                    repo: "terryzhang95.github.io",
+                    owner: "TerryZhang95",
+                    admin: ["TerryZhang95"],
+                    distractionFreeMode: false
+                    
+                });
+                if (window.location.hostname == "localhost"){
+                    document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+                    return;
+                }
+                gitalk.render("gitalk-container");
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by Gitalk.</a></noscript></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">TerryZhang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div><a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll>
+            <span>&nbsp;</span>
+        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/js/blog.min.js"></script></body>
+</html>

@@ -79,7 +79,18 @@ export variable=""
    done  
    ```
 
-3. 函数 返回字符串
+3. while loop
+   ```
+   #!/bin/bash
+   n=1
+   while [ $n -le 10 ]
+   do
+       echo $n
+       let n++    
+   done
+   ```
+
+4. 函数 返回字符串
    ```
    get_str()
    {
@@ -91,6 +102,15 @@ export variable=""
    ```
 
 ## 基本算法
+   ``` 
+   -eq 等于  
+   -ne	不等于  
+   -gt 大于  
+   -lt	小于  
+   ge	大于等于  
+   le	小于等于  
+   ```
+   
 ### 判断是否为数字
    ```
    if [ "$1" -gt 0 ] 2>/dev/null ;then 
@@ -110,14 +130,7 @@ export variable=""
        echo "succeed"
    fi
    ```  
-   ``` 
-   -eq 等于  
-   -ne	不等于  
-   -gt 大于  
-   -lt	小于  
-   ge	大于等于  
-   le	小于等于  
-   ```
+
 
 ### 判断文件或文件夹是否存在
    ```
