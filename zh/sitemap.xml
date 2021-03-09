@@ -2,18 +2,8 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>/zh/zh/2020/04/frame_control/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/zh/posts/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/zh/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="en"
-                        href="/zh/en/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="zh"
-                    href="/zh/zh/"
-                    /></url><url>
-            <loc>/zh/zh/categories/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/zh/tags/80211/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/categories/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="/zh/en/categories/"
@@ -22,9 +12,10 @@
                     hreflang="zh"
                     href="/zh/zh/categories/"
                     /></url><url>
-            <loc>/zh/zh/tags/latex/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/zh/2020/04/latex/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/zh/tags/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/zh/tags/csi/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/tags/localization/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/posts/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/tags/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="/zh/en/tags/"
@@ -33,6 +24,21 @@
                     hreflang="zh"
                     href="/zh/zh/tags/"
                     /></url><url>
+            <loc>/zh/zh/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="/zh/en/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh"
+                    href="/zh/zh/"
+                    /></url><url>
+            <loc>/zh/zh/tags/wifi/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/2021/03/csi_1/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/categories/%E9%80%9A%E4%BF%A1%E5%A4%A7%E6%B3%95%E5%A5%BD/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/2020/04/frame_control/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/tags/latex/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/zh/2020/04/latex/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/zh/categories/%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%87%E5%AD%97%E5%B7%A5%E4%BD%9C%E8%80%85/</loc><lastmod>2020-04-05T19:27:32+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/zh/2020/03/linux_ath9k_driver/</loc><lastmod>2020-03-19T15:41:19+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/zh/tags/skb/</loc><lastmod>2020-03-19T15:41:19+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
