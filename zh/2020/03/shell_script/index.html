@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Shell脚本笔记 | TY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shell脚本笔记 | TERRY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="TerryZhang Personal Blog"><link rel="prev" href="/zh/2020/03/vscode_plugin/" /><link rel="next" href="/zh/2020/03/docker_1/" /><link rel="canonical" href="/zh/2020/03/shell_script/" />
+<meta name="Description" content="TerryZhang Personal Blog">
+<script data-ad-client="ca-pub-3814988626447030" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><link rel="prev" href="/zh/zh/2020/03/vscode_plugin/" /><link rel="next" href="/zh/zh/2020/03/docker_1/" /><link rel="canonical" href="/zh/zh/2020/03/shell_script/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,25 +25,25 @@
         "headline": "Shell脚本笔记",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/zh\/2020\/03\/shell_script\/"
+            "@id": "\/zh\/zh\/2020\/03\/shell_script\/"
         },"image": {
                 "@type": "ImageObject",
-                "url": "\/images\/logo.png",
+                "url": "\/zh\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","keywords": "shell, 命令行","wordcount":  374 ,
-        "url": "\/zh\/2020\/03\/shell_script\/","datePublished": "2020-03-10T12:11:04\x2b11:00","dateModified": "2020-03-10T12:11:04\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "\/zh\/zh\/2020\/03\/shell_script\/","datePublished": "2020-03-10T12:11:04\u002b11:00","dateModified": "2020-03-10T12:11:04\u002b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
                 "@type": "ImageObject",
-                "url": "\/images\/icon.png",
+                "url": "\/zh\/images\/icon.png",
                 "width":  127 ,
                 "height":  40 
                 }
             },"description": ""
     }
-    </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
+    </script><link rel="stylesheet" href="/zh/css/style.min.css"><link rel="stylesheet" href="/zh/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/zh/css/lib/animate/animate.min.css"></head>
     <body><script>
             window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
             window.isDark && document.body.classList.add('dark-theme');
@@ -50,30 +51,30 @@
     <div class="navbar-container">
         
         <div class="navbar-header animated bounceIn">
-            <a href="/">TY HOME
+            <a href="/zh">TERRY HOME
             </a>
         </div>
-        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/diary" title="">随笔</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/zh/posts" title="">文章</a><a class="menu-item" href="/zh/zh/tags" title="">标签</a><a class="menu-item" href="/zh/zh/categories" title="">分类</a><a class="menu-item" href="/zh/zh/diary" title="">随笔</a><a class="menu-item" href="/zh/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><nav class="navbar-mobile">
     <div class="navbar-container">
         <div class="navbar-header">
             <div class="navbar-header-title animated bounceIn">
-                <a href="/">TY HOME</a>
+                <a href="/zh">TERRY HOME</a>
             </div>
             <div class="menu-toggle" id="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/tags" title="">标签</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/diary" title="">随笔</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/zh/posts" title="">文章</a><a class="menu-item" href="/zh/zh/tags" title="">标签</a><a class="menu-item" href="/zh/zh/categories" title="">分类</a><a class="menu-item" href="/zh/zh/diary" title="">随笔</a><a class="menu-item" href="/zh/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><main class="main">
                 <div class="container"><article class="page"><h1 class="post-title animated flipInX">Shell脚本笔记</h1><div class="post-meta">
-            <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
+            <div class="post-meta-main"><a class="author" href="/zh" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/">合格的运维</a>&nbsp;</span></div>
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/zh/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/">合格的运维</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-10>2020-03-10</time>&nbsp;
                 <i class="fas fa-pencil-alt fa-fw"></i>约 374 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
@@ -172,9 +173,9 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
 </span><span class="cp"></span><span class="c1">#‘=’前后不能有空格</span>
 <span class="nv">string</span><span class="o">=</span><span class="s2">&#34;I am shell&#34;</span>
-<span class="nv">num</span><span class="o">=</span>5
+<span class="nv">num</span><span class="o">=</span><span class="m">5</span>
  
-<span class="nb">echo</span> <span class="s2">&#34;</span><span class="s2">a=</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">,string=</span><span class="si">${</span><span class="nv">string</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="nb">echo</span> <span class="s2">&#34;a=</span><span class="si">${</span><span class="nv">a</span><span class="si">}</span><span class="s2">,string=</span><span class="si">${</span><span class="nv">string</span><span class="si">}</span><span class="s2">&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>传出变量给外部使用</p>
@@ -246,7 +247,7 @@ done
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="nv">n</span><span class="o">=</span>1
+</span><span class="cp"></span><span class="nv">n</span><span class="o">=</span><span class="m">1</span>
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$n</span> -le <span class="m">10</span> <span class="o">]</span>
 <span class="k">do</span>
     <span class="nb">echo</span> <span class="nv">$n</span>
@@ -424,15 +425,15 @@ if [&#34;$m&#34;=&#34;&#34;]; then
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f03%2fshell_script%2f&amp;text=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2fzh%2f2020%2f03%2fshell_script%2f&amp;text=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f03%2fshell_script%2f" target="_blank" title="分享到 Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2fzh%2f2020%2f03%2fshell_script%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f03%2fshell_script%2f&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2fzh%2fzh%2f2020%2f03%2fshell_script%2f&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f03%2fshell_script%2f&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2fzh%2f2020%2f03%2fshell_script%2f&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f03%2fshell_script%2f&amp;appkey=&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2fzh%2f2020%2f03%2fshell_script%2f&amp;appkey=&amp;title=Shell%e8%84%9a%e6%9c%ac%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>
@@ -440,17 +441,17 @@ if [&#34;$m&#34;=&#34;&#34;]; then
 
     <div class="post-info-more">
         <section><span class="tag">
-                        <a href="/tags/shell/"><i class="fas fa-tag fa-fw"></i>&nbsp;shell</a>&nbsp;
+                        <a href="/zh/tags/shell/"><i class="fas fa-tag fa-fw"></i>&nbsp;shell</a>&nbsp;
                     </span><span class="tag">
-                        <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"><i class="fas fa-tag fa-fw"></i>&nbsp;命令行</a>&nbsp;
+                        <a href="/zh/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"><i class="fas fa-tag fa-fw"></i>&nbsp;命令行</a>&nbsp;
                     </span></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh/2020/03/vscode_plugin/" class="prev" rel="prev" title="VScode实用插件"><i class="fas fa-angle-left fa-fw"></i>VScode实用插件</a>
-            <a href="/zh/2020/03/docker_1/" class="next" rel="next" title="Docker学习笔记">Docker学习笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/zh/zh/2020/03/vscode_plugin/" class="prev" rel="prev" title="VScode实用插件"><i class="fas fa-angle-left fa-fw"></i>VScode实用插件</a>
+            <a href="/zh/zh/2020/03/docker_1/" class="next" rel="next" title="Docker学习笔记">Docker学习笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div><div class="post-comment"><div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -483,9 +484,9 @@ if [&#34;$m&#34;=&#34;&#34;]; then
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
         </div>
 
-        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">TerryZhang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh" target="_blank">TerryZhang</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer></div><a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll>
             <span>&nbsp;</span>
-        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/js/blog.min.js"></script></body>
+        </a><script src="/zh/js/lib/jquery/jquery.slim.min.js"></script><script src="/zh/js/lib/lazysizes/lazysizes.min.js"></script><script src="/zh/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/zh/js/blog.min.js"></script></body>
 </html>

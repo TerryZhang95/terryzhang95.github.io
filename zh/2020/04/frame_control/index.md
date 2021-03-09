@@ -13,7 +13,7 @@
 - 那么这一部分hdr信息即为协议中MAC层的header信息
 ## IEEE80211 协议
 IEEE 80211协议，定义了MAC frame的形式
-![80211frame](../../../static/images/802.11_frame.png)
+![80211frame](/images/802.11_frame.png)
 
 - 2 Byte – Frame Control
 - 2 Byte – Duration/ID

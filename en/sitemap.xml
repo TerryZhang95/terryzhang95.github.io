@@ -2,39 +2,30 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>/en/about/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/en/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh"
-                        href="/zh/about/"
+                        href="/zh/zh/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="/en/about/"
+                    href="/zh/en/categories/"
                     /></url><url>
-            <loc>/en/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/en/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh"
-                        href="/zh/categories/"
+                        href="/zh/zh/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="/en/categories/"
+                    href="/zh/en/tags/"
                     /></url><url>
-            <loc>/en/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/en/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh"
-                        href="/zh/tags/"
+                        href="/zh/zh/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="/en/tags/"
-                    /></url><url>
-            <loc>/en/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh"
-                        href="/zh/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="/en/"
+                    href="/zh/en/"
                     /></url></urlset>

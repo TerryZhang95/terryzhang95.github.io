@@ -1,29 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>TY HOME | TY HOME</title>
-        <link>/en/</link>
-        <description>TY HOME | TY HOME</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="/en/" rel="self" type="application/rss+xml" /><item>
-                <title>About Me</title>
-                <link>/en/about/</link>
-                <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/en/about/</guid>
-                <description>&lt;center&gt;
-&lt;br/&gt;
-Developer located at Sydney, Australia.
-&lt;p&gt;Passionate about emerging technologies.&lt;/p&gt;
-&lt;p&gt;Experience in Full-Stack development, Wireless development, Project Management, DevOps&amp;hellip;&lt;/p&gt;
-&lt;p&gt;Further study keeps going and never stops.&lt;/p&gt;
-&lt;p&gt;Looking forward to more oppotunities&amp;hellip;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;br/&gt;&lt;/p&gt;
-&lt;/center&gt;
-&lt;p&gt;&lt;strong&gt;Business Contact: &lt;a href=&#34;mailto:tianyiseven43@gmail.com&#34;&gt;tianyiseven43@gmail.com&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-</description>
-            </item><item>
-                <title>Posts</title>
-                <link></link>
-                <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid></guid>
-                <description></description>
-            </item></channel>
+        <title>TERRY HOME | TERRY HOME</title>
+        <link>/zh/en/</link>
+        <description>TERRY HOME | TERRY HOME</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="/zh/en/" rel="self" type="application/rss+xml" /></channel>
 </rss>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	
-	<sitemap>
-	   	<loc>/en/sitemap.xml</loc>
-		
-	</sitemap>
-	
-	<sitemap>
-	   	<loc>/zh/sitemap.xml</loc>
-		
-	   	<lastmod>2020-04-08T23:54:33+10:00</lastmod>
-		
-	</sitemap>
-	
+  
+  <sitemap>
+    <loc>/zh/en/sitemap.xml</loc>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>/zh/zh/sitemap.xml</loc>
+    
+      <lastmod>2020-04-08T23:54:33+10:00</lastmod>
+    
+  </sitemap>
+  
 </sitemapindex>
