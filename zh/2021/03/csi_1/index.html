@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>实践角度谈对CSI的理解 | TERRY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSI的采集原理 | TERRY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="TerryZhang Personal Blog">
+<meta name="Description" content="CSI Series 1">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
@@ -22,13 +22,13 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="实践角度谈对CSI的理解"/>
-<meta name="twitter:description" content="目前从事wifi定位相关研究，有相同研究兴趣的小伙伴欢迎沟通交流哈，陆续更新"/>
+<meta name="twitter:title" content="CSI的采集原理"/>
+<meta name="twitter:description" content="CSI Series 1"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "实践角度谈对CSI的理解",
+        "headline": "CSI的采集原理",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "\/zh\/2021\/03\/csi_1\/"
@@ -37,8 +37,8 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  24 ,
-        "url": "\/zh\/2021\/03\/csi_1\/","datePublished": "2021-03-09T01:17:13\u002b11:00","dateModified": "2021-03-09T01:17:13\u002b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  53 ,
+        "url": "\/zh\/2021\/03\/csi_1\/","datePublished": "2021-03-09T01:17:13\x2b11:00","dateModified": "2021-03-09T01:17:13\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -47,7 +47,7 @@
                 "width":  127 ,
                 "height":  40 
                 }
-            },"description": ""
+            },"description": "CSI Series 1"
     }
     </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
     <body><script>
@@ -77,14 +77,15 @@
         </div>
     </div>
 </nav><main class="main">
-                <div class="container"><article class="page"><h1 class="post-title animated flipInX">实践角度谈对CSI的理解</h1><div class="post-meta">
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">CSI的采集原理</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E9%80%9A%E4%BF%A1%E5%A4%A7%E6%B3%95%E5%A5%BD/">通信大法好</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-03-09>2021-03-09</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 24 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 53 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
         </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><div class="post-content"><p>很多文章有写到CSI概念相关的东西，但是并没有从实践层面说明CSI的采集，这篇文章将着重说明如何理解CSI，以及芯片采集的CSI到底是什么样的，该如何去利用。</p>
+<p>[TOC]</p>
 <a class="post-dummy-target" id="什么是csi"></a><h2>什么是CSI</h2>
 <p>CSI即是Channel State information，是无线系统中用于描述信道状态的一个<strong>数值</strong>，数学表达式即为
 $$ H = e^{-j2 \pi f \tau} $$
@@ -96,9 +97,36 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
 <a class="post-dummy-target" id="csi矩阵的维度"></a><h2>CSI矩阵的维度</h2>
 <p>由上面的公式可知，CSI本身只是对于一个传输信号的状态描述值，而不能描述整体信道的状态。
 那么对于发送一个信号，<strong>也就是发送一个包</strong>，究竟返回的信道矩阵是什么样呢？</p>
-<a class="post-dummy-target" id="从ofdm开始说起"></a><h3>从OFDM开始说起</h3>
+<a class="post-dummy-target" id="子载波"></a><h3>子载波</h3>
 <p>（熟悉这个part直接跳过吧）
-在FDM之前</p>
+在正交频分复用OFDM之前，频分复用FDM被广泛应用，什么是FDM呢？
+<img src="/images/CSI/fdm.png" alt="FDM带宽使用" style="zoom: 33%;" /></p>
+<p>即是将一个频段，<strong>分割成多个没有overlapping的多个频段</strong>来使用</p>
+<p>不过FDM会造成有效带宽的浪费，因为为了避免overlapping，每一个可用频段之间会流出一部分间隔</p>
+<p>为了提高带宽的使用，OFDM系统应运而生</p>
+<p><img src="\images\CSI\ofdm" alt="image-20210311002312517" style="zoom:33%;" /></p>
+<p>这里不分析OFDM的数学原理，只从本身原理解释</p>
+<ul>
+<li>从FDM到OFDM，可以理解为让多个频段有overlapping，来实现对带宽的充分利用；即是将FDM多个频段压缩在一起</li>
+<li>有overlapping如何避免频段之间的interference？这里就用到了多个subcarrier正交的技术</li>
+<li>如何理解正交？从图像上看，简单来说，<strong>当一个子载波达到波峰时，其余子载波均为0</strong>，达到的效果就是在接收端，根据这个特性做傅里叶变化，即可区分开不同子载波过来的信号，也叫<strong>相干解调</strong></li>
+</ul>
+<a class="post-dummy-target" id="csi的获取"></a><h3>CSI的获取</h3>
+<p>由子载波的特性可知，<strong>当发送一个包，会经由所有子载波进行传输</strong></p>
+<p>而每一个子载波通过一个条传输path，因此即可返回一条CSI信息</p>
+<p>如果发送P个包，有$N$个子载波，那么返回的CSI数量为$P\times N$</p>
+<p>当然，如何构建CSI矩阵是可以自定义的，比如可以考虑的变量包括</p>
+<ul>
+<li>
+<p>一对transceiver包含的天线数$M$，这个在很多文章中也被成为阵元或者sensor；一根天线会对应N个子载波，因此上述情况，返回CSI数量为$M\times P\times N$</p>
+</li>
+<li>
+<p>多径引发的path数量$L$；这个在分析复杂环境信息时常常会用到，表现形式即为</p>
+<p>$$H = \sum_{1}^{L} f(CSI_{single})+N$$</p>
+</li>
+</ul>
+<a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
+<p><a href="https://www.youtube.com/watch?v=KCHO7zlU25Q" target="_blank">OFDM - Orthogonal Frequency Division Multiplexing</a></p>
 </div><div class="post-footer" id="post-footer">
     
     <div class="post-info">
@@ -110,15 +138,15 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;text=%e5%ae%9e%e8%b7%b5%e8%a7%92%e5%ba%a6%e8%b0%88%e5%af%b9CSI%e7%9a%84%e7%90%86%e8%a7%a3&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;text=CSI%e7%9a%84%e9%87%87%e9%9b%86%e5%8e%9f%e7%90%86&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
         </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2021%2f03%2fcsi_1%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;title=%e5%ae%9e%e8%b7%b5%e8%a7%92%e5%ba%a6%e8%b0%88%e5%af%b9CSI%e7%9a%84%e7%90%86%e8%a7%a3" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;title=CSI%e7%9a%84%e9%87%87%e9%9b%86%e5%8e%9f%e7%90%86" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;title=%e5%ae%9e%e8%b7%b5%e8%a7%92%e5%ba%a6%e8%b0%88%e5%af%b9CSI%e7%9a%84%e7%90%86%e8%a7%a3" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;title=CSI%e7%9a%84%e9%87%87%e9%9b%86%e5%8e%9f%e7%90%86" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;appkey=&amp;title=%e5%ae%9e%e8%b7%b5%e8%a7%92%e5%ba%a6%e8%b0%88%e5%af%b9CSI%e7%9a%84%e7%90%86%e8%a7%a3&amp;pic=%2fimages%2fCSI%2ffeature.png" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2021%2f03%2fcsi_1%2f&amp;appkey=&amp;title=CSI%e7%9a%84%e9%87%87%e9%9b%86%e5%8e%9f%e7%90%86&amp;pic=%2fimages%2fCSI%2ffeature.png" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>

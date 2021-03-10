@@ -3,6 +3,7 @@
 
 - [Tools](#tools)
 - [Basics](#basics)
+  - [调整图片大小](#调整图片大小)
 
 # Tools
 1. Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex；
@@ -23,7 +24,9 @@
    11. 任务列表 
        - [ ] task
        - [x] 完成的task
-   12. delete line ~~delete~~ or <strike></strike>       
+   12. delete line ~~delete~~ or <strike></strike> z      
    ```
+
+## 调整图片大小
 
 

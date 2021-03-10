@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>合格的运维 on TERRY HOME</title>
+    <link>/zh/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/</link>
+    <description>Recent content in 合格的运维 on TERRY HOME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 19 Mar 2020 15:41:19 +1100</lastBuildDate>
+    
+	<atom:link href="/zh/categories/%E5%90%88%E6%A0%BC%E7%9A%84%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>linux开源驱动mac80211,ath9k开发笔记之发送tx</title>
+      <link>/zh/2020/03/linux_ath9k_driver/</link>
+      <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
+      
+      <guid>/zh/2020/03/linux_ath9k_driver/</guid>
+      <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&amp;hellip;
+前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
+框架介绍 ath9k传输和接收
+ 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw,struct ieee80211_tx_control *control,struct sk_buff *skb)   从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = {.tx = ath9k_tx,.start = ath9k_start,.</description>
+    </item>
+    
+    <item>
+      <title>Docker学习笔记</title>
+      <link>/zh/2020/03/docker_1/</link>
+      <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
+      
+      <guid>/zh/2020/03/docker_1/</guid>
+      <description>安装  ubuntu 安装docker ubuntu 安装 docker-compose   docker 环境遇到的问题 Reference  安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get updatesudo apt install apt-transport-https ca-certificates curl software-properties-commoncurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34;sudo apt-get updateapt-cache policy docker-ce # 验证docker repo添加成功sudo apt-get install docker-ce # 安装dockersudo systemctl status docker # 验证docker安装成功  ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
+    </item>
+    
+    <item>
+      <title>Shell脚本笔记</title>
+      <link>/zh/2020/03/shell_script/</link>
+      <pubDate>Tue, 10 Mar 2020 12:11:04 +1100</pubDate>
+      
+      <guid>/zh/2020/03/shell_script/</guid>
+      <description>关于shell脚本的一些基本命令记录</description>
+    </item>
+    
+  </channel>
+</rss>

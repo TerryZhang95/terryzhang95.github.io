@@ -7,9 +7,13 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 09 Mar 2021 01:17:13 +1100</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Mar 2021 01:17:13 +1100</lastBuildDate>
+    
+	<atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
-      <title>实践角度谈对CSI的理解</title>
+      <title>CSI的采集原理</title>
       <link>/zh/2021/03/csi_1/</link>
       <pubDate>Tue, 09 Mar 2021 01:17:13 +1100</pubDate>
       
@@ -24,9 +28,9 @@
       
       <guid>/zh/2020/04/frame_control/</guid>
       <description>协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点：
- skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&amp;gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&amp;gt;data;    那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
+ skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&amp;gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&amp;gt;data;   那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
  2 Byte – Frame Control 2 Byte – Duration/ID 4×6 Byte – Address 1 – 4 2 Byte – Sequence Control 2 Byte – QoS control 4 Byte – HT Control (only for 802.11n frames)  在源码中的表现即为
-1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr { __le16 frame_control; __le16 duration_id; u8 addr1[ETH_ALEN]; u8 addr2[ETH_ALEN]; u8 addr3[ETH_ALEN]; __le16 seq_ctrl; u8 addr4[ETH_ALEN]; int flag; } __packed __aligned(2);   Frame control 具体分析 mac-framecontrol-04</description>
+1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr {__le16 frame_control;__le16 duration_id;u8 addr1[ETH_ALEN];u8 addr2[ETH_ALEN];u8 addr3[ETH_ALEN];__le16 seq_ctrl;u8 addr4[ETH_ALEN];int flag;} __packed __aligned(2);  Frame control 具体分析 mac-framecontrol-04</description>
     </item>
     
     <item>
@@ -47,7 +51,7 @@
       <description>前言 框架介绍 ath9k的接口  ath9k发送的入口&amp;ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&amp;hellip;
 前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
 框架介绍 ath9k传输和接收
- 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control, struct sk_buff *skb)    从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = { .tx = ath9k_tx, .start = ath9k_start, .</description>
+ 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw,struct ieee80211_tx_control *control,struct sk_buff *skb)   从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = {.tx = ath9k_tx,.start = ath9k_start,.</description>
     </item>
     
     <item>
@@ -56,7 +60,7 @@
       <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
       
       <guid>/zh/2020/03/docker_1/</guid>
-      <description>安装  ubuntu 安装docker ubuntu 安装 docker-compose   docker 环境遇到的问题 Reference  安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34; sudo apt-get update apt-cache policy docker-ce # 验证docker repo添加成功 sudo apt-get install docker-ce # 安装docker sudo systemctl status docker # 验证docker安装成功   ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
+      <description>安装  ubuntu 安装docker ubuntu 安装 docker-compose   docker 环境遇到的问题 Reference  安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get updatesudo apt install apt-transport-https ca-certificates curl software-properties-commoncurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34;sudo apt-get updateapt-cache policy docker-ce # 验证docker repo添加成功sudo apt-get install docker-ce # 安装dockersudo systemctl status docker # 验证docker安装成功  ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
     </item>
     
     <item>
@@ -81,7 +85,7 @@ Path 是应用所在路径，是在local目录下的路径 右下角 Select 编�
 编译器和板子可以回到arduino中查看
 vscode-arduino-右下标 右上角 操作
 vscode-arduino-右上标
-分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  { &amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;, &amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;, &amp;#34;port&amp;#34;: 22, &amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;, &amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34; }    缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
+分别是：上传，验证，open changes 验证 生成暂时的.vscode文件夹，存储配置信息  SFTP  远程连接服务器 使用vscode编译服务器端程序 设置 1 2 3 4 5 6 7  {&amp;#34;comment&amp;#34;: &amp;#34;comment&amp;#34;,&amp;#34;host&amp;#34;: &amp;#34;ip&amp;#34;,&amp;#34;port&amp;#34;: 22,&amp;#34;username&amp;#34;: &amp;#34;root&amp;#34;,&amp;#34;privateKeyFile&amp;#34;: &amp;#34;_Path_to_the_key_&amp;#34;}   缺点  到现在我都没找到配置文件搁哪，遂卸    Remote-SSH  比SFTP更好用 配置文件清晰 terminal中直接进入远程的terminal路径 缺点  不能远程联入mac系统    </description>
     </item>
     
     <item>
@@ -90,7 +94,7 @@ vscode-arduino-右上标
       <pubDate>Thu, 06 Feb 2020 23:55:28 +0800</pubDate>
       
       <guid>/zh/2020/02/markdown/</guid>
-      <description>Tools Basics  Tools  Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex； VScode Markdown All in one：VScode中使用量最大的markdown插件，轻量使用方便，直接markdown语法进行编辑，vscode重度依赖者的福音，支持快捷键输入（cmd+B等），ctrl+shift+p选择指令  Basics 1 2 3 4 5 6 7 8 9 10 11 12 13 14  1. &amp;#39;#&amp;#39; 大标题，&amp;#39;##&amp;#39;,&amp;#39;##...#&amp;#39;,依次为次标题，次...次标题 2. &amp;#39;**&amp;#39; 斜体 3. ‘****’ 加粗 4. &amp;#39;[x] task&amp;#39; 添加任务 5. - one: 添加序号，可用tab降级 6. | 来制作表格，ctrl+shift+I: 转换成table 7. &amp;#39;$$ $$&amp;#39; 制作数学公式 8. [tag](Link): 添加链接 9. 添加图片(本地)：![Alt text](path) 10. 文字居中：&amp;lt;center&amp;gt;hhh &amp;lt;/center&amp;gt; 11. 任务列表 - [ ] task - [x] 完成的task 12.</description>
+      <description>Tools Basics  调整图片大小    Tools  Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex； VScode Markdown All in one：VScode中使用量最大的markdown插件，轻量使用方便，直接markdown语法进行编辑，vscode重度依赖者的福音，支持快捷键输入（cmd+B等），ctrl+shift+p选择指令  Basics 1 2 3 4 5 6 7 8 9 10 11 12 13 14  1. &amp;#39;#&amp;#39; 大标题，&amp;#39;##&amp;#39;,&amp;#39;##...#&amp;#39;,依次为次标题，次...次标题2. &amp;#39;**&amp;#39; 斜体3. ‘****’ 加粗4. &amp;#39;[x] task&amp;#39; 添加任务5. - one: 添加序号，可用tab降级6. | 来制作表格，ctrl+shift+I: 转换成table7. &amp;#39;$$ $$&amp;#39; 制作数学公式8. [tag](Link): 添加链接9. 添加图片(本地)：![Alt text](path)10. 文字居中：&amp;lt;center&amp;gt;hhh &amp;lt;/center&amp;gt;11. 任务列表 - [ ] task- [x] 完成的task12.</description>
     </item>
     
   </channel>
