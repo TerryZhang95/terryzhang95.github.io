@@ -37,7 +37,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  53 ,
+            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  79 ,
         "url": "\/zh\/2021\/03\/csi_1\/","datePublished": "2021-03-09T01:17:13\x2b11:00","dateModified": "2021-03-09T01:17:13\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -80,12 +80,22 @@
                 <div class="container"><article class="page"><h1 class="post-title animated flipInX">CSI的采集原理</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E9%80%9A%E4%BF%A1%E5%A4%A7%E6%B3%95%E5%A5%BD/">通信大法好</a>&nbsp;</span></div>
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E9%80%9A%E4%BF%A1%E7%9B%B8%E5%85%B3/">通信相关</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-03-09>2021-03-09</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 53 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 79 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
         </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><div class="post-content"><p>很多文章有写到CSI概念相关的东西，但是并没有从实践层面说明CSI的采集，这篇文章将着重说明如何理解CSI，以及芯片采集的CSI到底是什么样的，该如何去利用。</p>
-<p>[TOC]</p>
+<ul>
+<li><a href="#%e4%bb%80%e4%b9%88%e6%98%afcsi">什么是CSI</a></li>
+<li><a href="#csi%e7%9f%a9%e9%98%b5%e7%9a%84%e7%bb%b4%e5%ba%a6">CSI矩阵的维度</a>
+<ul>
+<li><a href="#%e5%ad%90%e8%bd%bd%e6%b3%a2">子载波</a></li>
+<li><a href="#%e5%ad%90%e8%bd%bd%e6%b3%a2%e9%a2%91%e6%ae%b5%e4%b8%8e%e5%a4%a9%e7%ba%bf">子载波，频段与天线</a></li>
+<li><a href="#csi%e7%9a%84%e8%8e%b7%e5%8f%96">CSI的获取</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
 <a class="post-dummy-target" id="什么是csi"></a><h2>什么是CSI</h2>
 <p>CSI即是Channel State information，是无线系统中用于描述信道状态的一个<strong>数值</strong>，数学表达式即为
 $$ H = e^{-j2 \pi f \tau} $$
@@ -104,12 +114,29 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
 <p>即是将一个频段，<strong>分割成多个没有overlapping的多个频段</strong>来使用</p>
 <p>不过FDM会造成有效带宽的浪费，因为为了避免overlapping，每一个可用频段之间会流出一部分间隔</p>
 <p>为了提高带宽的使用，OFDM系统应运而生</p>
-<p><img src="\images\CSI\ofdm" alt="image-20210311002312517" style="zoom:33%;" /></p>
+<p><img src="\images\CSI\ofdm" alt="OFDM" style="zoom:33%;" /></p>
 <p>这里不分析OFDM的数学原理，只从本身原理解释</p>
 <ul>
 <li>从FDM到OFDM，可以理解为让多个频段有overlapping，来实现对带宽的充分利用；即是将FDM多个频段压缩在一起</li>
 <li>有overlapping如何避免频段之间的interference？这里就用到了多个subcarrier正交的技术</li>
 <li>如何理解正交？从图像上看，简单来说，<strong>当一个子载波达到波峰时，其余子载波均为0</strong>，达到的效果就是在接收端，根据这个特性做傅里叶变化，即可区分开不同子载波过来的信号，也叫<strong>相干解调</strong></li>
+</ul>
+<a class="post-dummy-target" id="子载波频段与天线"></a><h3>子载波，频段与天线</h3>
+<p>在学习过程中，还有个疑问，subcarrier和channel是怎样的一个关系呢？</p>
+<p>（很奇怪，为什么没有讨论channel与子载波关系的文章呢？资料很少）</p>
+<p>从实践角度来分析：</p>
+<p>比如在应用hostapd的时候，我们会先需要为传输分配一个指定的channel，因此可以判断多者之间的关系是：</p>
+<p><strong>多天线（单天线）传输一个信号，使用一个channel；一个信号会经过所有的subcarrier进行传输，所有subcarrier在一个channel内；几根天线的工作是单独定义的</strong></p>
+<!-- 理论层面上，[网上有过相关提问](https://www.zhihu.com/question/36914677)，总结一些我能认可的观点：
+- 子载波是基于时域，子信道是对频段的划分，是基于频域
+- 信道包含一组子载波的集合 -->
+<p>由此可得，比如在IEEE802.11g 2.4G wifi 网络中:
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/1320px-2.4_GHz_Wi-Fi_channels_%28802.11b,g_WLAN%29.svg.png" alt="2.4_GHz_Wi-Fi_channels_(802.11b,g_WLAN)" class="lazyload"><figcaption class="image-caption">2.4_GHz_Wi-Fi_channels_(802.11b,g_WLAN)</figcaption></figure></p>
+<ul>
+<li>subcarrier 0使用的是信道的中心频率（2.412&hellip;标注出来的频率）</li>
+<li>其他subcarrier的频率即是在中心频率的左右偏移，即加上$\Delta f_j$，$j$为 $j-th$ subcarrier</li>
+<li>有多少subcarrier，是由wifi芯片决定的（如何决定的还不清楚）</li>
+<li>确定下来subcarrier数量，会分布在当前信道的指定带宽（图中2.4G wifi，带宽就是22Mhz）中（如何分布，是不是均匀排布不知，而且好像这个也不重要）</li>
 </ul>
 <a class="post-dummy-target" id="csi的获取"></a><h3>CSI的获取</h3>
 <p>由子载波的特性可知，<strong>当发送一个包，会经由所有子载波进行传输</strong></p>
@@ -127,6 +154,7 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
 </ul>
 <a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
 <p><a href="https://www.youtube.com/watch?v=KCHO7zlU25Q" target="_blank">OFDM - Orthogonal Frequency Division Multiplexing</a></p>
+<p><a href="https://www.zhihu.com/question/36914677" target="_blank">关于OFDM系统中子载波和信道的关系？</a></p>
 </div><div class="post-footer" id="post-footer">
     
     <div class="post-info">
