@@ -37,7 +37,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  79 ,
+            },"genre": "posts","keywords": "CSI, WiFi, 80211, Localization","wordcount":  75 ,
         "url": "\/zh\/2021\/03\/csi_1\/","datePublished": "2021-03-09T01:17:13\x2b11:00","dateModified": "2021-03-09T01:17:13\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -82,20 +82,47 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E9%80%9A%E4%BF%A1%E7%9B%B8%E5%85%B3/">通信相关</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-03-09>2021-03-09</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 79 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 75 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
-        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><div class="post-content"><p>很多文章有写到CSI概念相关的东西，但是并没有从实践层面说明CSI的采集，这篇文章将着重说明如何理解CSI，以及芯片采集的CSI到底是什么样的，该如何去利用。</p>
-<ul>
-<li><a href="#%e4%bb%80%e4%b9%88%e6%98%afcsi">什么是CSI</a></li>
-<li><a href="#csi%e7%9f%a9%e9%98%b5%e7%9a%84%e7%bb%b4%e5%ba%a6">CSI矩阵的维度</a>
-<ul>
-<li><a href="#%e5%ad%90%e8%bd%bd%e6%b3%a2">子载波</a></li>
-<li><a href="#%e5%ad%90%e8%bd%bd%e6%b3%a2%e9%a2%91%e6%ae%b5%e4%b8%8e%e5%a4%a9%e7%ba%bf">子载波，频段与天线</a></li>
-<li><a href="#csi%e7%9a%84%e8%8e%b7%e5%8f%96">CSI的获取</a></li>
-</ul>
-</li>
-<li><a href="#reference">Reference</a></li>
-</ul>
+        </div><div class="post-featured-image"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是csi">什么是CSI</a></li>
+    <li><a href="#csi矩阵的维度">CSI矩阵的维度</a>
+      <ul>
+        <li><a href="#子载波">子载波</a></li>
+        <li><a href="#子载波频段与天线">子载波，频段与天线</a></li>
+        <li><a href="#csi的获取">CSI的获取</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#什么是csi">什么是CSI</a></li>
+    <li><a href="#csi矩阵的维度">CSI矩阵的维度</a>
+      <ul>
+        <li><a href="#子载波">子载波</a></li>
+        <li><a href="#子载波频段与天线">子载波，频段与天线</a></li>
+        <li><a href="#csi的获取">CSI的获取</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="post-content"><p>很多文章有写到CSI概念相关的东西，但是并没有从实践层面说明CSI的采集，这篇文章将着重说明如何理解CSI，以及芯片采集的CSI到底是什么样的，该如何去利用。</p>
 <a class="post-dummy-target" id="什么是csi"></a><h2>什么是CSI</h2>
 <p>CSI即是Channel State information，是无线系统中用于描述信道状态的一个<strong>数值</strong>，数学表达式即为
 $$ H = e^{-j2 \pi f \tau} $$
@@ -149,7 +176,7 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
 </li>
 <li>
 <p>多径引发的path数量$L$；这个在分析复杂环境信息时常常会用到，表现形式即为</p>
-<p>$$H = \sum_{1}^{L} f(CSI_{single})+N$$</p>
+<p>$$ H = \sum_{1}^{L} f(CSI_{single})+N $$</p>
 </li>
 </ul>
 <a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
@@ -232,5 +259,14 @@ $Y$为接收信号，$X$为发送信号，$N$为噪音</p>
     </div>
 </footer></div><a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll>
             <span>&nbsp;</span>
-        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><script src="/js/blog.min.js"></script></body>
+        </a><script src="/js/lib/jquery/jquery.slim.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><script src="/js/lib/katex/katex.min.js"></script><script defer src="/js/lib/katex/auto-render.min.js"></script><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script defer src="/js/lib/katex/copy-tex.min.js"></script><script defer src="/js/lib/katex/mhchem.min.js"></script><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$$", right: "$$", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><script src="/js/blog.min.js"></script></body>
 </html>
