@@ -1,0 +1,71 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>TERRY HOME | TERRY HOME</title>
+        <link>/zh/</link>
+        <description>TERRY HOME | TERRY HOME</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Mar 2021 18:46:19 +1100</lastBuildDate><atom:link href="/zh/" rel="self" type="application/rss+xml" /><item>
+                <title>Posts</title>
+                <link>/zh/posts/</link>
+                <pubDate>Tue, 16 Mar 2021 18:46:19 +1100</pubDate><guid>/zh/posts/</guid>
+                <description></description>
+            </item><item>
+                <title>关于我</title>
+                <link>/zh/about/</link>
+                <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/zh/about/</guid>
+                <description>&lt;center&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;p&gt;人生太复杂，但是记性不好&lt;/p&gt;
+&lt;p&gt;因此记录学习点滴，也是记录生活&lt;/p&gt;
+&lt;p&gt;大厂镀过金，初创全过栈&lt;/p&gt;
+&lt;!-- 现挣扎在澳洲社会底层兼职程序员
+
+交不起学费还怕毕不了业的大龄研究生在读
+
+梦里热爱音乐，汽车和电子产品开箱 --&gt;
+&lt;p&gt;最终又回归校园&lt;/p&gt;
+&lt;p&gt;知识的搬运工，希望可以帮助年轻人少走弯路&lt;/p&gt;
+&lt;p&gt;期待更多的机会
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;!-- 欢迎热心的资助和善意的包养
+
+可盐可甜可油腻  --&gt;
+&lt;!-- 点 ➡️[🔗🔗🔗](../images/IMG_1012.JPG)献爱心 --&gt;
+&lt;!-- 点 
+&lt;a href = &#34;javaScript:void(0)&#34; onclick=openDialog()&gt;
+    ➡️🔗🔗🔗这里
+&lt;/a&gt;送爱心
+&lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
+    &lt;img src=&#34;../../images/IMG_1012.JPG&#34; alt=&#34;付款码&#34;&gt;
+    &lt;a href = &#34;javascript:void(0)&#34; onclick = closeDialog()&gt;关闭&lt;/a&gt;
+ &lt;/div&gt;  --&gt;
+&lt;!-- &lt;div id=&#34;fade&#34; class=&#34;black_overlay&#34;&gt;&lt;/div&gt;  --&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;/center&gt;
+&lt;p&gt;&lt;strong&gt;商业合作: &lt;a href=&#34;mailto:tianyiseven43@gmail.com&#34;&gt;tianyiseven43@gmail.com&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- &lt;p align=&#34;right&#34;&gt;&lt;i&gt;
+--- Terry Zhang &lt;br/&gt;
+&lt;/i&gt;
+&lt;/p&gt; --&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+    $(function(){
+    })
+    function openDialog(){
+        document.getElementById(&#39;light&#39;).style.display=&#39;block&#39;;
+        // document.getElementById(&#39;fade&#39;).style.display=&#39;block&#39;
+    }
+    function closeDialog(){
+        document.getElementById(&#39;light&#39;).style.display=&#39;none&#39;;
+        // document.getElementById(&#39;fade&#39;).style.display=&#39;none&#39;
+    }
+&lt;/script&gt;
+&lt;!-- &lt;div id=&#34;light&#34; class=&#34;white_content&#34;&gt;
+    &lt;img src=&#34;../images/IMG_1012.JPG&#34; alt=&#34;付款码&#34;&gt;
+    &lt;a href = &#34;javascript:void(0)&#34; onclick = closeDialog()&gt;点这里关闭本窗口&lt;/a&gt;
+ &lt;/div&gt;  --&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
+            </item></channel>
+</rss>
