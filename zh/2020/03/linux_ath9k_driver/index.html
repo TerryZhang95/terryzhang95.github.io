@@ -37,7 +37,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "skb, 内核, 网卡驱动","wordcount":  387 ,
+            },"genre": "posts","keywords": "skb, 内核, 网卡驱动","wordcount":  375 ,
         "url": "\/zh\/2020\/03\/linux_ath9k_driver\/","datePublished": "2020-03-19T15:41:19\x2b11:00","dateModified": "2020-03-19T15:41:19\x2b11:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -80,28 +80,45 @@
                 <div class="container"><article class="page"><h1 class="post-title animated flipInX">linux开源驱动mac80211,ath9k开发笔记之发送tx</h1><div class="post-meta">
             <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/linux%E5%86%85%E6%A0%B8/">Linux内核</a>&nbsp;</span></div>
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/802.11/">802.11</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-03-19>2020-03-19</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 387 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 375 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
-        </div><div class="post-content"><ul>
-<li><a href="#%e5%89%8d%e8%a8%80">前言</a></li>
-<li><a href="#%e6%a1%86%e6%9e%b6%e4%bb%8b%e7%bb%8d">框架介绍</a></li>
-<li><a href="#ath9k%e7%9a%84%e6%8e%a5%e5%8f%a3">ath9k的接口</a>
-<ul>
-<li><a href="#ath9k%e5%8f%91%e9%80%81%e7%9a%84%e5%85%a5%e5%8f%a3---ath_tx">ath9k发送的入口&ndash; ath_tx</a></li>
-</ul>
-</li>
-<li><a href="#ieee80211%e7%9a%84%e6%8e%a5%e5%8f%a3">ieee80211的接口</a>
-<ul>
-<li><a href="#ieee80211%e7%9a%84%e5%85%a5%e5%8f%a3">ieee80211的入口</a></li>
-<li><a href="#ieee80211-%e5%8f%91%e9%80%81%e7%9a%84%e6%b5%81%e7%a8%8b">ieee80211 发送的流程</a></li>
-<li><a href="#ieee80211-%e5%a4%84%e7%90%86%e7%9a%84%e5%90%84%e7%a7%8dheader">ieee80211 处理的各种header</a></li>
-</ul>
-</li>
-<li><a href="#reference">Reference</a></li>
-</ul>
-<p>持续更新&hellip;</p>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ath9k发送的入口---ath_tx">ath9k发送的入口&ndash; ath_tx</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#ieee80211的入口">ieee80211的入口</a></li>
+    <li><a href="#ieee80211-发送的流程">ieee80211 发送的流程</a></li>
+    <li><a href="#ieee80211-处理的各种header">ieee80211 处理的各种header</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#ath9k发送的入口---ath_tx">ath9k发送的入口&ndash; ath_tx</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#ieee80211的入口">ieee80211的入口</a></li>
+    <li><a href="#ieee80211-发送的流程">ieee80211 发送的流程</a></li>
+    <li><a href="#ieee80211-处理的各种header">ieee80211 处理的各种header</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="post-content"><p>持续更新&hellip;</p>
 <h1 id="前言">前言</h1>
 <p>本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。</p>
 <h1 id="框架介绍">框架介绍</h1>

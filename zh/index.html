@@ -85,7 +85,16 @@
     </a></div>
     
 </div>
-<article class="post" itemscope itemtype="http://schema.org/Article"><div class="post-featured-image-preview"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><h1 class="post-title post-list-title" itemprop="name headline">
+<article class="post" itemscope itemtype="http://schema.org/Article"><div class="post-featured-image-preview"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/20210316/L.jpg" alt="featured image" class="lazyload"></div><h1 class="post-title post-list-title" itemprop="name headline">
+        <a href="/zh/2021/03/20210316/">新州路考fail经历分享</a>
+    </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
+            <i class="fas fa-user-circle fa-fw"></i>TerryZhang
+        </a>发布于  <time datetime=2021-03-16>2021-03-16</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
+                        <a href="/zh/categories/%E7%BB%8F%E5%8E%86%E5%88%86%E4%BA%AB/">经历分享</a></span></div><div class="post-content"><p></p></div><div class="post-footer">
+        <a href="/zh/2021/03/20210316/">阅读全文</a><div class="post-tags"><span class="tag">
+                        &nbsp;<a href="/tags/nsw%E8%B7%AF%E8%80%83/"><i class="fas fa-tag fa-fw"></i>&nbsp;NSW路考</a>
+                    </span></div></div>
+</article><article class="post" itemscope itemtype="http://schema.org/Article"><div class="post-featured-image-preview"><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/CSI/feature.png" alt="featured image" class="lazyload"></div><h1 class="post-title post-list-title" itemprop="name headline">
         <a href="/zh/2021/03/csi_1/">CSI的采集原理</a>
     </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
             <i class="fas fa-user-circle fa-fw"></i>TerryZhang
@@ -105,10 +114,7 @@
     </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
             <i class="fas fa-user-circle fa-fw"></i>TerryZhang
         </a>发布于  <time datetime=2020-04-08>2020-04-08</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="/zh/categories/ieee-802.11/">I e e e 802.11</a></span></div><div class="post-content">协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点：
- skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;   那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
- 2 Byte – Frame Control 2 Byte – Duration/ID 4×6 Byte – Address 1 – 4 2 Byte – Sequence Control 2 Byte – QoS control 4 Byte – HT Control (only for 802.11n frames)  在源码中的表现即为
-1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr {__le16 frame_control;__le16 duration_id;u8 addr1[ETH_ALEN];u8 addr2[ETH_ALEN];u8 addr3[ETH_ALEN];__le16 seq_ctrl;u8 addr4[ETH_ALEN];int flag;} __packed __aligned(2);  Frame control 具体分析 mac-framecontrol-04</div><div class="post-footer">
+                        <a href="/zh/categories/802.11/">802.11</a></span></div><div class="post-content"><p></p></div><div class="post-footer">
         <a href="/zh/2020/04/frame_control/">阅读全文</a></div>
 </article><article class="post" itemscope itemtype="http://schema.org/Article"><h1 class="post-title post-list-title" itemprop="name headline">
         <a href="/zh/2020/04/latex/">Latex基本使用教程</a>
@@ -124,10 +130,7 @@
     </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
             <i class="fas fa-user-circle fa-fw"></i>TerryZhang
         </a>发布于  <time datetime=2020-03-19>2020-03-19</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="/zh/categories/linux%E5%86%85%E6%A0%B8/">Linux内核</a></span></div><div class="post-content">前言 框架介绍 ath9k的接口  ath9k发送的入口&ndash; ath_tx   ieee80211的接口  ieee80211的入口 ieee80211 发送的流程 ieee80211 处理的各种header   Reference  持续更新&hellip;
-前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
-框架介绍 ath9k传输和接收
- 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw,struct ieee80211_tx_control *control,struct sk_buff *skb)   从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = {.tx = ath9k_tx,.start = ath9k_start,.</div><div class="post-footer">
+                        <a href="/zh/categories/802.11/">802.11</a></span></div><div class="post-content"><p>都是根据自己浅薄的理解</p></div><div class="post-footer">
         <a href="/zh/2020/03/linux_ath9k_driver/">阅读全文</a><div class="post-tags"><span class="tag">
                         &nbsp;<a href="/tags/skb/"><i class="fas fa-tag fa-fw"></i>&nbsp;skb</a>
                     </span><span class="tag">
@@ -140,20 +143,9 @@
     </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
             <i class="fas fa-user-circle fa-fw"></i>TerryZhang
         </a>发布于  <time datetime=2020-03-11>2020-03-11</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="/zh/categories/%E8%BF%90%E7%BB%B4/">运维</a></span></div><div class="post-content">安装  ubuntu 安装docker ubuntu 安装 docker-compose   docker 环境遇到的问题 Reference  安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get updatesudo apt install apt-transport-https ca-certificates curl software-properties-commoncurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -sudo add-apt-repository &#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&#34;sudo apt-get updateapt-cache policy docker-ce # 验证docker repo添加成功sudo apt-get install docker-ce # 安装dockersudo systemctl status docker # 验证docker安装成功  ubuntu 安装 docker-compose 1 2 3  sudo curl -L &#34;https://github.</div><div class="post-footer">
+                        <a href="/zh/categories/%E8%BF%90%E7%BB%B4/">运维</a></span></div><div class="post-content"><p>持续更新</p></div><div class="post-footer">
         <a href="/zh/2020/03/docker_1/">阅读全文</a><div class="post-tags"><span class="tag">
                         &nbsp;<a href="/tags/docker/"><i class="fas fa-tag fa-fw"></i>&nbsp;docker</a>
-                    </span></div></div>
-</article><article class="post" itemscope itemtype="http://schema.org/Article"><h1 class="post-title post-list-title" itemprop="name headline">
-        <a href="/zh/2020/03/shell_script/">Shell脚本笔记</a>
-    </h1><div class="post-meta"><a class="author" href="/" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>TerryZhang
-        </a>发布于  <time datetime=2020-03-10>2020-03-10</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="/zh/categories/%E8%BF%90%E7%BB%B4/">运维</a></span></div><div class="post-content">关于shell脚本的一些基本命令记录</div><div class="post-footer">
-        <a href="/zh/2020/03/shell_script/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="/tags/shell/"><i class="fas fa-tag fa-fw"></i>&nbsp;shell</a>
-                    </span><span class="tag">
-                        &nbsp;<a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"><i class="fas fa-tag fa-fw"></i>&nbsp;命令行</a>
                     </span></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">

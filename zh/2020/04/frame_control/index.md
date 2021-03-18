@@ -37,7 +37,7 @@ struct ieee80211_hdr {
 ```
 
 # Frame control 具体分析
-![mac-framecontrol-04](../../../static/images/cwap-mac-framecontrol-04.png)
+![mac-framecontrol-04](/images/cwap-mac-framecontrol-04.png)
 ## Type (2 bits)
 ```
 00– Management Frame
