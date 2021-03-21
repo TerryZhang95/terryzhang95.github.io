@@ -45,8 +45,6 @@
 <br/>
 </center>
 
-**商业合作: tianyiseven43@gmail.com**
-
 <!-- <p align="right"><i>
 --- Terry Zhang <br/>
 </i>
