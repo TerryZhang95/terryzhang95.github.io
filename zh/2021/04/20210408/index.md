@@ -17,8 +17,8 @@
 
 同样道理适用于origin等公司，同样也处在历史低点，可以考虑长期持有一下。不过短期内什么走向不确定，可能还会持续下行。AGL技术面没看出来什么，只能看出从3月起似乎有波动拉高的趋势。但org近期貌似可以做成下降三角状态，可以看看是不是还会下破支撑。
 
-<img src="/images/invest/20210408/org-3.png" alt="org走势图" style="zoom: 30%;" />
-<img src="/images/invest/20210408/agl-3mon.png" alt="AGL近期走势图" style="zoom: 30%;" />
+<img src="/images/invest/20210408/org-3.PNG" alt="org走势图" style="zoom: 30%;" />
+<img src="/images/invest/20210408/agl-3mon.PNG" alt="AGL近期走势图" style="zoom: 30%;" />
 
 **IT板块**
 
@@ -30,7 +30,7 @@
 
 这个大概是今天的头牌了，在持续跌了一年的情况下，今天居然强势回弹3%，看来有买家坐不住了。这么看k线，好想知道去年12月份发生了什么。。。
 
-<img src="/images/invest/20210408/a2m.png" alt="AGL近期走势图" style="zoom: 30%;" />
+<img src="/images/invest/20210408/a2m.PNG" alt="A2M近期走势图" style="zoom: 30%;" />
 
 这波拉高和三月初略微相似，都是在持续走低的状况下反弹，不知道算不算是市场的应激反应。之前对A2M的理解依然停留在强大的外贸支撑上，甚至和代购也有关，因此国际贸易不开通，A2M也很难看好，毕竟澳洲的市场有限。
 
