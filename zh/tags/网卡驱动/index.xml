@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网卡驱动 on TERRY HOME</title>
+    <link>/zh/tags/%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8/</link>
+    <description>Recent content in 网卡驱动 on TERRY HOME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 19 Mar 2020 15:41:19 +1100</lastBuildDate>
+    
+	<atom:link href="/zh/tags/%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>linux开源驱动mac80211,ath9k开发笔记之发送tx</title>
+      <link>/zh/2020/03/linux_ath9k_driver/</link>
+      <pubDate>Thu, 19 Mar 2020 15:41:19 +1100</pubDate>
+      
+      <guid>/zh/2020/03/linux_ath9k_driver/</guid>
+      <description>持续更新&amp;hellip;
+前言 本文依据个人理解，也是结合在开发过程中遇到的坑和经验来进行的总结和分析。因为个人着重于ath9k的驱动开发，所以重点将围绕ath9k和mac80211展开。此文档的说明顺序和教科书也会有所差别，先从ath9k开始介绍，然后在追溯到mac80211，想当于由下至上的过程，希望能有所帮助。
+框架介绍 ath9k传输和接收
+ 简单来看，发送阶段，userspace（linux内核）向下传的包，也就是所谓的sk_buff，会经过一系列的添加header和tailer的过程，最后进入mac80211 ath9k，也就是一种网卡的驱动，扮演在mac80211和网卡硬件之间的一个接口（API） ath9k会直接调度硬件上包的发送  ath9k的接口 ath9k发送的入口&amp;ndash; ath_tx 1 2 3  static void ath9k_tx(struct ieee80211_hw *hw,struct ieee80211_tx_control *control,struct sk_buff *skb)   从mac80211下来的包，会直接call到ath9k_tx这个api 在main.c中，定义了  1 2 3 4 5 6  struct ieee80211_ops ath9k_ops = {.tx = ath9k_tx,.start = ath9k_start,.stop = ath9k_stop,...}   所以后续会以ath9k_ops这个结构体去回调ath9k_tx，那么问题来了，mac80211准备发包的时候是如何call到ath9k的呢？ 回到mac80211中，发送tx的函数是ieee80211_tx()，其中会call到drv_tx()，目测这个是给下层发送的函数 在mac80211中，定义drv_tx，这里是进入ath9k的入口  1 2 3 4 5 6  static inline void drv_tx(struct ieee80211_local *local,struct ieee80211_tx_control *control,struct sk_buff *skb){local-&amp;gt;ops-&amp;gt;tx(&amp;amp;local-&amp;gt;hw, control, skb);}   mac80211中定义ieee80211_local，包含了硬件的信息，其中ops的结构  1  const struct ieee80211_ops *ops; //即为上面定义ath_tx的位置   那么drv_tx()的skb是哪里来的呢？ drv_tx应用在ieee80211_tx_frags中，作用就是把经过mac80211的skb_queue处理并把其中的skb向ath9k发送 这个函数应用在__ieee80211_tx中，具体会在下面的ieee80211部分进行说明  1 2 3 4 5  static bool ieee80211_tx_frags(struct ieee80211_local *local,struct ieee80211_vif *vif,struct ieee80211_sta *sta,struct sk_buff_head *skbs,bool txpending)   总结  tx的流程：ieee80211_tx() &amp;mdash;&amp;gt; drv_tx() &amp;mdash;&amp;gt; ath9k_tx()    ieee80211的接口 ieee80211的入口 1  ieee80211_subif_start_xmit   先说一下这个函数是如何被call到的 在iface的函数中，定义了ieee80211的一系列ops  1 2 3 4 5 6 7  static const struct net_device_ops ieee80211_dataif_ops = {.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -24,9 +24,9 @@
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux中无线协议的MAC header分析"/>
 <meta name="twitter:description" content="协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点：
- skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;    那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
+ skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;   那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
  2 Byte – Frame Control 2 Byte – Duration/ID 4×6 Byte – Address 1 – 4 2 Byte – Sequence Control 2 Byte – QoS control 4 Byte – HT Control (only for 802.11n frames)  在源码中的表现即为
-1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr { __le16 frame_control; __le16 duration_id; u8 addr1[ETH_ALEN]; u8 addr2[ETH_ALEN]; u8 addr3[ETH_ALEN]; __le16 seq_ctrl; u8 addr4[ETH_ALEN]; int flag; } __packed __aligned(2);   Frame control 具体分析 mac-framecontrol-04"/>
+1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr {__le16 frame_control;__le16 duration_id;u8 addr1[ETH_ALEN];u8 addr2[ETH_ALEN];u8 addr3[ETH_ALEN];__le16 seq_ctrl;u8 addr4[ETH_ALEN];int flag;} __packed __aligned(2);  Frame control 具体分析 mac-framecontrol-04"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -41,7 +41,7 @@
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","wordcount":  131 ,
-        "url": "\/zh\/2020\/04\/frame_control\/","datePublished": "2020-04-08T23:54:33\u002b10:00","dateModified": "2020-04-08T23:54:33\u002b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "\/zh\/2020\/04\/frame_control\/","datePublished": "2020-04-08T23:54:33\x2b10:00","dateModified": "2020-04-08T23:54:33\x2b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
