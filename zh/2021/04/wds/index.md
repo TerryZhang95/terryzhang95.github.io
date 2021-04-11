@@ -13,11 +13,11 @@
 
 网桥是二层转发的机制，上升到了链路层（data link layer），可以用于连接不同网段，并且具备智能性，比如从左侧网段（192.168.0.0）发过来的包，可以根据MAC地址分发给右侧网段（10.0.1.1）的设备，但是转发的过程仅依据MAC地址。
 
-<img src="../../../../static/images/wireless/wds/br.jpeg" alt="网桥" style="zoom: 25%;" />
+<img src="/images/wireless/wds/br.jpeg" alt="网桥" style="zoom: 25%;" />
 
 网桥特指两端口设备，即一进一出，所以叫“桥”。后期发现更需要“单进多出”的模式，于是发展出了交换机（switch）。交换机和网桥的区别，可以认为是端口数量的差别。交换机依然是二层转发，交换机本身维护一套MAC地址数据库，根据收到包的MAC header分发给指定的下级设备，可以多通道同时工作，相当于把多个网桥合并在一起，每一个输出端口可以维护一个单独的网段。
 
-<img src="../../../../static/images/wireless/wds/swi.png" alt="网桥" style="zoom: 25%;" />
+<img src="/images/wireless/wds/swi.png" alt="网桥" style="zoom: 25%;" />
 
 伴随着网络的发展，以及公网和子网（局域网）的进一步区分，发现在MAC层的分发已经不足够了，我们更需要一个能独立维护IP地址的设备，来自发创建拥有独立IP的子网，于是诞生了路由器。关于路由器就不赘述了，工作在IP layer，模式就和自己家里wifi一毛一样。
 
