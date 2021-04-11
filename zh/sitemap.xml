@@ -2,8 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>/zh/2021/04/20210408/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/categories/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/categories/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="/en/categories/"
@@ -12,8 +11,9 @@
                     hreflang="zh"
                     href="/zh/categories/"
                     /></url><url>
-            <loc>/zh/posts/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/tags/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/tags/hostapd/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/posts/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/tags/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="/en/tags/"
@@ -22,7 +22,7 @@
                     hreflang="zh"
                     href="/zh/tags/"
                     /></url><url>
-            <loc>/zh/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>/zh/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="/en/"
@@ -31,6 +31,13 @@
                     hreflang="zh"
                     href="/zh/"
                     /></url><url>
+            <loc>/zh/tags/wds/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/2021/04/wds/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/tags/wifi/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/tags/wireless-bridge/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/tags/%E7%BD%91%E6%A1%A5/</loc><lastmod>2021-04-09T11:48:12+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>/zh/2021/04/20210408/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/categories/%E6%8A%95%E8%B5%84%E7%90%86%E8%B4%A2/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/tags/%E6%BE%B3%E8%82%A1/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/tags/%E8%82%A1%E7%A5%A8/</loc><lastmod>2021-04-09T01:11:03+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -46,7 +53,6 @@
             <loc>/zh/tags/csi/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/2021/03/csi_1/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/tags/localization/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>/zh/tags/wifi/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/categories/%E9%80%9A%E4%BF%A1/</loc><lastmod>2021-03-09T01:17:13+11:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/categories/802.11/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>/zh/2020/04/frame_control/</loc><lastmod>2020-04-08T23:54:33+10:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
