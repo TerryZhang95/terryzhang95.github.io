@@ -7,41 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 09 Apr 2021 11:48:12 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Apr 2021 00:16:37 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>WDS和无线网桥的基础概念理解</title>
-      <link>/zh/2021/04/wds/</link>
-      <pubDate>Fri, 09 Apr 2021 11:48:12 +1000</pubDate>
+      <title>Ubuntu下Tensorflow环境搭建</title>
+      <link>/zh/2021/04/ubuntu-tensorflow/</link>
+      <pubDate>Fri, 16 Apr 2021 00:16:37 +1000</pubDate>
       
-      <guid>/zh/2021/04/wds/</guid>
-      <description>网络连接发展史 网桥（bridge）是个原始且基础的概念，以至于网上细致说明的文档都很少。
-网络通信在最初的阶段，应该是从网线开始的。。但是网线的点对点模式很快就不能满足实际的需求了，于是首先诞生了集线器（hub）。
-什么是集线器，用现在usb拓展坞（usb hub）的角度就很好理解，有一根总线连接电脑，剩余将带宽等分出多个usb端口，这样相当于把一个usb端口平均分成了多个usb端口。
-集线器是物理层的分流，但对于带宽的利用是均分开的，设备增加流量增加，集线器慢慢也不能满足需求，于是诞生了网桥。
-网桥是二层转发的机制，上升到了链路层（data link layer），可以用于连接不同网段，并且具备智能性，比如从左侧网段（192.168.0.0）发过来的包，可以根据MAC地址分发给右侧网段（10.0.1.1）的设备，但是转发的过程仅依据MAC地址。
-网桥特指两端口设备，即一进一出，所以叫“桥”。后期发现更需要“单进多出”的模式，于是发展出了交换机（switch）。交换机和网桥的区别，可以认为是端口数量的差别。交换机依然是二层转发，交换机本身维护一套MAC地址数据库，根据收到包的MAC header分发给指定的下级设备，可以多通道同时工作，相当于把多个网桥合并在一起，每一个输出端口可以维护一个单独的网段。
-伴随着网络的发展，以及公网和子网（局域网）的进一步区分，发现在MAC层的分发已经不足够了，我们更需要一个能独立维护IP地址的设备，来自发创建拥有独立IP的子网，于是诞生了路由器。关于路由器就不赘述了，工作在IP layer，模式就和自己家里wifi一毛一样。
-Wireless distributed system （WDS） WDS即为无线分布系统，目前绝大部分路由器都具备这个功能，用来扩大路由器的覆盖范围，具体工作的方式是：比如家里有一个主路由器，连接从公寓进来的网线modem。但是往往有一些房间可能无法被覆盖到，如果家里还有其他路由器，我们很自然会想到，在没有被覆盖的房间里再放一个路由器不就好了。然而如果你正常配置路由器，就会出现一个尴尬的问题：房间里的wifi名和密码和外面的不一样。结果就是，如果外面信号够好，你进到房间里，并不会连接你房间里的wifi，而是继续用已连接的wifi，只不过速度变慢；要么你就需要手动切换回房间里的wifi。。
-这个就是一个很好的wds场景。具体做法，在房间里配置路由器的时候，直接设定为wds设备，然后将路由器连接上主路由器，只要设定的SSID与主路由器一致，同时关闭该路由器的信号广播，就可以实现无缝切换。
-由此可以看出wds的概念，即是允许多个AP之间自由通信，其中一个AP为主AP和服务器相连，其余AP与主AP无线相连，从而实现不同AP子网下的相互通信。
-WDS的一些细节问题   多个AP的信道
-wds连接的路由器必须使用相同信道，如果信道不同会要求同步
-  切换延迟
-这个问题在很多路由器厂家的说明中没有提及，目前存疑：
-切换过程是先从主路由器断开，再连接其他AP；还是默认wds相连的多个路由器为相同的路由器？
-如果是前者，那在漫游过程中依然伴随着大量延迟。
-  性能表现
-根据wds的理念，wds路由器网络的延迟，极大的取决于主AP的信号强度。但关于切换时的性能依旧存疑：
-比如说当终端依然能连接上主AP时，但辅AP的信号更强，原则上说应该联入辅AP，但实际上的决策是如何呢？
-另外带宽的性能影响不清楚。多个副AP会分配主AP的带宽，带宽大小也会决定能安排的副AP数量多少？
-  网段分配
-WDS下的多AP覆盖的网络，均属于相同网段。副AP的设定中，需要停止DHCP服务。
-  WDS和无线网桥的关系 目前理解，无线网桥是wds的一个基础。无线网桥在主AP上是一进一出的结构，负责管理下行数据的分发和上行数据的汇总上传，但网桥也只针对一个AP而言的。至于数据从主AP走到其他AP上的过程，即为wds通信的过程。所以可以看出，wds其实是一个工作在二层网络的无线中继。后面如果考虑用hostapd配置的话也会用到，在hostapd中需要配置wds_brige等。
-WDS和Mesh网络的区别   Mesh网络中任意两个AP可以通信，但是wds中副AP只能和主AP通信。
-  wds不能算作完全的去中心化，因为主AP还是具备一定的控制性；而mesh结构基本为去中心化，所有AP可以随时进入和离开网络，数据上下行会沿着不同的多条路径来完成。
-  其余的从设备角度的连接过程，应该是一致的。
-  Reference 老旧路由器WDS无线网络桥接
-WDS和Mesh配置</description>
+      <guid>/zh/2021/04/ubuntu-tensorflow/</guid>
+      <description>Docker方案   安装docker
+  安装nvida gpu驱动
+  使用docker 安装不需要安装cuda toolkit，如果事先有安装过的话，可能在重复安装nvida driver的时候会报错
+文档推荐使用package manager：
+选择ubuntu系统执行
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  sudo apt-get install linux-headers-$(uname -r) distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e &amp;#39;s/\.//g&amp;#39;) wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-$distribution.pin sudo mv cuda-$distribution.pin /etc/apt/preferences.d/cuda-repository-pin-600 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/7fa2af80.pub echo &amp;#34;deb http://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64 /&amp;#34; | sudo tee /etc/apt/sources.list.d/cuda.list sudo apt-get update sudo apt-get -y install cuda-drivers   安装nvida docker支持  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  # 如果已安装了docker可以跳过 curl https://get.</description>
     </item>
     
     <item>

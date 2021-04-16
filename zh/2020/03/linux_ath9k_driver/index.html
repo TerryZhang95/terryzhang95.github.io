@@ -324,16 +324,16 @@ skb data pointer is 3895112744, and skb transport layer is 3895112804
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">if (sdata-&gt;vif.type == NL80211_IFTYPE_AP)
         chanctx_conf = rcu_dereference(sdata-&gt;vif.chanctx_conf);
-    if (!chanctx_conf)
+	if (!chanctx_conf)
         goto fail_rcu;
-    fc |= cpu_to_le16(IEEE80211_FCTL_FROMDS);
-    /* DA BSSID SA */
-    memcpy(hdr.addr1, skb-&gt;data, ETH_ALEN);
-    memcpy(hdr.addr2, sdata-&gt;vif.addr, ETH_ALEN);
-    memcpy(hdr.addr3, skb-&gt;data + ETH_ALEN, ETH_ALEN);
-    hdrlen = 24;
-    band = chanctx_conf-&gt;def.chan-&gt;band;
-    break;
+	fc |= cpu_to_le16(IEEE80211_FCTL_FROMDS);
+	/* DA BSSID SA */
+	memcpy(hdr.addr1, skb-&gt;data, ETH_ALEN);
+	memcpy(hdr.addr2, sdata-&gt;vif.addr, ETH_ALEN);
+	memcpy(hdr.addr3, skb-&gt;data + ETH_ALEN, ETH_ALEN);
+	hdrlen = 24;
+	band = chanctx_conf-&gt;def.chan-&gt;band;
+	break;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -367,7 +367,7 @@ skb data pointer is 3895112744, and skb transport layer is 3895112804
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">  hdr = (struct ieee80211_hdr *) skb-&gt;data;
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">	hdr = (struct ieee80211_hdr *) skb-&gt;data;
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -426,18 +426,18 @@ skb data pointer is 3895112744, and skb transport layer is 3895112804
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">static inline unsigned char *skb_network_header(const struct sk_buff *skb)
 {
-  return skb-&gt;head + skb-&gt;network_header;
+	return skb-&gt;head + skb-&gt;network_header;
 }
 
 static inline void skb_reset_network_header(struct sk_buff *skb)
 {
-  skb-&gt;network_header = skb-&gt;data - skb-&gt;head;
+	skb-&gt;network_header = skb-&gt;data - skb-&gt;head;
 }
 
 static inline void skb_set_network_header(struct sk_buff *skb, const int offset)
 {
-  skb_reset_network_header(skb);
-  skb-&gt;network_header += offset;
+	skb_reset_network_header(skb);
+	skb-&gt;network_header += offset;
 }
 </code></pre></td></tr></table>
 </div>
