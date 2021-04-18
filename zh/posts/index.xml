@@ -7,7 +7,38 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 16 Apr 2021 00:16:37 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Apr 2021 17:58:46 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chrome上的pdf阅读器推荐</title>
+      <link>/zh/2021/04/chrome-pdf/</link>
+      <pubDate>Sun, 18 Apr 2021 17:58:46 +1000</pubDate>
+      
+      <guid>/zh/2021/04/chrome-pdf/</guid>
+      <description>chrome自带的新版pdf阅读器，增加对多页面浏览的支持，但依然没有pdf添加标记的功能，在ubuntu或者chromebook上看paper不是很方便。
+所以来看看chrome插件中，有没有好用的pdf阅读器
+pdf reader 没什么用，感觉只是UI略微变化，并添加了一些页面显示的功能
+pdf-reader
+weava 独立的pdf插件，并提供云平台存储阅读的pdf文件，需要账户登录，不过用google账户还是很方便的。免费账户只有100mb，但对同步的设备数量没有要求。同时支持网页上直接进行多颜色标记
+weava
+也有premium方案，可以享有无限文件夹，无限存储（这个强），更多的highlight颜色支持和更多pdf操作功能，价格一年40USD，一个月4USD
+weava
+在网页中可以&amp;quot;右键-&amp;gt;weava highlighter&amp;quot;打开weava个人中心，但是没什么用。weava目前用到的只支持从本地上传文件，然后进行阅读，而不能直接把网页打开的pdf直接进行操作
+liner 貌似是一家中国公司做的产品，页面功能明显丰富了许多
+liner
+但是下面各种的文章其实对这个平台的使用并没有什么帮助，我只想要一个pdf阅读器，所以略显多余和臃肿
+linerl可以把打开的网页或者pdf文件等，以链接的形式保存到liner的平台上
+liner-extension
+很尬尴的是，只有在网页上可以进行标记，但是在pdf界面上却不行
+liner page marker
+并且对于免费用户而言，支持最大3m的pdf上传（不清楚是单文件3m大小限制，还是平台总空间只给3m，反正都是够小的了），以及只能在两个设备之间同步，都是挺伤的
+liner upgrade plan
+总之整体感觉，liner功能很多，但有用的功能很少
+hypothesis 安装好之后，在浏览器右侧隐藏，功能与liner类似，可以对网页进行标记，并且只有在登录之后可以操作，但是同样不可以在pdf上进行标记
+Hypothesis
+小结 还会陆续挖掘pdf插件，目前没有找到很心仪的产品，再不济就自己搞一个&amp;hellip;
+不过目前选择使用weava，觉得对部分网页直接标注一下，作为知识备忘，也是不错的。单论网页注释的层面，weava表现算是最好的</description>
+    </item>
+    
     <item>
       <title>Ubuntu下Tensorflow环境搭建</title>
       <link>/zh/2021/04/ubuntu-tensorflow/</link>
@@ -20,6 +51,42 @@
 文档推荐使用package manager：
 选择ubuntu系统执行
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  sudo apt-get install linux-headers-$(uname -r) distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e &amp;#39;s/\.//g&amp;#39;) wget https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/cuda-$distribution.pin sudo mv cuda-$distribution.pin /etc/apt/preferences.d/cuda-repository-pin-600 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64/7fa2af80.pub echo &amp;#34;deb http://developer.download.nvidia.com/compute/cuda/repos/$distribution/x86_64 /&amp;#34; | sudo tee /etc/apt/sources.list.d/cuda.list sudo apt-get update sudo apt-get -y install cuda-drivers   安装nvida docker支持  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  # 如果已安装了docker可以跳过 curl https://get.</description>
+    </item>
+    
+    <item>
+      <title>WDS和无线网桥的基础概念理解</title>
+      <link>/zh/2021/04/wds/</link>
+      <pubDate>Fri, 09 Apr 2021 11:48:12 +1000</pubDate>
+      
+      <guid>/zh/2021/04/wds/</guid>
+      <description>网络连接发展史 网桥（bridge）是个原始且基础的概念，以至于网上细致说明的文档都很少。
+网络通信在最初的阶段，应该是从网线开始的。。但是网线的点对点模式很快就不能满足实际的需求了，于是首先诞生了集线器（hub）。
+什么是集线器，用现在usb拓展坞（usb hub）的角度就很好理解，有一根总线连接电脑，剩余将带宽等分出多个usb端口，这样相当于把一个usb端口平均分成了多个usb端口。
+集线器是物理层的分流，但对于带宽的利用是均分开的，设备增加流量增加，集线器慢慢也不能满足需求，于是诞生了网桥。
+网桥是二层转发的机制，上升到了链路层（data link layer），可以用于连接不同网段，并且具备智能性，比如从左侧网段（192.168.0.0）发过来的包，可以根据MAC地址分发给右侧网段（10.0.1.1）的设备，但是转发的过程仅依据MAC地址。
+网桥特指两端口设备，即一进一出，所以叫“桥”。后期发现更需要“单进多出”的模式，于是发展出了交换机（switch）。交换机和网桥的区别，可以认为是端口数量的差别。交换机依然是二层转发，交换机本身维护一套MAC地址数据库，根据收到包的MAC header分发给指定的下级设备，可以多通道同时工作，相当于把多个网桥合并在一起，每一个输出端口可以维护一个单独的网段。
+伴随着网络的发展，以及公网和子网（局域网）的进一步区分，发现在MAC层的分发已经不足够了，我们更需要一个能独立维护IP地址的设备，来自发创建拥有独立IP的子网，于是诞生了路由器。关于路由器就不赘述了，工作在IP layer，模式就和自己家里wifi一毛一样。
+Wireless distributed system （WDS） WDS即为无线分布系统，目前绝大部分路由器都具备这个功能，用来扩大路由器的覆盖范围，具体工作的方式是：比如家里有一个主路由器，连接从公寓进来的网线modem。但是往往有一些房间可能无法被覆盖到，如果家里还有其他路由器，我们很自然会想到，在没有被覆盖的房间里再放一个路由器不就好了。然而如果你正常配置路由器，就会出现一个尴尬的问题：房间里的wifi名和密码和外面的不一样。结果就是，如果外面信号够好，你进到房间里，并不会连接你房间里的wifi，而是继续用已连接的wifi，只不过速度变慢；要么你就需要手动切换回房间里的wifi。。
+这个就是一个很好的wds场景。具体做法，在房间里配置路由器的时候，直接设定为wds设备，然后将路由器连接上主路由器，只要设定的SSID与主路由器一致，同时关闭该路由器的信号广播，就可以实现无缝切换。
+由此可以看出wds的概念，即是允许多个AP之间自由通信，其中一个AP为主AP和服务器相连，其余AP与主AP无线相连，从而实现不同AP子网下的相互通信。
+WDS的一些细节问题   多个AP的信道
+wds连接的路由器必须使用相同信道，如果信道不同会要求同步
+  切换延迟
+这个问题在很多路由器厂家的说明中没有提及，目前存疑：
+切换过程是先从主路由器断开，再连接其他AP；还是默认wds相连的多个路由器为相同的路由器？
+如果是前者，那在漫游过程中依然伴随着大量延迟。
+  性能表现
+根据wds的理念，wds路由器网络的延迟，极大的取决于主AP的信号强度。但关于切换时的性能依旧存疑：
+比如说当终端依然能连接上主AP时，但辅AP的信号更强，原则上说应该联入辅AP，但实际上的决策是如何呢？
+另外带宽的性能影响不清楚。多个副AP会分配主AP的带宽，带宽大小也会决定能安排的副AP数量多少？
+  网段分配
+WDS下的多AP覆盖的网络，均属于相同网段。副AP的设定中，需要停止DHCP服务。
+  WDS和无线网桥的关系 目前理解，无线网桥是wds的一个基础。无线网桥在主AP上是一进一出的结构，负责管理下行数据的分发和上行数据的汇总上传，但网桥也只针对一个AP而言的。至于数据从主AP走到其他AP上的过程，即为wds通信的过程。所以可以看出，wds其实是一个工作在二层网络的无线中继。后面如果考虑用hostapd配置的话也会用到，在hostapd中需要配置wds_brige等。
+WDS和Mesh网络的区别   Mesh网络中任意两个AP可以通信，但是wds中副AP只能和主AP通信。
+  wds不能算作完全的去中心化，因为主AP还是具备一定的控制性；而mesh结构基本为去中心化，所有AP可以随时进入和离开网络，数据上下行会沿着不同的多条路径来完成。
+  其余的从设备角度的连接过程，应该是一致的。
+  Reference 老旧路由器WDS无线网络桥接
+WDS和Mesh配置</description>
     </item>
     
     <item>
@@ -203,11 +270,11 @@ File-&amp;gt;Publish，可以选择公开或者private，之后就会直接生�
     </item>
     
     <item>
-      <title>Docker学习笔记</title>
-      <link>/zh/2020/03/docker_1/</link>
+      <title>Docker在ubuntu中的安装</title>
+      <link>/zh/2020/03/docker-ubuntu-install/</link>
       <pubDate>Wed, 11 Mar 2020 14:17:40 +1100</pubDate>
       
-      <guid>/zh/2020/03/docker_1/</guid>
+      <guid>/zh/2020/03/docker-ubuntu-install/</guid>
       <description>安装  ubuntu 安装docker ubuntu 安装 docker-compose   docker 环境遇到的问题 Reference  安装 ubuntu 安装docker 1 2 3 4 5 6 7 8  sudo apt-get update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable&amp;#34; sudo apt-get update apt-cache policy docker-ce # 验证docker repo添加成功 sudo apt-get install docker-ce # 安装docker sudo systemctl status docker # 验证docker安装成功   ubuntu 安装 docker-compose 1 2 3  sudo curl -L &amp;#34;https://github.</description>
     </item>
     

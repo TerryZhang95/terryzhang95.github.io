@@ -1,4 +1,4 @@
-# Docker学习笔记
+# Docker在ubuntu中的安装
 
 
 - [安装](#安装)
@@ -32,12 +32,13 @@ docker-compose --version # 验证
   ```
   sudo chmod 777 /var/run/docker.sock
   ```
+  这样就不许要每次都sudo了
+
 - macos上开通对/var/的file sharing权限
   - 在Docker->Preference->resources->File Sharing中，添加路径，只能通过folder添加，不能输入，那要怎么添加系统路径呢？
   - 解决这个问题用了我一个小时的时间查找。。。
   - 点击添加后，在folder界面，点击“cmd+shift+G”，输入路径即可
   
-5d420170f0ea
 # Reference
 - [Install Docker Compose](https://docs.docker.com/compose/install/)
 - [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
