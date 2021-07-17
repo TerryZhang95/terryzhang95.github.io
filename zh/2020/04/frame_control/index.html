@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Linux中无线协议的MAC header分析 | TERRY HOME</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Linux中无线协议的MAC header分析 | TERRY ZHANG BLOG</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
 <meta name="Description" content="TerryZhang Personal Blog">
 <script data-ad-client="ca-pub-3814988626447030" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -18,10 +18,7 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux中无线协议的MAC header分析"/>
-<meta name="twitter:description" content="协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点：
- skb是不同传输层级之间传递的数据包 skb中存在head，data，tail，end等多个指针将skb分成几块，用来存储数据 skb-&gt;data后会存放ieee80211_hdr信息，代码的表现即为 1  struct ieee80211_hdr *hdr = (struct ieee80211_hdr *) skb-&gt;data;    那么这一部分hdr信息即为协议中MAC层的header信息  IEEE80211 协议 IEEE 80211协议，定义了MAC frame的形式 80211frame
- 2 Byte – Frame Control 2 Byte – Duration/ID 4×6 Byte – Address 1 – 4 2 Byte – Sequence Control 2 Byte – QoS control 4 Byte – HT Control (only for 802.11n frames)  在源码中的表现即为
-1 2 3 4 5 6 7 8 9 10  struct ieee80211_hdr { __le16 frame_control; __le16 duration_id; u8 addr1[ETH_ALEN]; u8 addr2[ETH_ALEN]; u8 addr3[ETH_ALEN]; __le16 seq_ctrl; u8 addr4[ETH_ALEN]; int flag; } __packed __aligned(2);   Frame control 具体分析 mac-framecontrol-04"/>
+<meta name="twitter:description" content="协议及linux内核源码的关系 源码部分 回顾linux源码的几个重要知识点： skb是不同传输层级之间传递的数据包 skb中存在head，data"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -35,7 +32,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","wordcount":  131 ,
+            },"genre": "posts","wordcount":  480 ,
         "url": "\/zh\/2020\/04\/frame_control\/","datePublished": "2020-04-08T23:54:33\u002b10:00","dateModified": "2020-04-08T23:54:33\u002b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -55,23 +52,23 @@
     <div class="navbar-container">
         
         <div class="navbar-header animated bounceIn">
-            <a href="/">TERRY HOME
+            <a href="/">TERRY ZHANG BLOG
             </a>
         </div>
-        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><nav class="navbar-mobile">
     <div class="navbar-container">
         <div class="navbar-header">
             <div class="navbar-header-title animated bounceIn">
-                <a href="/">TERRY HOME</a>
+                <a href="/">TERRY ZHANG BLOG</a>
             </div>
             <div class="menu-toggle" id="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><main class="main">
@@ -80,7 +77,7 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/">无线通信</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-04-08>2020-04-08</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 131 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 480 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
         </div><div class="post-content"><h1 id="协议及linux内核源码的关系">协议及linux内核源码的关系</h1>
 <a class="post-dummy-target" id="源码部分"></a><h2>源码部分</h2>
