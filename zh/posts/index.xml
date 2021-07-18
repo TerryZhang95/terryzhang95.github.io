@@ -18,6 +18,15 @@
     </item>
     
     <item>
+      <title>工业无线标准记录：Wireless Time Sensitive Network</title>
+      <link>/zh/2021/07/wtsn1/</link>
+      <pubDate>Sun, 04 Jul 2021 14:14:10 +1000</pubDate>
+      
+      <guid>/zh/2021/07/wtsn1/</guid>
+      <description>什么是TSN Packet service主要有三种类型2： Best Effort: 即尽可能满足吞吐量的要求，而对于时延和可靠性没有保证。应用如网页应用，视频等。 Constant bit rate: 固定比</description>
+    </item>
+    
+    <item>
       <title>Chrome上的pdf阅读器推荐</title>
       <link>/zh/2021/04/chrome-pdf/</link>
       <pubDate>Sun, 18 Apr 2021 17:58:46 +1000</pubDate>
