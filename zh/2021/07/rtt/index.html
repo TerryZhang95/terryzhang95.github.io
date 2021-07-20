@@ -32,7 +32,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","wordcount":  693 ,
+            },"genre": "posts","wordcount":  958 ,
         "url": "\/zh\/2021\/07\/rtt\/","datePublished": "2021-07-19T23:29:56\u002b10:00","dateModified": "2021-07-19T23:29:56\u002b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -77,13 +77,14 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;</div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-07-19>2021-07-19</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 693 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 958 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
         </div><div class="post-toc" id="post-toc">
                 <h2 class="post-toc-title">目录</h2>
                 <div class="post-toc-content"><nav id="TableOfContents">
   <ul>
     <li><a href="#rtt定位技术">RTT定位技术</a></li>
+    <li><a href="#reference">Reference</a></li>
   </ul>
 </nav></div>
             </div>
@@ -98,6 +99,7 @@
                     <div class="post-toc-content"><nav id="TableOfContentsMobile">
   <ul>
     <li><a href="#rtt定位技术">RTT定位技术</a></li>
+    <li><a href="#reference">Reference</a></li>
   </ul>
 </nav></div>
                 </details>
@@ -143,11 +145,30 @@ $\omega$ 为信道噪声</li>
 <li>只能点对点，不能一对多</li>
 </ul>
 <p>由于存在这些问题，目前学术上解决方案为，RTT+另外一个测量指标一起来评估</p>
+<p>相关的工作：</p>
+<ul>
+<li>RTT与RSSI分别定位，并通过<em>Kalman Filter</em>将两者的定位结果相融合，迭代计算定位精度<a href="#r1"><sup>1<sup></a>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/39912633" target="_blank">卡尔曼滤波</a></li>
+</ul>
+</li>
+<li>使用MUSIC算法优化RTT计算的结果<a href="#r2"><sup>2<sup></a>
+<ul>
+<li><a href="https://blog.csdn.net/zhangziju/article/details/100730081" target="_blank">MUSIC算法</a>，本质属于利用CSI计算AoA定位</li>
+<li>CSI是数据最为精准的方案，尤其针对反射、多晶问题，但受限于芯片：目前可以采集CSI的芯片有Atheros大部分芯片和Intel 5300</li>
+<li>这篇工作CSI和RTT结合的方法：AP配置8260网卡，在旁边放一个5300网卡去采集环境CSI</li>
+</ul>
+</li>
+</ul>
 <p><strong>实验工具</strong></p>
 <ul>
 <li><a href="https://github.com/HappyZ/iw_intel8260_localization/wiki/Enable-802.11mc-FTM-on-Intel-8260" target="_blank">Enable 802.11mc FTM on Intel 8260</a></li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+<a class="post-dummy-target" id="reference"></a><h2>Reference</h2>
+<div id="r1"></div>
+- [1] Guo, Guangyi, et al. "Indoor smartphone localization: A hybrid WiFi RTT-RSS ranging approach." IEEE Access 7 (2019): 176767-176781.
+<div id="r2"></div>
+- [2] Jiokeng, Kevin, et al. "When FTM discovered MUSIC: accurate WiFi-based ranging in the presence of multipath." IEEE INFOCOM 2020-IEEE Conference on Computer Communications. IEEE, 2020.</div><div class="post-footer" id="post-footer">
     
     <div class="post-info">
         <div class="post-info-line">
@@ -180,20 +201,7 @@ $\omega$ 为信道噪声</li>
     </div>
 
     <div class="post-nav"><a href="/zh/2021/07/wifi6phy/" class="prev" rel="prev" title="OFDM到最新无线物理层学习笔记"><i class="fas fa-angle-left fa-fw"></i>OFDM到最新无线物理层学习笔记</a></div>
-</div><div class="post-comment"><div id="disqus_thread"></div>
-        <script type="text/javascript">
-            (function() {
-                
-                
-                if (window.location.hostname == "localhost")
-                    return;
-                var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-                var disqus_shortname = "dillonzq";
-                dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-                (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><div id="gitalk-container"></div>
+</div><div class="post-comment"><div id="gitalk-container"></div>
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><link rel="stylesheet" href="/css/lib/gitalk/gitalk.min.css"><script src="/js/lib/gitalk/gitalk.min.min.js"></script><script type="text/javascript">
             (function () {

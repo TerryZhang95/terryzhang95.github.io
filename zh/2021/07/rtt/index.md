@@ -37,9 +37,20 @@ Round-Trip Time，RTT 定位：
 
 由于存在这些问题，目前学术上解决方案为，RTT+另外一个测量指标一起来评估
 
+相关的工作：
+- RTT与RSSI分别定位，并通过*Kalman Filter*将两者的定位结果相融合，迭代计算定位精度[<sup>1<sup>](#r1)
+  - [卡尔曼滤波](https://zhuanlan.zhihu.com/p/39912633)
+- 使用MUSIC算法优化RTT计算的结果[<sup>2<sup>](#r2)
+  - [MUSIC算法](https://blog.csdn.net/zhangziju/article/details/100730081)，本质属于利用CSI计算AoA定位
+  - CSI是数据最为精准的方案，尤其针对反射、多晶问题，但受限于芯片：目前可以采集CSI的芯片有Atheros大部分芯片和Intel 5300
+  - 这篇工作CSI和RTT结合的方法：AP配置8260网卡，在旁边放一个5300网卡去采集环境CSI
 
 
 **实验工具**
 - [Enable 802.11mc FTM on Intel 8260](https://github.com/HappyZ/iw_intel8260_localization/wiki/Enable-802.11mc-FTM-on-Intel-8260)
 
-
+## Reference
+<div id="r1"></div>
+- [1] Guo, Guangyi, et al. "Indoor smartphone localization: A hybrid WiFi RTT-RSS ranging approach." IEEE Access 7 (2019): 176767-176781.
+<div id="r2"></div>
+- [2] Jiokeng, Kevin, et al. "When FTM discovered MUSIC: accurate WiFi-based ranging in the presence of multipath." IEEE INFOCOM 2020-IEEE Conference on Computer Communications. IEEE, 2020.
