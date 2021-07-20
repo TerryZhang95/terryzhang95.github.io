@@ -7,7 +7,7 @@
 <meta name="robots" content="noodp" />
 <meta name="Description" content="TerryZhang Personal Blog">
 <script data-ad-client="ca-pub-3814988626447030" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<link rel="prev" href="/zh/2021/07/wtsn1/" /><link rel="canonical" href="/zh/2021/07/vbox/" />
+<link rel="prev" href="/zh/2021/07/wtsn1/" /><link rel="next" href="/zh/2021/07/wifi6phy/" /><link rel="canonical" href="/zh/2021/07/vbox/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -32,7 +32,7 @@
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","wordcount":  715 ,
+            },"genre": "posts","wordcount":  718 ,
         "url": "\/zh\/2021\/07\/vbox\/","datePublished": "2021-07-17T15:59:02\u002b10:00","dateModified": "2021-07-17T15:59:02\u002b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
@@ -55,7 +55,7 @@
             <a href="/">TERRY ZHANG BLOG
             </a>
         </div>
-        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><nav class="navbar-mobile">
@@ -68,7 +68,7 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><main class="main">
@@ -77,7 +77,7 @@
                     <i class="fas fa-user-circle fa-fw"></i>TerryZhang
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>&nbsp;</span></div>
             <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-07-17>2021-07-17</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 715 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 718 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
         </div><div class="post-toc" id="post-toc">
                 <h2 class="post-toc-title">目录</h2>
@@ -126,17 +126,8 @@
 <!-- - 启动进入debug -->
 <ul>
 <li>启动进系统，Alt+F1进入终端</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ifconfig
-</code></pre></td></tr></table>
-</div>
-</div><p>我的系统内可以看到wlan0和wifi_eth，猜测wifi_eth适用于桥接的虚拟有线端口，只要确保有这两个端口就ok</p>
-<ul>
+<li><code>ifconfig</code> 查看网络
+我的系统内可以看到wlan0和wifi_eth，猜测wifi_eth适用于桥接的虚拟有线端口，只要确保有这两个端口就ok</li>
 <li>网上很多方案有提到<code>netcfg</code>和<code>dhcpd</code>启动eth0的方案，猜测应该是老的Android版本有对于有线连接的支持，但再android 6之后就取消了对这些命令的支持，因此看到这些讲解就可以直接忽略了</li>
 <li>Alt+F7推出终端，点击wifi连接</li>
 <li>可用wifi列表中应有Virtwifi一项，选择连接</li>
@@ -189,12 +180,24 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh/2021/07/wtsn1/" class="prev" rel="prev" title="工业无线标准记录：Wireless Time Sensitive Network"><i class="fas fa-angle-left fa-fw"></i>工业无线标准记录：Wireless Time Sensitive Network</a></div>
-</div><div class="post-comment"><div id="gitalk-container"></div>
-        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-        
+    <div class="post-nav"><a href="/zh/2021/07/wtsn1/" class="prev" rel="prev" title="工业无线标准记录：Wireless Time Sensitive Network"><i class="fas fa-angle-left fa-fw"></i>工业无线标准记录：Wireless Time Sensitive Network</a>
+            <a href="/zh/2021/07/wifi6phy/" class="next" rel="next" title="OFDM到最新无线物理层学习笔记">OFDM到最新无线物理层学习笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div><div class="post-comment"><div id="disqus_thread"></div>
         <script type="text/javascript">
+            (function() {
+                
+                
+                if (window.location.hostname == "localhost")
+                    return;
+                var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                var disqus_shortname = "dillonzq";
+                dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><link rel="stylesheet" href="/css/lib/gitalk/gitalk.min.css"><script src="/js/lib/gitalk/gitalk.min.min.js"></script><script type="text/javascript">
             (function () {
                 
                 
@@ -216,7 +219,41 @@
                 gitalk.render("gitalk-container");
             })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by Gitalk.</a></noscript></div>
+        <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by Gitalk.</a></noscript><div id="vcomments"></div><script src="/js/lib/valine/Valine.min.min.js"></script><script type="text/javascript">
+            (function () {
+                
+                
+                if (window.location.hostname == "localhost")
+                    return;
+                new Valine({
+                    el: "#vcomments",
+                    appId: "",
+                    appKey: "",
+                    meta: ["nick", "mail"],
+                    notify: "false",
+                    verify: "true",
+                    avatar: "mp",
+                    placeholder: "Your comment ...",
+                    visitor: "true",
+                    recordIP: "true",
+                    lang: "zh-cn",
+                });
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a></noscript><div id="fb-root"></div>
+        <script
+            async
+            defer
+            crossorigin="anonymous"
+            src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=&autoLogAppEvents=1"
+        ></script>
+        <div
+            class="fb-comments"
+            data-href="/zh/2021/07/vbox/"
+            data-width="100%"
+            data-numposts="10"
+        ></div>
+        <noscript>Please enable JavaScript to view the <a href="https://developers.facebook.com/docs/plugins/comments/">comments powered by Facebook.</a></noscript></div>
     </article></div>
             </main><footer class="footer">
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>

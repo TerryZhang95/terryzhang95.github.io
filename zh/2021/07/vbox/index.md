@@ -23,10 +23,8 @@
 - 解决无法联网的问题：
   - 系统设定-> network -> Attached to -> 选择Bridged network （这样宿主机作为网桥把网连给虚拟机）
   <!-- - 启动进入debug -->
-  - 启动进系统，Alt+F1进入终端
-  ```
-  ifconfig
-  ```
+  - 启动进系统，Alt+F1进入终端 
+  - `ifconfig` 查看网络
   我的系统内可以看到wlan0和wifi_eth，猜测wifi_eth适用于桥接的虚拟有线端口，只要确保有这两个端口就ok
   - 网上很多方案有提到`netcfg`和`dhcpd`启动eth0的方案，猜测应该是老的Android版本有对于有线连接的支持，但再android 6之后就取消了对这些命令的支持，因此看到这些讲解就可以直接忽略了
   - Alt+F7推出终端，点击wifi连接

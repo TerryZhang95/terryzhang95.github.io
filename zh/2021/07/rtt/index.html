@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Markdown 使用笔记 | TERRY ZHANG BLOG</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RTT实现WiFi定位 | TERRY ZHANG BLOG</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noodp" />
-<meta name="Description" content="Markdown基本用法">
+<meta name="Description" content="TerryZhang Personal Blog">
 <script data-ad-client="ca-pub-3814988626447030" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<link rel="next" href="/zh/2020/03/vscode_plugin/" /><link rel="canonical" href="/zh/2020/02/markdown/" />
+<link rel="prev" href="/zh/2021/07/wifi6phy/" /><link rel="canonical" href="/zh/2021/07/rtt/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -17,23 +17,23 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Markdown 使用笔记"/>
-<meta name="twitter:description" content="Markdown基本用法"/>
+<meta name="twitter:title" content="RTT实现WiFi定位"/>
+<meta name="twitter:description" content="由于在室内GPS无法覆盖，室内定位技术越发受到重视 室内定位（indoor positioning system，IPS）使用的方法： 接收信号强度（Received Signal"/>
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Markdown 使用笔记",
+        "headline": "RTT实现WiFi定位",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "\/zh\/2020\/02\/markdown\/"
+            "@id": "\/zh\/2021\/07\/rtt\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "\/images\/logo.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","wordcount":  398 ,
-        "url": "\/zh\/2020\/02\/markdown\/","datePublished": "2020-02-06T23:55:28\u002b08:00","dateModified": "2020-02-27T23:55:28\u002b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","wordcount":  693 ,
+        "url": "\/zh\/2021\/07\/rtt\/","datePublished": "2021-07-19T23:29:56\u002b10:00","dateModified": "2021-07-19T23:29:56\u002b10:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "TerryZhang95",
                 "logo": {
@@ -42,7 +42,7 @@
                 "width":  127 ,
                 "height":  40 
                 }
-            },"description": "Markdown基本用法"
+            },"description": ""
     }
     </script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"></head>
     <body><script>
@@ -72,19 +72,18 @@
         </div>
     </div>
 </nav><main class="main">
-                <div class="container"><article class="page"><h1 class="post-title animated flipInX">Markdown 使用笔记</h1><div class="post-meta">
-            <div class="post-meta-main"><a class="author" href="https://www.terryzhang.top/" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>TerryZhang95
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="/zh/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>&nbsp;</span></div>
-            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-06>2020-02-06</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 398 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+                <div class="container"><article class="page"><h1 class="post-title animated flipInX">RTT实现WiFi定位</h1><div class="post-meta">
+            <div class="post-meta-main"><a class="author" href="/" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>TerryZhang
+                </a>&nbsp;</div>
+            <div class="post-meta-other"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2021-07-19>2021-07-19</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 693 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
         </div><div class="post-toc" id="post-toc">
                 <h2 class="post-toc-title">目录</h2>
                 <div class="post-toc-content"><nav id="TableOfContents">
   <ul>
-    <li><a href="#工具">工具</a></li>
-    <li><a href="#基本">基本</a></li>
+    <li><a href="#rtt定位技术">RTT定位技术</a></li>
   </ul>
 </nav></div>
             </div>
@@ -98,74 +97,76 @@
                     </summary>
                     <div class="post-toc-content"><nav id="TableOfContentsMobile">
   <ul>
-    <li><a href="#工具">工具</a></li>
-    <li><a href="#基本">基本</a></li>
+    <li><a href="#rtt定位技术">RTT定位技术</a></li>
   </ul>
 </nav></div>
                 </details>
-            </div><div class="post-content"><a class="post-dummy-target" id="工具"></a><h2>工具</h2>
-<ol>
-<li>Typora：支持全平台，可以直接傻瓜式编辑，也可以通过html语句来进行编辑，有模板可以选择，相当于轻量级latex；</li>
-<li>VScode Markdown All in one：VScode中使用量最大的markdown插件，轻量使用方便，直接markdown语法进行编辑，vscode重度依赖者的福音，支持快捷键输入（cmd+B等），ctrl+shift+p选择指令</li>
-</ol>
-<a class="post-dummy-target" id="基本"></a><h2>基本</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">1. &#39;#&#39; 大标题，&#39;##&#39;,&#39;##...#&#39;,依次为次标题，次...次标题
-2. &#39;**&#39; 斜体
-3. ‘****’ 加粗
-4.  &#39;[x] task&#39; 添加任务
-5.  - one: 添加序号，可用tab降级
-6.  | 来制作表格，ctrl+shift+I: 转换成table
-7.  &#39;$$ $$&#39; 制作数学公式，与latex语法一致
-8.  [tag](Link): 添加链接
-9.  添加图片(本地)：![Alt text](path)
-10. 文字居中：&lt;center&gt;hhh &lt;/center&gt;
-11. 任务列表 
-    - [ ] task
-    - [x] 完成的task
-12. delete line ~~delete~~ or &lt;strike&gt;&lt;/strike&gt; 
-13. 代码块 3个```+语言
-</code></pre></td></tr></table>
-</div>
-</div><!-- ## 相关问题 -->
+            </div><div class="post-content"><p>由于在室内GPS无法覆盖，室内定位技术越发受到重视</p>
+<p>室内定位（indoor positioning system，IPS）使用的方法：</p>
+<ul>
+<li>接收信号强度（Received Signal Strength Indicator，RSSI）：传输距离越长，信号越弱，距离与信号强度之间可以求得关系
+$$
+RSSI=RSSI_0-10\cdot n\cdot \log_{10}(\frac{d}{d_0}+\omega)
+$$
+$d_0, RSS_0$为初始距离和强度；
+$d$为距离；
+$\omega$ 为信道噪声</li>
+<li>Fingerprinting 指纹定位：
+<ul>
+<li>预先采集室内各个位置的RSSI信息（后续也有采集channel state information，CSI），然后再将实测的RSSI来与训练数据进行比对（类似机器学习过程）</li>
+<li>目前最精准，但可拓展性差，几乎没有实用价值</li>
+</ul>
+</li>
+<li>使用CSI进行定位：
+<ul>
+<li>每一个信道都有一个CSI</li>
+<li>每一个CSI包括所有子载波的信息</li>
+<li>常用发法：Angle of Arrival，AOA；Time of Flight，ToF；Roundtrip Time of Flight，RToF&hellip;</li>
+</ul>
+</li>
+</ul>
+<a class="post-dummy-target" id="rtt定位技术"></a><h2>RTT定位技术</h2>
+<p>Round-Trip Time，RTT 定位：</p>
+<ul>
+<li>比较新的（2016）技术，命名为Fine-Timing Measurement（FTM），支持的协议是802.11mc，类似于RToF</li>
+<li>目前（2021）仅由Intel AC 8260 支持，且貌似不太准备继续发展</li>
+<li>由芯片和物理层直接在天线发送和接收时打上时间戳</li>
+<li><strong>无需考虑收发两端的同步的问题</strong></li>
+</ul>
+<p><strong>技术原理</strong>
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="/images/wireless/rtt/802.11mc.png" alt="时间计算方法示意图(图片来自网络)" class="lazyload"><figcaption class="image-caption">时间计算方法示意图(图片来自网络)</figcaption></figure></p>
+<p><strong>局限性</strong></p>
+<ul>
+<li>RTT目前只适用于Line of Sight，LOS，即信号传输无遮挡；当信号存在反射折射多径等问题时，测量精度大大下降</li>
+<li>收发端时钟都存在抖动</li>
+<li>硬件平台以及wifi网卡固件的不同，会导致处理速度的不一致</li>
+<li>只能点对点，不能一对多</li>
+</ul>
+<p>由于存在这些问题，目前学术上解决方案为，RTT+另外一个测量指标一起来评估</p>
+<p><strong>实验工具</strong></p>
+<ul>
+<li><a href="https://github.com/HappyZ/iw_intel8260_localization/wiki/Enable-802.11mc-FTM-on-Intel-8260" target="_blank">Enable 802.11mc FTM on Intel 8260</a></li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2020-02-27 更新</span>
+                <span>本文于 2021-07-19 更新</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2020%2f02%2fmarkdown%2f&amp;text=Markdown%20%e4%bd%bf%e7%94%a8%e7%ac%94%e8%ae%b0&amp;via=" target="_blank" title="分享到 Twitter">
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=%2fzh%2f2021%2f07%2frtt%2f&amp;text=RTT%e5%ae%9e%e7%8e%b0WiFi%e5%ae%9a%e4%bd%8d&amp;via=" target="_blank" title="分享到 Twitter">
             <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2020%2f02%2fmarkdown%2f" target="_blank" title="分享到 Facebook">
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=%2fzh%2f2021%2f07%2frtt%2f" target="_blank" title="分享到 Facebook">
             <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=%2fzh%2f2020%2f02%2fmarkdown%2f&amp;title=Markdown%20%e4%bd%bf%e7%94%a8%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Reddit">
+        </a><a href="//reddit.com/submit?url=%2fzh%2f2021%2f07%2frtt%2f&amp;title=RTT%e5%ae%9e%e7%8e%b0WiFi%e5%ae%9a%e4%bd%8d" target="_blank" title="分享到 Reddit">
             <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2020%2f02%2fmarkdown%2f&amp;title=Markdown%20%e4%bd%bf%e7%94%a8%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 LinkedIn">
+        </a><a href="//www.linkedin.com/shareArticle?url=%2fzh%2f2021%2f07%2frtt%2f&amp;title=RTT%e5%ae%9e%e7%8e%b0WiFi%e5%ae%9a%e4%bd%8d" target="_blank" title="分享到 LinkedIn">
             <i class="fab fa-linkedin fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2020%2f02%2fmarkdown%2f&amp;appkey=&amp;title=Markdown%20%e4%bd%bf%e7%94%a8%e7%ac%94%e8%ae%b0" target="_blank" title="分享到 Weibo">
+        </a><a href="//service.weibo.com/share/share.php?url=%2fzh%2f2021%2f07%2frtt%2f&amp;appkey=&amp;title=RTT%e5%ae%9e%e7%8e%b0WiFi%e5%ae%9a%e4%bd%8d" target="_blank" title="分享到 Weibo">
             <i class="fab fa-weibo fa-fw"></i>
         </a></span></div>
         </div>
@@ -178,8 +179,7 @@
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/zh/2020/03/vscode_plugin/" class="next" rel="next" title="VScode实用插件">VScode实用插件<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/zh/2021/07/wifi6phy/" class="prev" rel="prev" title="OFDM到最新无线物理层学习笔记"><i class="fas fa-angle-left fa-fw"></i>OFDM到最新无线物理层学习笔记</a></div>
 </div><div class="post-comment"><div id="disqus_thread"></div>
         <script type="text/javascript">
             (function() {
@@ -247,7 +247,7 @@
         ></script>
         <div
             class="fb-comments"
-            data-href="/zh/2020/02/markdown/"
+            data-href="/zh/2021/07/rtt/"
             data-width="100%"
             data-numposts="10"
         ></div>

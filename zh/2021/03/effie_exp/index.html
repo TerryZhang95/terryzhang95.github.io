@@ -55,7 +55,7 @@
             <a href="/">TERRY ZHANG BLOG
             </a>
         </div>
-        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><nav class="navbar-mobile">
@@ -68,7 +68,7 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="navbar-menu" id="mobile-menu"><a class="menu-item" href="/zh/posts" title="">文章</a><a class="menu-item" href="/zh/categories" title="">分类</a><a class="menu-item" href="/zh/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
         </div>
     </div>
 </nav><main class="main">
@@ -148,11 +148,22 @@
 
     <div class="post-nav"><a href="/zh/2021/03/dt/" class="prev" rel="prev" title="新州路考fail经历分享"><i class="fas fa-angle-left fa-fw"></i>新州路考fail经历分享</a>
             <a href="/zh/2021/03/commsec/" class="next" rel="next" title="澳股投资日记Day One">澳股投资日记Day One<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div><div class="post-comment"><div id="gitalk-container"></div>
-        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-        
+</div><div class="post-comment"><div id="disqus_thread"></div>
         <script type="text/javascript">
+            (function() {
+                
+                
+                if (window.location.hostname == "localhost")
+                    return;
+                var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                var disqus_shortname = "dillonzq";
+                dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><link rel="stylesheet" href="/css/lib/gitalk/gitalk.min.css"><script src="/js/lib/gitalk/gitalk.min.min.js"></script><script type="text/javascript">
             (function () {
                 
                 
@@ -174,7 +185,41 @@
                 gitalk.render("gitalk-container");
             })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by Gitalk.</a></noscript></div>
+        <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by Gitalk.</a></noscript><div id="vcomments"></div><script src="/js/lib/valine/Valine.min.min.js"></script><script type="text/javascript">
+            (function () {
+                
+                
+                if (window.location.hostname == "localhost")
+                    return;
+                new Valine({
+                    el: "#vcomments",
+                    appId: "",
+                    appKey: "",
+                    meta: ["nick", "mail"],
+                    notify: "false",
+                    verify: "true",
+                    avatar: "mp",
+                    placeholder: "Your comment ...",
+                    visitor: "true",
+                    recordIP: "true",
+                    lang: "zh-cn",
+                });
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a></noscript><div id="fb-root"></div>
+        <script
+            async
+            defer
+            crossorigin="anonymous"
+            src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=&autoLogAppEvents=1"
+        ></script>
+        <div
+            class="fb-comments"
+            data-href="/zh/2021/03/effie_exp/"
+            data-width="100%"
+            data-numposts="10"
+        ></div>
+        <noscript>Please enable JavaScript to view the <a href="https://developers.facebook.com/docs/plugins/comments/">comments powered by Facebook.</a></noscript></div>
     </article></div>
             </main><footer class="footer">
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>

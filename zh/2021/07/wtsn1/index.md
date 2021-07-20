@@ -48,7 +48,7 @@ TSN重要组成：
 - 802.15.4e: Time-synchronized Channel Hopping (TSHC): 更高可靠性，更低功耗，MAC机制上趋近于TDMA，相比较于CSMA可以达到可控的时延。WirelessHart等标准即是基于此
 - 802.11 WiFi：WiFi无疑是WTSN领域中最重要的角色，因为便宜的价格、更高的速率、更快速的铺设。限制802.11无法广泛应用于工业应用的原因依然是CSMA信道检测。尽管wifi也提供了PCF和HCCA等机制，但并未广泛应用
 - 5G Ultrareliable Low-latency communication（URLLC）：
-  - Air Interface： 
+  - 空口（Air Interface）： 
     - 支持灵活frame结构，时隙缩小到0.125ms（LTE中time to live（TTL）是1ms）
       - [TTL](https://ltehacks.com/viewtopic.php?t=2752)：一个包最大的传输时间
     - minislots：支持short transmissions（一个slot包括14个OFDM symbols，一个minislot包括2，4，7个symbols）

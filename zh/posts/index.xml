@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 17 Jul 2021 15:59:02 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jul 2021 23:29:56 +1000</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RTT实现WiFi定位</title>
+      <link>/zh/2021/07/rtt/</link>
+      <pubDate>Mon, 19 Jul 2021 23:29:56 +1000</pubDate>
+      
+      <guid>/zh/2021/07/rtt/</guid>
+      <description>由于在室内GPS无法覆盖，室内定位技术越发受到重视 室内定位（indoor positioning system，IPS）使用的方法： 接收信号强度（Received Signal</description>
+    </item>
+    
+    <item>
+      <title>OFDM到最新无线物理层学习笔记</title>
+      <link>/zh/2021/07/wifi6phy/</link>
+      <pubDate>Mon, 19 Jul 2021 10:48:35 +1000</pubDate>
+      
+      <guid>/zh/2021/07/wifi6phy/</guid>
+      <description>OFDM对比OFDMA 正交频分复用（OFDM）： 单用户传输 将一整段带宽分割成多个子载波，每个子载波相互正交互不干扰 发送端将频域信号通过反傅里</description>
+    </item>
+    
     <item>
       <title>Virtualbox 安装安卓虚拟机</title>
       <link>/zh/2021/07/vbox/</link>
